@@ -18,7 +18,7 @@ def send_email():
     server.ehlo()
     server.starttls()
     server.ehlo()
-    my_email = "REPLACE_WITH_YOUR_EMAIL@gmail.com
+    my_email = "REPLACE_WITH_YOUR_EMAIL@gmail.com"
     my_password = "REPLACE_WITH_YOUR_PASSWORD"
     destination = "REPLACE_WITH_YOUR_EMAIL@gmail.com"
     text = "Motion has been detected at your house!"
