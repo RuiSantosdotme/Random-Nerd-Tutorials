@@ -20,9 +20,11 @@ srv:listen(80,function(conn)
             end
         end
         buf = buf.."<head>";
+        buf = buf.."<meta charset=\"utf-8\">";
+        buf = buf.."<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">";
         buf = buf.."<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
         buf = buf.."<script src=\"https://code.jquery.com/jquery-2.1.3.min.js\"></script>";
-        buf = buf.."<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">";
+        buf = buf.."<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">";
         buf = buf.."</head><div class=\"container\">";
 
         buf = buf.."<h1>Web Server</h1>";
