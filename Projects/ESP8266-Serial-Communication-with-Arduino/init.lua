@@ -11,9 +11,11 @@ uart.on("data", 3,
             if ledOn==0 then
                 ledOn = 1
                 gpio.write(pin,gpio.HIGH)
+                print("LED On")
             else
                 ledOn = 0
                 gpio.write(pin,gpio.LOW)
+                print("LED Off")
         end        
     end        
 end, 0)
