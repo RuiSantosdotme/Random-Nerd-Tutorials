@@ -13,7 +13,7 @@ wifi.sta.connect()
 print("Looking for a connection")
 temp=0
 function readds18b20sensor()
-    t=require("ds18b20")   
+    t=require("ds18b20.lua")   
    -- print(t.readNumber(2))  for debuging
     temp = (t.readNumber(2)) --GPIO 04
 end
