@@ -69,7 +69,6 @@ srv:listen(80,function(conn)
         buf = buf.."</div></div></div></div>";
         buf = buf.."</div></div>";
         
-        local _on,_off = "",""
         if(_GET.pin == "ON")then
               gpio.write(led, gpio.HIGH);
         elseif(_GET.pin == "OFF")then
