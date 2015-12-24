@@ -39,7 +39,6 @@ srv:listen(80,function(conn)
         buf = buf.."<div class=\"col-md-2\"><a href=\"?pin=OFF2\" class=\"btn btn-block btn-lg btn-warning\" role=\"button\">OFF</a></div>";
         buf = buf.."</div></div>";
         
-        local _on,_off = "",""
         if(_GET.pin == "ON1")then
               gpio.write(led1, gpio.HIGH);
         elseif(_GET.pin == "OFF1")then
