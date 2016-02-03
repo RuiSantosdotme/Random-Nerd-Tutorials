@@ -14,7 +14,7 @@ int switchReed=6;
 void setup(){
   pinMode(ledOpen, OUTPUT);
   pinMode(ledClose, OUTPUT);
-  pinMode(switchReed, OUTPUT);
+  pinMode(switchReed, INPUT);
   Serial.begin(9600);
 }
 
