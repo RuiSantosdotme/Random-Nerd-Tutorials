@@ -17,7 +17,10 @@ const char* password = "YOUR_PASSWORD";
 ESP8266WebServer server(80);
 
 String webPage = "";
- 
+
+int gpio0_pin = 0;
+int gpio2_pin = 2;
+
 void setup(void){
   webPage += "<h1>ESP8266 Web Server</h1><p>Socket #1 <a href=\"socket1On\"><button>ON</button></a>&nbsp;<a href=\"socket1Off\"><button>OFF</button></a></p>";
   webPage += "<p>Socket #2 <a href=\"socket2On\"><button>ON</button></a>&nbsp;<a href=\"socket2Off\"><button>OFF</button></a></p>";
