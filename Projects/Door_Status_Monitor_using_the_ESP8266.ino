@@ -47,7 +47,7 @@ void changeDoorStatus() {
 void setup() {
     Serial.begin(115200);
     delay(100);
-    Serial.println("Preparing the door status project...");
+    Serial.println("Preparing the Door Status Monitor project...");
     
     pinMode(pin, OUTPUT);
     attachInterrupt(digitalPinToInterrupt(pin), changeDoorStatus, CHANGE);
