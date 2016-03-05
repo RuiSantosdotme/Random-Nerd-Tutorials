@@ -9,6 +9,7 @@ srv=net.createServer(net.TCP)
 srv:listen(80,function(conn)
     conn:on("receive", function(client,request)
         local buf = "";
+        buf = buf.."HTTP/1.1 200 OK\n\n"
         local _, _, method, path, vars = string.find(request, "([A-Z]+) (.+)?(.+) HTTP");
         if(method == nil)then
             _, _, method, path = string.find(request, "([A-Z]+) (.+) HTTP");
