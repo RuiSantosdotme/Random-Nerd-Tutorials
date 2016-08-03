@@ -1,7 +1,7 @@
 /*********
   Rui Santos
   Complete project details at http://randomnerdtutorials.com  
-  Based on the Dallas Temperature Libary example
+  Based on the Dallas Temperature Library example
 *********/
 
 #include <OneWire.h>
