@@ -12,8 +12,8 @@
 const char* ssid = "REPLACE_WITH_YOUR_SSID";
 const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
-// Data wire is plugged into pin D1 on the ESP8266 12-E
-#define ONE_WIRE_BUS D1
+// Data wire is plugged into pin D1 on the ESP8266 12-E - GPIO 5
+#define ONE_WIRE_BUS 5
 
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
 OneWire oneWire(ONE_WIRE_BUS);
