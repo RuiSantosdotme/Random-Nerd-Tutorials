@@ -1,3 +1,6 @@
+-- Rui Santos
+-- Complete project details at http://randomnerdtutorials.com
+
 wifi.setmode(wifi.STATION)
 wifi.sta.config("YOUR_NETWORK_NAME","YOUR_NETWORK_PASSWORD")
 print(wifi.sta.getip())
