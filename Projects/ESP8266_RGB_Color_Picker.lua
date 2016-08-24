@@ -4,7 +4,6 @@
 wifi.setmode(wifi.STATION)
 wifi.sta.config("YOUR_NETWORK_NAME","YOUR_NETWORK_PASSWORD")
 
-tmr.delay(5000)
 print(wifi.sta.getip())
 
 function led(r, g, b)
