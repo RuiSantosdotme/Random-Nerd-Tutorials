@@ -4,12 +4,11 @@
 wifi.setmode(wifi.STATION)
 wifi.sta.config("YOUR_NETWORK_NAME","YOUR_NETWORK_PASSWORD")
 
-tmr.delay(5000)
 print(wifi.sta.getip())
 
 function led(r, g, b)
     pwm.setduty(1, r)
-    pwm.setduty(2)
+    pwm.setduty(2, g)
     pwm.setduty(3, b)
 end
 pwm.setup(1, 1000, 1023)
