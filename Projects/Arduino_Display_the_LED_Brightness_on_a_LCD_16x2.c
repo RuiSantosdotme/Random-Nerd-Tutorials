@@ -55,7 +55,7 @@ void loop() {
   //lights up the LED according to the bightness
   analogWrite(ledPin, brightness); 
   // turns the brighness into a percentage for the bar 
-  pBari=map(brightness, 0, 255, 0, 16);
+  pBari=map(brightness, 0, 255, 0, 17);
   //prints the progress bar
   for (i=0; i<pBari; i++)
   {
