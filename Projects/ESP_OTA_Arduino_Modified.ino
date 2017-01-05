@@ -13,6 +13,8 @@
 const char* ssid = "YOUR_SSID";
 const char* password = "YOUR_PASSWORD";
 
+const int ESP_BUILTIN_LED = 2;
+
 void setup() {
   Serial.begin(115200);
   Serial.println("Booting");
@@ -54,7 +56,6 @@ void setup() {
   Serial.println("Ready");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
-  const int ESP_BUILTIN_LED = 2;
   pinMode(ESP_BUILTIN_LED, OUTPUT);
 }
 
