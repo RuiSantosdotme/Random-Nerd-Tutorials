@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+   <title>RPi Web Server</title>
+   <!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+   <!-- Optional theme -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+   <!-- Latest compiled and minified JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+   <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+      	var socket = io.connect('http://' + document.domain + ':' + location.port);
+      	socket.on('connect', function() {
+          socket.emit('my event', {data: 'I\'m connected!'});
+      	});
+      	socket.on('dht_temperature', function(msg) {
+	  var nDate = new Date();
+          $('#readingsUpdated').text(nDate.getHours() + 'h:' + nDate.getMinutes() +
+             'm:' + nDate.getSeconds() + 's').html();
+          $('#temperature').text(msg.data).html();
+      	});
+      	socket.on('dht_humidity', function(msg) {
+          $('#humidity').text(msg.data).html();
+      	});
+      });
+   </script>
+</head>
+
+<body>
+   <h1>RPi Web Server - ESP8266 MQTT</h1>
+   {% for pin in pins %}
+   <h2>{{ pins[pin].name }}
+   {% if pins[pin].state == 'True' %}
+      is currently <strong>on</strong></h2><div class="row"><div class="col-md-2">
+      <a href="/esp8266/{{pin}}/0" class="btn btn-block btn-lg btn-default" role="button">Turn off</a></div></div>
+   {% else %}
+      is currently <strong>off</strong></h2><div class="row"><div class="col-md-2">
+      <a href="/esp8266/{{pin}}/1" class="btn btn-block btn-lg btn-primary" role="button">Turn on</a></div></div>
+   {% endif %}
+   {% endfor %}
+   <h3>DHT Readings (updated <span id="readingsUpdated"></span>)</h3>
+   <h3>Temperature: <span id="temperature"></span>ºC</h3>
+   <h3>Humidity: <span id="humidity"></span>%</h3>
+</body>
+</html>
