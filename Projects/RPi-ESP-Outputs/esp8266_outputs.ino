@@ -1,7 +1,7 @@
 /*****
  
  All the resources for this project:
- https://rntlab.com/
+ https://randomnerdtutorials.com/
  
 *****/
 
