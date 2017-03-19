@@ -1,4 +1,4 @@
-Random-Nerd-Tutorials
+Random Nerd Tutorials
 =====================
 
 Random Nerd Tutorials is a blog where I share electronics projects, tutorials and reviews.
