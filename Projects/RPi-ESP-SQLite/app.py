@@ -1,11 +1,7 @@
-'''
-
-Adapted excerpt from Getting Started with Raspberry Pi by Matt Richardson
-
-Modified by Rui Santos
-Complete project details: http://randomnerdtutorials.com
-
-'''
+#
+# Created by Rui Santos
+# Complete project details: http://randomnerdtutorials.com
+#
 
 import paho.mqtt.client as mqtt
 from flask import Flask, render_template, request
