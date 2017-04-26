@@ -33,8 +33,8 @@ void loop() {
       state = Serial.read();   
       flag=0;
     }   
-    // if the state is '1' the DC motor will go forward
-    if (state == '1') {
+    // if the state is 'F' the DC motor will go forward
+    if (state == 'F') {
         digitalWrite(motor1Pin1, HIGH);
         digitalWrite(motor1Pin2, LOW); 
         digitalWrite(motor2Pin1, LOW);
@@ -45,8 +45,8 @@ void loop() {
         }
     }
     
-    // if the state is '2' the motor will turn left
-    else if (state == '2') {
+    // if the state is 'R' the motor will turn left
+    else if (state == 'R') {
         digitalWrite(motor1Pin1, HIGH); 
         digitalWrite(motor1Pin2, LOW); 
         digitalWrite(motor2Pin1, LOW);
@@ -59,8 +59,8 @@ void loop() {
         state=3;
         stateStop=1;
     }
-    // if the state is '3' the motor will Stop
-    else if (state == '3' || stateStop == 1) {
+    // if the state is 'S' the motor will Stop
+    else if (state == 'S' || stateStop == 1) {
         digitalWrite(motor1Pin1, LOW); 
         digitalWrite(motor1Pin2, LOW); 
         digitalWrite(motor2Pin1, LOW);
@@ -71,8 +71,8 @@ void loop() {
         }
         stateStop=0;
     }
-    // if the state is '4' the motor will turn right
-    else if (state == '4') {
+    // if the state is 'L' the motor will turn right
+    else if (state == 'L') {
         digitalWrite(motor1Pin1, LOW); 
         digitalWrite(motor1Pin2, LOW); 
         digitalWrite(motor2Pin1, LOW);
@@ -85,8 +85,8 @@ void loop() {
         state=3;
         stateStop=1;
     }
-    // if the state is '5' the motor will Reverse
-    else if (state == '5') {
+    // if the state is 'B' the motor will Reverse
+    else if (state == 'B') {
         digitalWrite(motor1Pin1, LOW); 
         digitalWrite(motor1Pin2, HIGH);
         digitalWrite(motor2Pin1, HIGH);
