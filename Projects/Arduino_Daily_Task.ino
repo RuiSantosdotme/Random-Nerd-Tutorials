@@ -33,7 +33,7 @@ void setup() {
 
   // create the alarms, to trigger functions at specific times
   Alarm.alarmRepeat(9,0,0,MorningAlarm);  // 9:00am every day
-  Alarm.alarmRepeat(7,0,0,EveningAlarm);  // 7:00pm every day
+  Alarm.alarmRepeat(19,0,0,EveningAlarm);  // 19:00 -> 7:00pm every day
 }
 
 void loop() {
