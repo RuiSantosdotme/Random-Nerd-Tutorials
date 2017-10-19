@@ -1,9 +1,7 @@
 
 /*
- *
- * SetTime.ino sketch to set the time of DS1307 RTC - created by Paul Stoffregen
- * https://github.com/PaulStoffregen/DS1307RTC/blob/master/examples/SetTime/SetTime.ino
- *
+SetTime.ino sketch to set the time of DS1307 RTC - created by Paul Stoffregen
+github.com/PaulStoffregen/DS1307RTC/blob/master/examples/SetTime/SetTime.ino
  */
  
 #include <Wire.h>
