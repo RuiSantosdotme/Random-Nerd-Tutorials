@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from time import sleep
 NULL_CHAR = chr(0)
 
 def write_report(report):
@@ -27,9 +26,9 @@ write_report(NULL_CHAR*2+chr(7)+NULL_CHAR*5)
 # Press RETURN/ENTER key
 write_report(NULL_CHAR*2+chr(40)+NULL_CHAR*5)
 
-# Press e
+# Press e key
 write_report(NULL_CHAR*2+chr(8)+NULL_CHAR*5)
-# Press f
+# Press f key
 write_report(NULL_CHAR*2+chr(9)+NULL_CHAR*5)
 
 # Release all keys
