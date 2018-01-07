@@ -5,14 +5,18 @@ def write_report(report):
     with open('/dev/hidg0', 'rb+') as fd:
         fd.write(report.encode())
 
-# Press a, release keys, press SHIFT + a = A
+# Press a
 write_report(NULL_CHAR*2+chr(4)+NULL_CHAR*5)
+# Release keys
 write_report(NULL_CHAR*8)
+# Press SHIFT + a = A
 write_report(chr(32)+NULL_CHAR+chr(4)+NULL_CHAR*5)
 
-# Press b, release keys, press SHIFT + b = B
+# Press b
 write_report(NULL_CHAR*2+chr(5)+NULL_CHAR*5)
+# Release keys
 write_report(NULL_CHAR*8)
+# P4ress SHIFT + b = B
 write_report(chr(32)+NULL_CHAR+chr(5)+NULL_CHAR*5)
 
 # Press SPACE key
