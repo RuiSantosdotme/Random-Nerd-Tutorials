@@ -16,7 +16,7 @@ write_report(chr(32)+NULL_CHAR+chr(4)+NULL_CHAR*5)
 write_report(NULL_CHAR*2+chr(5)+NULL_CHAR*5)
 # Release keys
 write_report(NULL_CHAR*8)
-# P4ress SHIFT + b = B
+# Press SHIFT + b = B
 write_report(chr(32)+NULL_CHAR+chr(5)+NULL_CHAR*5)
 
 # Press SPACE key
