@@ -20,8 +20,8 @@ OneWire oneWire(ONE_WIRE_BUS);
 
 // Pass our oneWire reference to Dallas Temperature. 
 DallasTemperature DS18B20(&oneWire);
-char temperatureCString[6];
-char temperatureFString[6];
+char temperatureCString[7];
+char temperatureFString[7];
 
 // Web Server on port 80
 WiFiServer server(80);
