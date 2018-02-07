@@ -52,9 +52,7 @@ srv:listen(80,function(conn)
             
             -- This is for RGB Common Anode
             led(1023-_GET.r, 1023-_GET.g,1023-_GET.b)   
-        end
-        client:send(buf);
-        client:close();
-        collectgarbage();
+        client:send(buf)
     end)
+    conn:on("sent", function (c) c:close() end)
 end)
