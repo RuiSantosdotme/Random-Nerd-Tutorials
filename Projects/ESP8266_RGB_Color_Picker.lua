@@ -18,10 +18,6 @@ pwm.start(1)
 pwm.start(2)
 pwm.start(3)
 
-if srv ~= nil then -- prevents "out of memory". Prompts connected, but you can ignore it
-  srv:close()
-end
-
 srv=net.createServer(net.TCP)
 srv:listen(80,function(conn)
     conn:on("receive", function(client,request)
@@ -56,8 +52,9 @@ srv:listen(80,function(conn)
             
             -- This is for RGB Common Anode
             led(1023-_GET.r, 1023-_GET.g,1023-_GET.b)   
-        client:send(buf)
         end
+        client:send(buf);
+        client:close();
+        collectgarbage();
     end)
-    conn:on("sent", function (c) c:close() end)
 end)
