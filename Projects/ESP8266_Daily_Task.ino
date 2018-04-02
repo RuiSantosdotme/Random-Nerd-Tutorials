@@ -81,7 +81,7 @@ void initWifi() {
   Serial.println(WiFi.localIP());
 }
 
-// Make an HTTP request to the Node-RED software
+// Make an HTTP request to Thing Speak
 void makeHTTPRequest() {
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
   float h = dht.readHumidity();
