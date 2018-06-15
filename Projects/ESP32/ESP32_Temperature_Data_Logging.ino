@@ -72,7 +72,7 @@ void setup() {
   timeClient.begin();
   // Set offset time in seconds to adjust for your timezone, for example:
   // GMT +1 = 3600
-  // GMT +8 = 64800
+  // GMT +8 = 28800
   // GMT -1 = -3600
   // GMT 0 = 0
   timeClient.setTimeOffset(3600);
