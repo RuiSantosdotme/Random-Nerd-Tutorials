@@ -16,22 +16,6 @@ LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);
 String messageStatic = "Static message";
 String messageToScroll = "This is a scrolling message with more than 16 characters";
 
-void setup(){
-  // initialize LCD
-  lcd.init();
-  // turn on LCD backlight                      
-  lcd.backlight();
-}
-
-void loop(){
-  // set cursor to first column, first row
-  lcd.setCursor(0, 0);
-  // print static message
-  lcd.print(messageStatic);
-  // print scrolling message
-  scrollText(1, messageToScroll, 250, lcdColumns);
-}
-
 // Function to scroll text
 // The function acepts the following arguments:
 // row: row number where the text will be displayed
@@ -48,4 +32,20 @@ void scrollText(int row, String message, int delayTime, int lcdColumns) {
     lcd.print(message.substring(pos, pos + lcdColumns));
     delay(delayTime);
   }
+}
+
+void setup(){
+  // initialize LCD
+  lcd.init();
+  // turn on LCD backlight                      
+  lcd.backlight();
+}
+
+void loop(){
+  // set cursor to first column, first row
+  lcd.setCursor(0, 0);
+  // print static message
+  lcd.print(messageStatic);
+  // print scrolling message
+  scrollText(1, messageToScroll, 250, lcdColumns);
 }
