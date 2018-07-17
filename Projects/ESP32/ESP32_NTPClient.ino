@@ -1,7 +1,7 @@
 /*********
   Rui Santos
   Complete project details at https://randomnerdtutorials.com
-  Modified from the library example
+  Based on the NTP Client library example
 *********/
 
 #include <WiFi.h>
