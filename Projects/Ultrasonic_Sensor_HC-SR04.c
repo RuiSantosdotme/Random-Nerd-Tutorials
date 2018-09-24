@@ -1,5 +1,5 @@
 /*
- * created by Rui Santos, http://randomnerdtutorials.com
+ * created by Rui Santos, https://randomnerdtutorials.com
  * 
  * Complete Guide for Ultrasonic Sensor HC-SR04
  *
@@ -10,8 +10,8 @@
         GND: GND
  */
  
-int trigPin = 11;    //Trig - green Jumper
-int echoPin = 12;    //Echo - yellow Jumper
+int trigPin = 11;    // Trigger
+int echoPin = 12;    // Echo
 long duration, cm, inches;
  
 void setup() {
@@ -22,10 +22,7 @@ void setup() {
   pinMode(echoPin, INPUT);
 }
  
-void loop()
-{
- 
- 
+void loop() {
   // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
   // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
   digitalWrite(trigPin, LOW);
