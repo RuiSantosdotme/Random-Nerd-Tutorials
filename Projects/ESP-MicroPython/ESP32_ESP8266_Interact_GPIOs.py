@@ -12,7 +12,7 @@ pot = ADC(Pin(34))
 pot.width(ADC.WIDTH_10BIT)
 pot.atten(ADC.ATTN_11DB)
 
-#Condifure ADC for ESP8266
+#Configure ADC for ESP8266
 #pot = ADC(0)
 
 led_pwm = PWM(Pin(4),5000)
