@@ -1,4 +1,5 @@
 /*
+ * OTAWebUpdater.ino Example from ArduinoOTA Library
  * Rui Santos 
  * Complete Project Details http://randomnerdtutorials.com
  */
@@ -13,18 +14,11 @@ const char* host = "esp32";
 const char* ssid = "REPLACE_WITH_YOUR_SSID";
 const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
-//variabls to blink without delay:
-const int led = 2;
-unsigned long previousMillis = 0;        // will store last time LED was updated
-const long interval = 1000;           // interval at which to blink (milliseconds)
-int ledState = LOW;             // ledState used to set the LED
-
 WebServer server(80);
 
 /*
  * Login page
  */
-
 const char* loginIndex = 
  "<form name='loginForm'>"
     "<table width='20%' bgcolor='A09F9F' align='center'>"
@@ -111,8 +105,6 @@ const char* serverIndex =
  * setup function
  */
 void setup(void) {
-  pinMode(led, OUTPUT);
-  
   Serial.begin(115200);
 
   // Connect to WiFi network
@@ -178,18 +170,4 @@ void setup(void) {
 void loop(void) {
   server.handleClient();
   delay(1);
-
-  //loop to blink without delay
-  unsigned long currentMillis = millis();
-
-  if (currentMillis - previousMillis >= interval) {
-    // save the last time you blinked the LED
-    previousMillis = currentMillis;
-
-    // if the LED is off turn it on and vice-versa:
-    ledState = not(ledState);
-
-    // set the LED with the ledState of the variable:
-    digitalWrite(led, ledState);
-  }
 }
