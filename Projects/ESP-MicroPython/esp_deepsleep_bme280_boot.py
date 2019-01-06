@@ -32,8 +32,6 @@ print('Connection successful')
 print(station.ifconfig())
 
 def deep_sleep(msecs) :
-  import machine
-
   # configure RTC.ALARM0 to be able to wake the device
   rtc = machine.RTC()
   rtc.irq(trigger=rtc.ALARM0, wake=machine.DEEPSLEEP)
