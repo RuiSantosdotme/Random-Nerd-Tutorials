@@ -117,21 +117,16 @@ void setup() {
 }
 
 void loop() {
-  // Since fauxmoESP 2.0 the library uses the "compatibility" mode by
-  // default, this means that it uses WiFiUdp class instead of AsyncUDP.
-  // The later requires the Arduino Core for ESP8266 staging version
-  // whilst the former works fine with current stable 2.3.0 version.
-  // But, since it's not "async" anymore we have to manually poll for UDP
-  // packets
+  // fauxmoESP uses an async TCP server but a sync UDP server
+  // Therefore, we have to manually poll for UDP packets
   fauxmo.handle();
 
-  /*static unsigned long last = millis();
+  static unsigned long last = millis();
   if (millis() - last > 5000) {
     last = millis();
     Serial.printf("[MAIN] Free heap: %d bytes\n", ESP.getFreeHeap());
-  }*/
-
-         
+  }
+    
   if (mySwitch.available()) {    
   /*Serial.print("Received ");
     Serial.print( mySwitch.getReceivedValue() );
