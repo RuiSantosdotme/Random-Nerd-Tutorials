@@ -8,21 +8,20 @@
 #include <Adafruit_SSD1306.h>
 #include <DHT.h>
 
-#define DHTPIN 2     // what pin we're connected to
-#define DHTTYPE DHT11   // DHT 11
+#define DHTPIN 2
+#define DHTTYPE DHT11
 #define OLED_RESET 4
 Adafruit_SSD1306 display(OLED_RESET);
 
-// Initialize DHT sensor for normal 16mhz Arduino
+// Initialize DHT sensor
 DHT dht(DHTPIN, DHTTYPE);
 
-void setup()
-{
+void setup() {
   Wire.begin();
-  dht.begin(); // initialize dht
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);// initialize with the I2C addr 0x3C (for the 128x32)(initializing the display)
-  Serial.begin(9600);
+  dht.begin();
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);// initialize with the I2C addr 0x3C
 }
+
 void displayTempHumid(){
   delay(2000);
   // Reading temperature or humidity takes about 250 milliseconds!
@@ -58,8 +57,7 @@ void displayTempHumid(){
   display.print(f);
   display.print(" F"); 
 }
-void loop()
-{
+void loop() {
   displayTempHumid();
   display.display();
 }
