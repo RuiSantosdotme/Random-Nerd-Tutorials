@@ -27,15 +27,15 @@ void loop() {
   // Reads the current position of the potentiometer and converts 
   // to a value between 0 and 255 to control the according RGB pin with PWM
   // RGB LED COMMON ANODE
-  analogWrite(redPin,(255./1023.)*analogRead(potRed));
-  analogWrite(greenPin,(255./1023.)*analogRead(potGreen));
-  analogWrite(bluePin,(255./1023.)*analogRead(potBlue));
-
+  analogWrite(redPin, 255-(255./1023.)*analogRead(potRed));
+  analogWrite(greenPin, 255-(255./1023.)*analogRead(potGreen));
+  analogWrite(bluePin, 255-(255./1023.)*analogRead(potBlue));
+ 
   // Uncomment for RGB LED COMMON CATHODE
   /*
-  analogWrite(redPin,255-(255./1023.)*analogRead(potRed));
-  analogWrite(greenPin,255-(255./1023.)*analogRead(potGreen));
-  analogWrite(bluePin,255-(255./1023.)*analogRead(potBlue));
+  analogWrite(redPin, (255./1023.)*analogRead(potRed));
+  analogWrite(greenPin, (255./1023.)*analogRead(potGreen));
+  analogWrite(bluePin, (255./1023.)*analogRead(potBlue));
   */
   
   delay(10);
