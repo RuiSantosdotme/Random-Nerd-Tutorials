@@ -57,7 +57,7 @@ void loop() {
   // turns the brighness into a percentage for the bar 
   pBari=map(brightness, 0, 255, 0, 17);
   //prints the progress bar
-  for (i=0; i<pBari; i++)
+  for (i=0; i < pBari; i++)
   {
     lcd.setCursor(i, 1);   
     lcd.write(byte(0));  
