@@ -10,7 +10,6 @@ def read_sensor():
     if (isinstance(temp, float) and isinstance(hum, float)) or (isinstance(temp, int) and isinstance(hum, int)):
       msg = (b'{0:3.1f},{1:3.1f}'.format(temp, hum))
 
-      temp_percentage = (temp+6)/(40+6)*(100)
       # uncomment for Fahrenheit
       #temp = temp * (9/5) + 32.0
 
