@@ -1,8 +1,8 @@
 # Complete project details at https://RandomNerdTutorials.com
 
 def read_sensor():
-  global temp, temp_percentage, hum
-  temp = temp_percentage = hum = 0
+  global temp, hum
+  temp = hum = 0
   try:
     sensor.measure()
     temp = sensor.temperature()
@@ -13,7 +13,6 @@ def read_sensor():
       temp_percentage = (temp+6)/(40+6)*(100)
       # uncomment for Fahrenheit
       #temp = temp * (9/5) + 32.0
-      #temp_percentage = (temp-21)/(104-21)*(100)
 
       hum = round(hum, 2)
       return(msg)
