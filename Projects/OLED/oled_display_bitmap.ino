@@ -94,7 +94,6 @@ void setup() {
   // Draw bitmap on the screen
   display.drawBitmap(0, 0, image_data_Saraarray, 128, 64, 1);
   display.display();
-  delay(8000);
 }
  
 void loop() {
