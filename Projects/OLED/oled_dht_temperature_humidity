@@ -47,7 +47,9 @@ void loop() {
   if (isnan(h) || isnan(t)) {
     Serial.println("Failed to read from DHT sensor!");
   }
-
+  // clear display
+  display.clearDisplay();
+  
   // display temperature
   display.setTextSize(1);
   display.setCursor(0,0);
