@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <style>
+    body {
+      text-align: center;
+      font-family: "Trebuchet MS", Arial;
+    }
+    table {
+      border-collapse: collapse;
+      width:35%;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    th {
+      padding: 12px;
+      background-color: #0043af;
+      color: white;
+    }
+    tr {
+      border: 1px solid #ddd;
+      padding: 12px;
+    }
+    tr:hover {
+      background-color: #bcbcbc;
+    }
+    td {
+      border: none; padding: 12px;
+    }
+    .sensor {
+      color:white;
+      font-weight: bold;
+      background-color: #bcbcbc;
+      padding: 1px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ESP8266 with BME280</h1>
+  <table>
+    <tr>
+      <th>MEASUREMENT</th>
+      <th>VALUE</th>
+    </tr>
+    <tr>
+      <td>Temp. Celsius</td>
+      <td><span class="sensor">--- *C</span></td></tr>
+    <tr>
+      <td>Temp. Fahrenheit</td>
+      <td><span class="sensor">--- *F</span></td>
+    </tr>
+    <tr>
+      <td>Pressure</td>
+      <td><span class="sensor">--- hPa</span></td>
+    </tr>
+    <tr>
+      <td>Approx. Altitude</td>
+      <td><span class="sensor">--- m</span></td>
+    </tr>
+    <tr>
+      <td>Humidity</td>
+      <td><span class="sensor">--- %</span></td>
+    </tr>
+</body>
+</html>
