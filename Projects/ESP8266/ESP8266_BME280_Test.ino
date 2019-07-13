@@ -49,9 +49,13 @@ void printValues() {
   Serial.print("Temperature = ");
   Serial.print(bme.readTemperature());
   Serial.println(" *C");
-
+  
+  // Convert temperature to Fahrenheit
+  /*Serial.print("Temperature = ");
+  Serial.print(1.8 * bme.readTemperature() + 32);
+  Serial.println(" *F");*/
+  
   Serial.print("Pressure = ");
-
   Serial.print(bme.readPressure() / 100.0F);
   Serial.println(" hPa");
 
