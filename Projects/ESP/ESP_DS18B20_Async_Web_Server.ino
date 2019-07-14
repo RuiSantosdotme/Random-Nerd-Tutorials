@@ -17,7 +17,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-// Data wire is conntec to digital pin 4
+// Data wire is connected to GPIO 4
 #define ONE_WIRE_BUS 4
 
 // Setup a oneWire instance to communicate with any OneWire devices
