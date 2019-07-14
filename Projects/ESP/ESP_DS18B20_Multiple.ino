@@ -8,15 +8,18 @@
 
 // Data wire is plugged TO GPIO 4
 #define ONE_WIRE_BUS 4
+
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
 OneWire oneWire(ONE_WIRE_BUS);
 
 // Pass our oneWire reference to Dallas Temperature. 
 DallasTemperature sensors(&oneWire);
 
-int numberOfDevices; // Number of temperature devices found
+// Number of temperature devices found
+int numberOfDevices;
 
-DeviceAddress tempDeviceAddress; // We'll use this variable to store a found device address
+// We'll use this variable to store a found device address
+DeviceAddress tempDeviceAddress; 
 
 void setup(){
   // start serial port
