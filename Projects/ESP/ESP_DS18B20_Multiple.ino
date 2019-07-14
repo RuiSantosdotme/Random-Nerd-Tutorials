@@ -38,16 +38,16 @@ void setup(void){
   for(int i=0;i<numberOfDevices; i++){
     // Search the wire for address
     if(sensors.getAddress(tempDeviceAddress, i)){
-		Serial.print("Found device ");
-		Serial.print(i, DEC);
-		Serial.print(" with address: ");
-		printAddress(tempDeviceAddress);
-		Serial.println();
-		} else{
-		  Serial.print("Found ghost device at ");
-		  Serial.print(i, DEC);
-		  Serial.print(" but could not detect address. Check power and cabling");
-		}
+      Serial.print("Found device ");
+      Serial.print(i, DEC);
+      Serial.print(" with address: ");
+      printAddress(tempDeviceAddress);
+      Serial.println();
+    } else {
+      Serial.print("Found ghost device at ");
+      Serial.print(i, DEC);
+      Serial.print(" but could not detect address. Check power and cabling");
+    }
   }
 }
 
@@ -58,18 +58,16 @@ void loop(void){
   for(int i=0;i<numberOfDevices; i++){
     // Search the wire for address
     if(sensors.getAddress(tempDeviceAddress, i)){
-		
-		// Output the device ID
-		Serial.print("Temperature for device: ");
-		Serial.println(i,DEC);
-
-    // Print the data
-    float tempC = sensors.getTempC(tempDeviceAddress);
-    Serial.print("Temp C: ");
-    Serial.print(tempC);
-    Serial.print(" Temp F: ");
-    Serial.println(DallasTemperature::toFahrenheit(tempC)); // Converts tempC to Fahrenheit
-    } 	
+      // Output the device ID
+      Serial.print("Temperature for device: ");
+      Serial.println(i,DEC);
+      // Print the data
+      float tempC = sensors.getTempC(tempDeviceAddress);
+      Serial.print("Temp C: ");
+      Serial.print(tempC);
+      Serial.print(" Temp F: ");
+      Serial.println(DallasTemperature::toFahrenheit(tempC)); // Converts tempC to Fahrenheit
+    }
   }
   delay(5000);
 }
@@ -78,6 +76,6 @@ void loop(void){
 void printAddress(DeviceAddress deviceAddress) {
   for (uint8_t i = 0; i < 8; i++){
     if (deviceAddress[i] < 16) Serial.print("0");
-    Serial.print(deviceAddress[i], HEX);
+      Serial.print(deviceAddress[i], HEX);
   }
 }
