@@ -18,7 +18,7 @@ int numberOfDevices; // Number of temperature devices found
 
 DeviceAddress tempDeviceAddress; // We'll use this variable to store a found device address
 
-void setup(void){
+void setup(){
   // start serial port
   Serial.begin(115200);
   
@@ -51,7 +51,7 @@ void setup(void){
   }
 }
 
-void loop(void){ 
+void loop(){ 
   sensors.requestTemperatures(); // Send the command to get temperatures
   
   // Loop through each device, print out temperature data
