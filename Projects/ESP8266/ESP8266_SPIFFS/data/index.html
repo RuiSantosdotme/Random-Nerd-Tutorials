@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP8266 Web Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>ESP8266 Web Server</h1>
+  <p>GPIO state<strong> %STATE%</strong></p>
+  <p>
+    <a href="/on"><button class="button">ON</button></a>
+    <a href="/off"><button class="button button2">OFF</button></a>
+  </p>
+  <p>
+    <span class="sensor-labels">Temperature</span>
+    <span id="temperature">%TEMPERATURE%</span>
+    <sup class="units">&deg;C</sup>
+  </p>
+  <p>
+    <span class="sensor-labels">Humidity</span>
+    <span id="humidity">%HUMIDITY%</span>
+    <sup class="units">&#37;</sup>
+  </p>
+  <p>
+    <span class="sensor-labels">Pressure</span>
+    <span id="pressure">%PRESSURE%</span>
+    <sup class="units">hPa</sup>
+  </p>
+</body>
+<script>
+  setInterval(function ( ) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("temperature").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "/temperature", true);
+    xhttp.send();
+  }, 10000 ) ;
+
+  setInterval(function ( ) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("humidity").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "/humidity", true);
+    xhttp.send();
+  }, 10000 ) ;
+
+  setInterval(function ( ) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("pressure").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "/pressure", true);
+    xhttp.send();
+  }, 10000 ) ;
+</script>
+</html>
