@@ -37,7 +37,7 @@ AsyncWebServer server(80);
 String getTemperature() {
   float temperature = bme.readTemperature();
   // Read temperature as Fahrenheit (isFahrenheit = true)
-  //float t = dht.readTemperature(true);
+  //float temperature = 1.8 * bme.readTemperature() + 32;
   Serial.println(temperature);
   return String(temperature);
 }
