@@ -1,6 +1,6 @@
 /*********
   Rui Santos
-  Complete project details at https://randomnerdtutorials.com  
+  Complete project details at https://randomnerdtutorials.com/esp8266-dht11dht22-temperature-and-humidity-web-server-with-arduino-ide/
 *********/
 
 // Import required libraries
@@ -25,38 +25,19 @@ const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
 DHT dht(DHTPIN, DHTTYPE);
 
+// current temperature & humidity, updated in loop()
+float t = 0.0;
+float h = 0.0;
+
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
 
-String readDHTTemperature() {
-  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
-  // Read temperature as Fahrenheit (isFahrenheit = true)
-  //float t = dht.readTemperature(true);
-  // Check if any reads failed and exit early (to try again).
-  if (isnan(t)) {    
-    Serial.println("Failed to read from DHT sensor!");
-    return "--";
-  }
-  else {
-    Serial.println(t);
-    return String(t);
-  }
-}
+// Generally, you should use "unsigned long" for variables that hold time
+// The value will quickly become too large for an int to store
+unsigned long previousMillis = 0;    // will store last time DHT was updated
 
-String readDHTHumidity() {
-  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  float h = dht.readHumidity();
-  if (isnan(h)) {
-    Serial.println("Failed to read from DHT sensor!");
-    return "--";
-  }
-  else {
-    Serial.println(h);
-    return String(h);
-  }
-}
+// Updates DHT readings every 10 seconds
+const long interval = 10000;  
 
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE HTML><html>
@@ -124,10 +105,10 @@ setInterval(function ( ) {
 String processor(const String& var){
   //Serial.println(var);
   if(var == "TEMPERATURE"){
-    return readDHTTemperature();
+    return String(t);
   }
   else if(var == "HUMIDITY"){
-    return readDHTHumidity();
+    return String(h);
   }
   return String();
 }
@@ -153,16 +134,42 @@ void setup(){
     request->send_P(200, "text/html", index_html, processor);
   });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", readDHTTemperature().c_str());
+    request->send_P(200, "text/plain", String(t).c_str());
   });
   server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", readDHTHumidity().c_str());
+    request->send_P(200, "text/plain", String(h).c_str());
   });
 
   // Start server
   server.begin();
 }
  
-void loop(){
-  
+void loop(){  
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    // save the last time you updated the DHT values
+    previousMillis = currentMillis;
+    // Read temperature as Celsius (the default)
+    float newT = dht.readTemperature();
+    // Read temperature as Fahrenheit (isFahrenheit = true)
+    //float newT = dht.readTemperature(true);
+    // if temperature read failed, don't change t value
+    if (isnan(newT)) {
+      Serial.println("Failed to read from DHT sensor!");
+    }
+    else {
+      t = newT;
+      Serial.println(t);
+    }
+    // Read Humidity
+    float newH = dht.readHumidity();
+    // if humidity read failed, don't change h value 
+    if (isnan(newH)) {
+      Serial.println("Failed to read from DHT sensor!");
+    }
+    else {
+      h = newH;
+      Serial.println(h);
+    }
+  }
 }
