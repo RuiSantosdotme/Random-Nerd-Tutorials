@@ -141,7 +141,7 @@ void setup(){
       }
       else{
         Serial.print("NC ");
-        digitalWrite(relayGPIOs[inputMessage.toInt()-1], inputParam2.toInt());
+        digitalWrite(relayGPIOs[inputMessage.toInt()-1], inputMessage2.toInt());
       }
     }
     else {
