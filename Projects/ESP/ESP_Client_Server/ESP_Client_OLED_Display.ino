@@ -9,14 +9,8 @@
   copies or substantial portions of the Software.
 */
 
-#ifdef ESP32
-  #include <WiFi.h>
-  #include <HTTPClient.h>
-#else
-  #include <ESP8266WiFi.h>
-  #include <ESP8266HTTPClient.h>
-  #include <WiFiClient.h>
-#endif
+#include <WiFi.h>
+#include <HTTPClient.h>
 
 const char* ssid = "ESP32-Access-Point";
 const char* password = "123456789";
