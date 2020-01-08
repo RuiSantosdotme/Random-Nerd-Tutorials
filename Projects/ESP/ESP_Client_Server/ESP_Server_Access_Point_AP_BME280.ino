@@ -54,6 +54,7 @@ String readPres() {
 void setup(){
   // Serial port for debugging purposes
   Serial.begin(115200);
+  Serial.println();
   
   // Setting the ESP as an access point
   Serial.print("Setting AP (Access Point)…");
