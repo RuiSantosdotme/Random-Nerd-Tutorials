@@ -56,13 +56,12 @@ void setup() {
  
   WiFi.mode(WIFI_STA);
   WiFiMulti.addAP(ssid, password);
-  while(WiFi.status() != WL_CONNECTED) { 
+  while((WiFiMulti.run() == WL_CONNECTED)) { 
     delay(500);
     Serial.print(".");
   }
   Serial.println("");
-  Serial.print("Connected to WiFi network with IP Address: ");
-  Serial.println(WiFi.localIP());
+  Serial.println("Connected to WiFi");
 }
 
 void loop() {
