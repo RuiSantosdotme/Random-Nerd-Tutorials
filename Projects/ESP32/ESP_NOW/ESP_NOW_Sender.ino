@@ -18,8 +18,11 @@ uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 // Structure example to send data
 // Must match the receiver structure
 typedef struct struct_message {
-    int boarID;
-    int b;
+  char a[32];
+  int b;
+  float c;
+  String d;
+  bool e;
 } struct_message;
 
 // Create a struct_message called myData
@@ -63,8 +66,11 @@ void setup() {
  
 void loop() {
   // Set values to send
-  myData.boarID = 1;
+  strcpy(myData.a, "THIS IS A CHAR");
   myData.b = random(1,20);
+  myData.c = 1.2;
+  myData.d = "Hello";
+  myData.e = false;
 
   // Send message via ESP-NOW
   esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
