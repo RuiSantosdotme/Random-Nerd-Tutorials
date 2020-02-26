@@ -61,3 +61,8 @@ void setup() {
   esp_now_set_self_role(ESP_NOW_ROLE_SLAVE);
   esp_now_register_recv_cb(OnDataRecv);
 }
+
+void loop() {
+  
+}
+
