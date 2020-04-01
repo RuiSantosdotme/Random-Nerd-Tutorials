@@ -1,6 +1,6 @@
 /*
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp32-mqtt-publish-ds18b20-temperature-arduino/
+  Complete project details at https://RandomNerdTutorials.com/esp32-mqtt-publish-bme280-arduino/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
