@@ -21,7 +21,7 @@ extern "C" {
 #define WIFI_SSID "REPLACE_WITH_YOUR_SSID"
 #define WIFI_PASSWORD "REPLACE_WITH_YOUR_PASSWORD"
 
-// Raspberri Pi Mosquitto MQTT Broker
+// Raspberry Pi Mosquitto MQTT Broker
 #define MQTT_HOST IPAddress(192, 168, 1, XXX)
 // For a cloud MQTT broker, type the domain name
 //#define MQTT_HOST "example.com"
