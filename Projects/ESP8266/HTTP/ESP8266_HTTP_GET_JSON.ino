@@ -9,8 +9,9 @@
   copies or substantial portions of the Software.
 */
 
-#include <WiFi.h>
-#include <HTTPClient.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
 #include <Arduino_JSON.h>
 
 const char* ssid = "REPLACE_WITH_YOUR_SSID";
