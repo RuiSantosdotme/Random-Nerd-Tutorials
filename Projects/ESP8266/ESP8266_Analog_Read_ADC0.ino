@@ -18,7 +18,7 @@ void loop() {
   sensorValue = analogRead(analogInPin);
   
   // map it to the range of the PWM out
-  outputValue = map(sensorValue, 0, 1024, 0, 255);
+  outputValue = map(sensorValue, 0, 1023, 0, 255);
   
   // print the readings in the Serial Monitor
   Serial.print("sensor = ");
