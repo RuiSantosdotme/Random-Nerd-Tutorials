@@ -140,17 +140,17 @@ void loop() {
     hum = bme.readHumidity();
     pres = bme.readPressure()/100.0F;
     
-    // Publish an MQTT message on topic esp8266/BME2800/temperature
+    // Publish an MQTT message on topic esp/bme280/temperature
     uint16_t packetIdPub1 = mqttClient.publish(MQTT_PUB_TEMP, 1, true, String(temp).c_str());                            
     Serial.printf("Publishing on topic %s at QoS 1, packetId: %i ", MQTT_PUB_TEMP, packetIdPub1);
     Serial.printf("Message: %.2f \n", temp);
 
-    // Publish an MQTT message on topic esp32/BME2800/humidity
+    // Publish an MQTT message on topic esp/bme280/humidity
     uint16_t packetIdPub2 = mqttClient.publish(MQTT_PUB_HUM, 1, true, String(hum).c_str());                            
     Serial.printf("Publishing on topic %s at QoS 1, packetId: %i ", MQTT_PUB_HUM, packetIdPub2);
     Serial.printf("Message: %.2f \n", hum);
 
-    // Publish an MQTT message on topic esp32/BME2800/pressure
+    // Publish an MQTT message on topic esp/bme280/pressure
     uint16_t packetIdPub3 = mqttClient.publish(MQTT_PUB_PRES, 1, true, String(pres).c_str());                            
     Serial.printf("Publishing on topic %s at QoS 1, packetId: %i ", MQTT_PUB_PRES, packetIdPub3);
     Serial.printf("Message: %.3f \n", pres);
