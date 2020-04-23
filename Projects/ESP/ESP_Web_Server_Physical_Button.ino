@@ -129,7 +129,7 @@ void setup(){
     Serial.println("Connecting to WiFi..");
   }
 
-  // Print ESP8266 Local IP Address
+  // Print ESP Local IP Address
   Serial.println(WiFi.localIP());
 
   // Route for root / web page
