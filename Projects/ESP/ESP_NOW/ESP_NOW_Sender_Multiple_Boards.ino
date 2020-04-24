@@ -1,6 +1,6 @@
 /*********
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp-now-many-to-one-esp32-esp8266/
+  Complete project details at https://RandomNerdTutorials.com/esp-now-many-to-one-esp32/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
