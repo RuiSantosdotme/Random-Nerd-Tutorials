@@ -29,7 +29,7 @@ struct_message board2;
 struct_message board3;
 
 // Create an array with all the structures
-struct_message boardsStruct[5] = {board1, board2, board3};
+struct_message boardsStruct[3] = {board1, board2, board3};
 
 // callback function that will be executed when data is received
 void OnDataRecv(const uint8_t * mac_addr, const uint8_t *incomingData, int len) {
