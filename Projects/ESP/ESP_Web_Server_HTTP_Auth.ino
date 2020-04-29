@@ -75,7 +75,7 @@ const char logout_html[] PROGMEM = R"rawliteral(
 </head>
 <body>
   <p>Logged out or <a href="/">return to homepage</a>.</p>
-  <p><strong>Note:</strong> close all web browser tabs to finish the logout process.</p>
+  <p><strong>Note:</strong> close all web browser tabs to complete the logout process.</p>
 </body>
 </html>
 )rawliteral";
