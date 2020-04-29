@@ -60,7 +60,7 @@ const char index_html[] PROGMEM = R"rawliteral(
 }
 function logoutButton() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "logout", true);
+  xhr.open("GET", "/logout", true);
   xhr.send();
 }
 setInterval(function ( ) {
