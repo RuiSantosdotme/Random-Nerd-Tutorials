@@ -136,7 +136,7 @@ void loop() {
     // Temperature in Fahrenheit degrees
     //temp = sensors.getTempFByIndex(0);
     
-    // Publish an MQTT message on topic esp8266/BME2800/temperature
+    // Publish an MQTT message on topic esp/ds18b20/temperature
     uint16_t packetIdPub1 = mqttClient.publish(MQTT_PUB_TEMP, 1, true, String(temp).c_str());                            
     Serial.printf("Publishing on topic %s at QoS 1, packetId: %i ", MQTT_PUB_TEMP, packetIdPub1);
     Serial.printf("Message: %.2f \n", temp);
