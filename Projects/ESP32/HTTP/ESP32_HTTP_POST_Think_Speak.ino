@@ -18,7 +18,7 @@ const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 // Domain Name with full URL Path for HTTP POST Request
 const char* serverName = "http://api.thingspeak.com/update";
 // Service API Key
-//String apiKey = "REPLACE_WITH_YOUR_API_KEY";
+String apiKey = "REPLACE_WITH_YOUR_API_KEY";
 
 // THE DEFAULT TIMER IS SET TO 10 SECONDS FOR TESTING PURPOSES
 // For a final application, check the API call limits per hour/minute to avoid getting blocked/banned
