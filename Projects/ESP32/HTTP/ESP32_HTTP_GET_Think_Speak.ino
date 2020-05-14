@@ -48,9 +48,9 @@ void setup() {
 }
 
 void loop() {
-  //Send an HTTP POST request every 10 minutes
+  // Send an HTTP GET request
   if ((millis() - lastTime) > timerDelay) {
-    //Check WiFi connection status
+    // Check WiFi connection status
     if(WiFi.status()== WL_CONNECTED){
       HTTPClient http;
 
