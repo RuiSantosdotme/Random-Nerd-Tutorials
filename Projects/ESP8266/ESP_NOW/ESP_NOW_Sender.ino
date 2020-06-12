@@ -28,6 +28,9 @@ typedef struct struct_message {
 // Create a struct_message called myData
 struct_message myData;
 
+unsigned long lastTime = 0;  
+unsigned long timerDelay = 2000;  // send readings timer
+
 // Callback when data is sent
 void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
   Serial.print("Last Packet Send Status: ");
@@ -62,15 +65,17 @@ void setup() {
 }
  
 void loop() {
-  // Set values to send
-  strcpy(myData.a, "THIS IS A CHAR");
-  myData.b = random(1,20);
-  myData.c = 1.2;
-  myData.d = "Hello";
-  myData.e = false;
+  if ((millis() - lastTime) > timerDelay) {
+    // Set values to send
+    strcpy(myData.a, "THIS IS A CHAR");
+    myData.b = random(1,20);
+    myData.c = 1.2;
+    myData.d = "Hello";
+    myData.e = false;
 
-  // Send message via ESP-NOW
-  esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
+    // Send message via ESP-NOW
+    esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
 
-  delay(2000);
+    lastTime = millis();
+  }
 }
