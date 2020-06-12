@@ -27,6 +27,9 @@ typedef struct test_struct {
 test_struct test;
 test_struct test2;
 
+unsigned long lastTime = 0;  
+unsigned long timerDelay = 2000;  // send readings timer
+
 // Callback when data is sent
 void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
   char macStr[18];
@@ -70,15 +73,16 @@ void setup() {
 }
  
 void loop() {
-  // Set values to send
-  test.x = random(1, 50);
-  test.y = random(1, 50);
-  test2.x = random(1, 50);
-  test2.y = random(1, 50);
+  if ((millis() - lastTime) > timerDelay) {
+    // Set values to send
+    test.x = random(1, 50);
+    test.y = random(1, 50);
+    test2.x = random(1, 50);
+    test2.y = random(1, 50);
 
-  // Send message via ESP-NOW
-  esp_now_send(broadcastAddress1, (uint8_t *) &test, sizeof(test));
-  esp_now_send(broadcastAddress2, (uint8_t *) &test2, sizeof(test2));
-
-  delay(2000);
+    // Send message via ESP-NOW
+    esp_now_send(broadcastAddress1, (uint8_t *) &test, sizeof(test));
+    esp_now_send(broadcastAddress2, (uint8_t *) &test2, sizeof(test2));
+    lastTime = millis();
+  }
 }
