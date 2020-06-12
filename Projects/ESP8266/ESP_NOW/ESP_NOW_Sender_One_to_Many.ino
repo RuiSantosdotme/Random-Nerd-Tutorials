@@ -26,6 +26,9 @@ typedef struct test_struct {
 // Create a struct_message called test to store variables to be sent
 test_struct test;
 
+unsigned long lastTime = 0;  
+unsigned long timerDelay = 2000;  // send readings timer
+
 // Callback when data is sent
 void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
   char macStr[18];
@@ -69,12 +72,14 @@ void setup() {
 }
  
 void loop() {
-  // Set values to send
-  test.x = random(1, 50);
-  test.y = random(1, 50);
+  if ((millis() - lastTime) > timerDelay) {
+    // Set values to send
+    test.x = random(1, 50);
+    test.y = random(1, 50);
 
-  // Send message via ESP-NOW
-  esp_now_send(0, (uint8_t *) &test, sizeof(test));
+    // Send message via ESP-NOW
+    esp_now_send(0, (uint8_t *) &test, sizeof(test));
 
-  delay(2000);
+    lastTime = millis();
+  }
 }
