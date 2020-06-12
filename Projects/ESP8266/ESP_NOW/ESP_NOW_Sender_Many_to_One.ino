@@ -12,45 +12,41 @@
 #include <ESP8266WiFi.h>
 #include <espnow.h>
 
-// Structure example to receive data
-// Must match the sender structure
+// REPLACE WITH RECEIVER MAC Address
+uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+// Set your Board ID (ESP32 Sender #1 = BOARD_ID 1, ESP32 Sender #2 = BOARD_ID 2, etc)
+#define BOARD_ID 2
+
+// Structure example to send data
+// Must match the receiver structure
 typedef struct struct_message {
     int id;
     int x;
     int y;
 } struct_message;
 
-// Create a struct_message called myData
+// Create a struct_message called test to store variables to be sent
 struct_message myData;
 
-// Create a structure to hold the readings from each board
-struct_message board1;
-struct_message board2;
+unsigned long lastTime = 0;
+unsigned long timerDelay = 10000;
 
-// Create an array with all the structures
-struct_message boardsStruct[2] = {board1, board2};
-
-// Callback function that will be executed when data is received
-void OnDataRecv(uint8_t * mac_addr, uint8_t *incomingData, uint8_t len) {
-  char macStr[18];
-  Serial.print("Packet received from: ");
-  snprintf(macStr, sizeof(macStr), "%02x:%02x:%02x:%02x:%02x:%02x",
-           mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
-  Serial.println(macStr);
-  memcpy(&myData, incomingData, sizeof(myData));
-  Serial.printf("Board ID %u: %u bytes\n", myData.id, len);
-  // Update the structures with the new incoming data
-  boardsStruct[myData.id-1].x = myData.x;
-  boardsStruct[myData.id-1].y = myData.y;
-  Serial.printf("x value: %d \n", boardsStruct[myData.id-1].x);
-  Serial.printf("y value: %d \n", boardsStruct[myData.id-1].y);
-  Serial.println();
+// Callback when data is sent
+void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
+  Serial.print("\r\nLast Packet Send Status: ");
+  if (sendStatus == 0){
+    Serial.println("Delivery success");
+  }
+  else{
+    Serial.println("Delivery fail");
+  }
 }
  
 void setup() {
-  // Initialize Serial Monitor
+  // Init Serial Monitor
   Serial.begin(115200);
-  
+ 
   // Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
@@ -59,19 +55,28 @@ void setup() {
   if (esp_now_init() != 0) {
     Serial.println("Error initializing ESP-NOW");
     return;
-  }
-  
-  // Once ESPNow is successfully Init, we will register for recv CB to
-  // get recv packer info
-  esp_now_set_self_role(ESP_NOW_ROLE_SLAVE);
-  esp_now_register_recv_cb(OnDataRecv);
-}
+  } 
+  // Set ESP-NOW role
+  esp_now_set_self_role(ESP_NOW_ROLE_CONTROLLER);
 
-void loop(){
-  // Access the variables for each board
-  /*int board1X = boardsStruct[0].x;
-  int board1Y = boardsStruct[0].y;
-  int board2X = boardsStruct[1].x;
-  int board2Y = boardsStruct[1].y;
-  */
+  // Once ESPNow is successfully init, we will register for Send CB to
+  // get the status of Trasnmitted packet
+  esp_now_register_send_cb(OnDataSent);
+  
+  // Register peer
+  esp_now_add_peer(broadcastAddress, ESP_NOW_ROLE_SLAVE, 1, NULL, 0);
+
+}
+ 
+void loop() {
+  if ((millis() - lastTime) > timerDelay) {
+    // Set values to send
+    myData.id = BOARD_ID;
+    myData.x = random(1, 50);
+    myData.y = random(1, 50);
+
+    // Send message via ESP-NOW
+    esp_now_send(0, (uint8_t *) &myData, sizeof(myData));
+    lastTime = millis();
+  }
 }
