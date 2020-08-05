@@ -1,6 +1,6 @@
 /*********
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp8266-nodemcu-bme680-web-server-arduino/
+  Complete project details at https://RandomNerdTutorials.com/esp32-bme680-sensor-arduino/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
