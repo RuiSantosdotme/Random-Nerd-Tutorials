@@ -10,13 +10,10 @@
 */
 
 #include <esp_now.h>
+#include <esp_wifi.h>
 #include <WiFi.h>
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
-
-//The gateway access point credentials
-const char* ssid = "ESP32-Access-Point";
-const char* password = "123456789";
 
 // Set your Board ID (ESP32 Sender #1 = BOARD_ID 1, ESP32 Sender #2 = BOARD_ID 2, etc)
 #define BOARD_ID 1
@@ -34,9 +31,6 @@ DHT dht(DHTPIN, DHTTYPE);
 //MAC Address of the receiver 
 uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
-//Wi-Fi channel (must match the gateway wi-fi channel as an access point)
-#define CHAN_AP 2
-
 //Structure example to send data
 //Must match the receiver structure
 typedef struct struct_message {
@@ -53,6 +47,20 @@ unsigned long previousMillis = 0;   // Stores last time temperature was publishe
 const long interval = 10000;        // Interval at which to publish sensor readings
 
 unsigned int readingId = 0;
+
+// Insert your SSID
+constexpr char WIFI_SSID[] = "REPLACE_WITH_YOUR_SSID";
+
+int32_t getWiFiChannel(const char *ssid) {
+  if (int32_t n = WiFi.scanNetworks()) {
+      for (uint8_t i=0; i<n; i++) {
+          if (!strcmp(ssid, WiFi.SSID(i).c_str())) {
+              return WiFi.channel(i);
+          }
+      }
+  }
+  return 0;
+}
 
 float readDHTTemperature() {
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
@@ -96,13 +104,16 @@ void setup() {
 
   dht.begin();
  
-  //Set device as a Wi-Fi Station
+  // Set device as a Wi-Fi Station and set channel
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to Access Point...");
-  }
+
+  int32_t channel = getWiFiChannel(WIFI_SSID);
+
+  WiFi.printDiag(Serial); // Uncomment to verify channel number before
+  esp_wifi_set_promiscuous(true);
+  esp_wifi_set_channel(channel, WIFI_SECOND_CHAN_NONE);
+  esp_wifi_set_promiscuous(false);
+  WiFi.printDiag(Serial); // Uncomment to verify channel change after
 
   //Init ESP-NOW
   if (esp_now_init() != ESP_OK) {
