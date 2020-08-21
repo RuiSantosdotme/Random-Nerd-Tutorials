@@ -15,15 +15,8 @@
 #include <Arduino_JSON.h>
 
 // Replace with your network credentials (STATION)
-const char* ssidStation = "REPLACE_WITH_YOUR_ROUTER_SSID";
-const char* passwordStation = "REPLACE_WITH_YOUR_ROUTER_PASSWORD";
-
-// ACCESS POINT credentials
-const char* ssidAP = "ESP32-Access-Point";
-const char* passwordAP = "123456789";
-
-// Wi-Fi channel for the access point (must match the sender channel)
-#define CHAN_AP 2
+const char* ssid = "REPLACE_WITH_YOUR_SSID";
+const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
 // Structure example to receive data
 // Must match the sender structure
@@ -144,7 +137,7 @@ void setup() {
   WiFi.mode(WIFI_AP_STA);
   
   // Set device as a Wi-Fi Station
-  WiFi.begin(ssidStation, passwordStation);
+  WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Setting as a Wi-Fi Station..");
@@ -153,9 +146,6 @@ void setup() {
   Serial.println(WiFi.localIP());
   Serial.print("Wi-Fi Channel: ");
   Serial.println(WiFi.channel());
-
-  // Set device as an access point
-  WiFi.softAP(ssidAP, passwordAP, CHAN_AP, true);  
 
   // Init ESP-NOW
   if (esp_now_init() != ESP_OK) {
