@@ -128,7 +128,6 @@ void setup() {
   //Register peer
   esp_now_peer_info_t peerInfo;
   memcpy(peerInfo.peer_addr, broadcastAddress, 6);
-  peerInfo.channel = CHAN_AP;  
   peerInfo.encrypt = false;
   
   //Add peer        
