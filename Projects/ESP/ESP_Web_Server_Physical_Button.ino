@@ -98,7 +98,7 @@ String processor(const String& var){
   if(var == "BUTTONPLACEHOLDER"){
     String buttons ="";
     String outputStateValue = outputState();
-    buttons+= "<h4>Output - GPIO 2 - State <span id=\"outputState\"><span></h4><label class=\"switch\"><input type=\"checkbox\" onchange=\"toggleCheckbox(this)\" id=\"output\" " + outputStateValue + "><span class=\"slider\"></span></label>";
+    buttons+= "<h4>Output - GPIO 2 - State <span id=\"outputState\"></span></h4><label class=\"switch\"><input type=\"checkbox\" onchange=\"toggleCheckbox(this)\" id=\"output\" " + outputStateValue + "><span class=\"slider\"></span></label>";
     return buttons;
   }
   return String();
