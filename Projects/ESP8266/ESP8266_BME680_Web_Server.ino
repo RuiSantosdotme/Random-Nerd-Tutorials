@@ -91,7 +91,6 @@ const char index_html[] PROGMEM = R"rawliteral(
     .card { background-color: white; box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5); }
     .cards { max-width: 700px; margin: 0 auto; display: grid; grid-gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
     .reading { font-size: 2.8rem; }
-    .packet { color: #bebebe; }
     .card.temperature { color: #0e7c7b; }
     .card.humidity { color: #17bebb; }
     .card.pressure { color: #3fca6b; }
