@@ -178,7 +178,7 @@ void loop() {
   if ((millis() - lastTime) > timerDelay) {
     getSensorReadings();
     Serial.printf("Temperature = %.2f ºC \n", temperature);
-    Serial.printf("Humidity = %.2f % \n", humidity);
+    Serial.printf("Humidity = %.2f \n", humidity);
     Serial.printf("Pressure = %.2f hPa \n", pressure);
     Serial.println();
 
