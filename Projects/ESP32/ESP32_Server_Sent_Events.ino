@@ -76,6 +76,7 @@ String processor(const String& var){
   else if(var == "PRESSURE"){
     return String(pressure);
   }
+  return String();
 }
 
 const char index_html[] PROGMEM = R"rawliteral(
