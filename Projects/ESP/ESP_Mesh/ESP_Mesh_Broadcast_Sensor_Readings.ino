@@ -78,7 +78,7 @@ void receivedCallback( uint32_t from, String &msg ) {
   Serial.print(hum);
   Serial.println(" %");
   Serial.print("Pressure: ");
-  Serial.print(temp);
+  Serial.print(pres);
   Serial.println(" hpa");
 }
 
