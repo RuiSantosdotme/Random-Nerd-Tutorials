@@ -169,7 +169,7 @@ void loop() {
     // Uncomment to compute temperature values in Fahrenheit 
     // float hif = dht.computeHeatIndex(f, h);
     // static char temperatureTemp[7];
-    // dtostrf(hic, 6, 2, temperatureTemp);
+    // dtostrf(hif, 6, 2, temperatureTemp);
     
     static char humidityTemp[7];
     dtostrf(h, 6, 2, humidityTemp);
