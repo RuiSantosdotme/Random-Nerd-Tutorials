@@ -1,6 +1,6 @@
 /*
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp8266-mqtt-publish-bme680-arduino/
+  Complete project details at https://RandomNerdTutorials.com/esp8266-nodemcu-mqtt-publish-bme680-arduino/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
