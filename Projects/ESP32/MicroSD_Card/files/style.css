@@ -1,0 +1,8 @@
+html {
+    font-family: Arial; 
+    text-align: center;
+}
+body {
+    max-width: 400px; 
+    margin:0px auto;
+}
