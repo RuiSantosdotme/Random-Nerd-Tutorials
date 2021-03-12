@@ -148,8 +148,7 @@ const char index_html[] PROGMEM = R"rawliteral(
   }
 </script>
 </body>
-</html>
-)rawliteral";
+</html>)rawliteral";
 
 void notifyClients() {
   ws.textAll(String(ledState));
@@ -199,6 +198,7 @@ String processor(const String& var){
       return "OFF";
     }
   }
+  return String();
 }
 
 void setup(){
