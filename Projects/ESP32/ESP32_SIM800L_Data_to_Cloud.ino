@@ -75,7 +75,7 @@ Adafruit_BME280 bme;
 // TinyGSM Client for Internet connection
 TinyGsmClient client(modem);
 
-#define uS_TO_S_FACTOR 1000000     /* Conversion factor for micro seconds to seconds */
+#define uS_TO_S_FACTOR 1000000UL   /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP  3600        /* Time ESP32 will go to sleep (in seconds) 3600 seconds = 1 hour */
 
 #define IP5306_ADDR          0x75
