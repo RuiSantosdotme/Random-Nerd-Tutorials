@@ -15,7 +15,11 @@ void setup(){
   Serial.print("[OLD] ESP32 Board MAC Address:  ");
   Serial.println(WiFi.macAddress());
   
-  esp_wifi_set_mac(ESP_IF_WIFI_STA, &newMACAddress[0]);
+  // ESP32 Board add-on before version < 1.0.5
+  //esp_wifi_set_mac(ESP_IF_WIFI_STA, &newMACAddress[0]);
+  
+  // ESP32 Board add-on after version > 1.0.5
+  esp_wifi_set_mac(WIFI_IF_STA, &newMACAddress[0]);
   
   Serial.print("[NEW] ESP32 Board MAC Address:  ");
   Serial.println(WiFi.macAddress());
