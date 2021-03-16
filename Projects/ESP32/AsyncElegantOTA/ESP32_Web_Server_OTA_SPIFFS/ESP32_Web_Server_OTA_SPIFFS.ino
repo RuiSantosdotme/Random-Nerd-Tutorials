@@ -1,6 +1,8 @@
 /*
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp32-ota-over-the-air-arduino/
+  Complete project details
+   - Arduino IDE: https://RandomNerdTutorials.com/esp32-ota-over-the-air-arduino/
+   - VS Code: https://RandomNerdTutorials.com/esp32-ota-over-the-air-vs-code/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
