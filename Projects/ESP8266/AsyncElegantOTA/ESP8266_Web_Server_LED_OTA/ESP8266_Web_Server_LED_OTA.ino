@@ -1,7 +1,9 @@
 /*
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp8266-nodemcu-ota-over-the-air-arduino/
-  
+  Complete project details
+   - Arduino IDE: https://RandomNerdTutorials.com/esp8266-nodemcu-ota-over-the-air-arduino/
+   - VS Code: https://RandomNerdTutorials.com/esp8266-nodemcu-ota-over-the-air-vs-code/
+     
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
   
@@ -10,6 +12,7 @@
 */
 
 // Import required libraries
+#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
