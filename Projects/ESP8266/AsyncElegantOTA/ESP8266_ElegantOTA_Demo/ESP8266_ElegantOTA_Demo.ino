@@ -1,11 +1,14 @@
 /*
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp8266-nodemcu-ota-over-the-air-arduino/
-  
+  Complete project details
+   - Arduino IDE: https://RandomNerdTutorials.com/esp8266-nodemcu-ota-over-the-air-arduino/
+   - VS Code: https://RandomNerdTutorials.com/esp8266-nodemcu-ota-over-the-air-vs-code/
+     
   This sketch shows a Basic example from the AsyncElegantOTA library: ESP8266_Async_Demo
   https://github.com/ayushsharma82/AsyncElegantOTA
 */
 
+#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
