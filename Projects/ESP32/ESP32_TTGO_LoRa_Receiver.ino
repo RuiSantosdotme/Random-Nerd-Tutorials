@@ -37,6 +37,8 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RST);
 String LoRaData;
 
 void setup() { 
+  //initialize Serial Monitor
+  Serial.begin(115200);
   
   //reset OLED display via software
   pinMode(OLED_RST, OUTPUT);
@@ -57,9 +59,6 @@ void setup() {
   display.setCursor(0,0);
   display.print("LORA RECEIVER ");
   display.display();
-  
-  //initialize Serial Monitor
-  Serial.begin(115200);
 
   Serial.println("LoRa Receiver Test");
   
