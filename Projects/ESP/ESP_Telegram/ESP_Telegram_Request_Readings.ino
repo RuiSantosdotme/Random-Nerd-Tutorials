@@ -31,6 +31,10 @@ const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 // Initialize Telegram BOT
 #define BOTtoken "XXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"  // your Bot Token (Get from Botfather)
 
+#ifdef ESP8266
+  X509List cert(TELEGRAM_CERTIFICATE_ROOT);
+#endif
+
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
@@ -89,9 +93,10 @@ void setup() {
   Serial.begin(115200);
 
   #ifdef ESP8266
-    client.setInsecure();
+    configTime(0, 0, "pool.ntp.org");      // get UTC time via NTP
+    client.setTrustAnchors(&cert); // Add root certificate for api.telegram.org
   #endif
-
+  
   // Init BME280 sensor
   if (!bme.begin(0x76)) {
     Serial.println("Could not find a valid BME280 sensor, check wiring!");
@@ -101,6 +106,9 @@ void setup() {
   // Connect to Wi-Fi
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
+  #ifdef ESP32
+    client.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
+  #endif
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi..");
