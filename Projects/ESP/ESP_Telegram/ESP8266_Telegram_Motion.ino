@@ -22,6 +22,7 @@ const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 // message you
 #define CHAT_ID "XXXXXXXXXX"
 
+X509List cert(TELEGRAM_CERTIFICATE_ROOT);
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
@@ -36,7 +37,8 @@ void ICACHE_RAM_ATTR detectsMovement() {
 
 void setup() {
   Serial.begin(115200);
-  client.setInsecure();
+  configTime(0, 0, "pool.ntp.org");      // get UTC time via NTP
+  client.setTrustAnchors(&cert); // Add root certificate for api.telegram.org
 
   // PIR Motion Sensor mode INPUT_PULLUP
   pinMode(motionSensor, INPUT_PULLUP);
