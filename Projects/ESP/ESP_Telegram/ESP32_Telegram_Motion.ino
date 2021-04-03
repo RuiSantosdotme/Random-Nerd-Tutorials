@@ -48,7 +48,8 @@ void setup() {
 
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-
+  client.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
+  
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
     delay(500);
