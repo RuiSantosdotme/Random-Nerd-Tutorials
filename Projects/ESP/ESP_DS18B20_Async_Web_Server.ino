@@ -12,7 +12,7 @@
   #include <ESP8266WiFi.h>
   #include <Hash.h>
   #include <ESPAsyncTCP.h>
-  #include <ESPAsyncWebServer.h>
+  #include <ESPAsyncWebServer.h>S
 #endif
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -25,6 +25,14 @@ OneWire oneWire(ONE_WIRE_BUS);
 
 // Pass our oneWire reference to Dallas Temperature sensor 
 DallasTemperature sensors(&oneWire);
+
+// Variables to store temperature values
+String temperatureF = "";
+String temperatureC = "";
+
+// Timer variables
+unsigned long lastTime = 0;  
+unsigned long timerDelay = 30000;
 
 // Replace with your network credentials
 const char* ssid = "REPLACE_WITH_YOUR_SSID";
@@ -128,10 +136,10 @@ setInterval(function ( ) {
 String processor(const String& var){
   //Serial.println(var);
   if(var == "TEMPERATUREC"){
-    return readDSTemperatureC();
+    return temperatureC;
   }
   else if(var == "TEMPERATUREF"){
-    return readDSTemperatureF();
+    return temperatureF;
   }
   return String();
 }
@@ -143,7 +151,10 @@ void setup(){
   
   // Start up the DS18B20 library
   sensors.begin();
-  
+
+  temperatureC = readDSTemperatureC();
+  temperatureF = readDSTemperatureF();
+
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
   Serial.println("Connecting to WiFi");
@@ -161,15 +172,19 @@ void setup(){
     request->send_P(200, "text/html", index_html, processor);
   });
   server.on("/temperaturec", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", readDSTemperatureC().c_str());
+    request->send_P(200, "text/plain", temperatureC.c_str());
   });
   server.on("/temperaturef", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", readDSTemperatureF().c_str());
+    request->send_P(200, "text/plain", temperatureF.c_str());
   });
   // Start server
   server.begin();
 }
  
 void loop(){
-  
+  if ((millis() - lastTime) > timerDelay) {
+    temperatureC = readDSTemperatureC();
+    temperatureF = readDSTemperatureF();
+    lastTime = millis();
+  }  
 }
