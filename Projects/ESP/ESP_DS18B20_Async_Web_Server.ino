@@ -132,7 +132,7 @@ setInterval(function ( ) {
 </script>
 </html>)rawliteral";
 
-// Replaces placeholder with DHT values
+// Replaces placeholder with DS18B20 values
 String processor(const String& var){
   //Serial.println(var);
   if(var == "TEMPERATUREC"){
