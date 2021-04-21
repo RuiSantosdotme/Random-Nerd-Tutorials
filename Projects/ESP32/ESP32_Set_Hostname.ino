@@ -15,7 +15,7 @@
 const char* ssid = "REPLACE_WITH_YOUR_SSID";
 const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
-String hostname = "ESP32Node";
+String hostname = "ESP32 Node Temperature";
 
 void initWiFi() {
   WiFi.mode(WIFI_STA);
