@@ -28,6 +28,10 @@ AsyncEventSource events("/events");
 // Json Variable to Hold Sensor Readings
 JSONVar readings;
 
+// Timer variables
+unsigned long lastTime = 0;
+unsigned long timerDelay = 10000;
+
 // GPIO where the DS18B20 sensors are connected to
 const int oneWireBus = 4;
 
