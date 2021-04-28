@@ -30,7 +30,7 @@ JSONVar readings;
 
 // Timer variables
 unsigned long lastTime = 0;
-unsigned long timerDelay = 10000;
+unsigned long timerDelay = 30000;
 
 // GPIO where the DS18B20 sensors are connected to
 const int oneWireBus = 4;
