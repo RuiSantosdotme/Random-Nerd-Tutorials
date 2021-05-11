@@ -74,6 +74,7 @@ String readFile(fs::FS &fs, const char * path){
   while(file.available()){
     fileContent+=String((char)file.read());
   }
+  file.close();
   Serial.println(fileContent);
   return fileContent;
 }
@@ -90,6 +91,7 @@ void writeFile(fs::FS &fs, const char * path, const char * message){
   } else {
     Serial.println("- write failed");
   }
+  file.close();
 }
 
 // Replaces placeholder with stored values
