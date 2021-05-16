@@ -85,7 +85,7 @@ void loop() {
 
     // set the fields with the values
     ThingSpeak.setField(1, temperatureC);
-    //ThingSpeak.setField(1, temperatureC);
+    //ThingSpeak.setField(1, temperatureF);
     ThingSpeak.setField(2, humidity);
     ThingSpeak.setField(3, pressure);
     
