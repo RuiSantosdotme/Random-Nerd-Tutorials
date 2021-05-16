@@ -16,13 +16,13 @@
 #include <Adafruit_BME280.h>
 #include <Adafruit_Sensor.h>
 
-const char* ssid = "MEO-D32A40";   // your network SSID (name) 
-const char* password = "384e6d3cec";   // your network password
+const char* ssid = "REPLACE_WITH_YOUR_SSID";   // your network SSID (name) 
+const char* password = "REPLACE_WITH_YOUR_PASSWORD";   // your network password
 
 WiFiClient  client;
 
-unsigned long myChannelNumber = 1;
-const char * myWriteAPIKey = "HEO0X0MWGDHX8B32";
+unsigned long myChannelNumber = X;
+const char * myWriteAPIKey = "XXXXXXXXXXXXXXXX";
 
 // Timer variables
 unsigned long lastTime = 0;
