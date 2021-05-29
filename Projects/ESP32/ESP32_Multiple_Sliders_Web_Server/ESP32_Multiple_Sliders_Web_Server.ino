@@ -93,21 +93,21 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
     message = (char*)data;
     if (message.indexOf("1s") >= 0) {
       sliderValue1 = message.substring(2);
-      dutyCycle1 = map(sliderValue1.toInt(), 0, 100, 0, 1023);
+      dutyCycle1 = map(sliderValue1.toInt(), 0, 100, 0, 255);
       Serial.println(dutyCycle1);
       Serial.print(getSliderValues());
       notifyClients(getSliderValues());
     }
     if (message.indexOf("2s") >= 0) {
       sliderValue2 = message.substring(2);
-      dutyCycle2 = map(sliderValue2.toInt(), 0, 100, 0, 1023);
+      dutyCycle2 = map(sliderValue2.toInt(), 0, 100, 0, 255);
       Serial.println(dutyCycle2);
       Serial.print(getSliderValues());
       notifyClients(getSliderValues());
     }    
     if (message.indexOf("3s") >= 0) {
       sliderValue3 = message.substring(2);
-      dutyCycle3 = map(sliderValue3.toInt(), 0, 100, 0, 1023);
+      dutyCycle3 = map(sliderValue3.toInt(), 0, 100, 0, 255);
       Serial.println(dutyCycle3);
       Serial.print(getSliderValues());
       notifyClients(getSliderValues());
