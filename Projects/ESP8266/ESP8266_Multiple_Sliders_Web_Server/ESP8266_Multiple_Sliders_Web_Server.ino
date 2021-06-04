@@ -74,8 +74,8 @@ void initWiFi() {
   Serial.println(WiFi.localIP());
 }
 
-void notifyClients(String sliverValues) {
-  ws.textAll(sliverValues);
+void notifyClients(String sliderValues) {
+  ws.textAll(sliderValues);
 }
 
 void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
