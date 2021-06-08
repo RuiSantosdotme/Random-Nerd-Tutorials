@@ -89,7 +89,7 @@ void setup(){
 
   /*
   //Send raw text message
-  String textMsg = "This is simple plain text message";
+  String textMsg = "Hello World! - Sent from ESP board";
   message.text.content = textMsg.c_str();
   message.text.charSet = "us-ascii";
   message.text.transfer_encoding = Content_Transfer_Encoding::enc_7bit;
