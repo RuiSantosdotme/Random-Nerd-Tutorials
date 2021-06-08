@@ -1,4 +1,6 @@
 /*
+  [NEW CODE] https://github.com/RuiSantosdotme/Random-Nerd-Tutorials/blob/master/Projects/ESP/ESP_Email_Simple.ino
+  
   Rui Santos
   Complete project details at https://RandomNerdTutorials.com/esp32-send-email-smtp-server-arduino-ide/
   
