@@ -2,7 +2,7 @@
   Adapted from WriteSingleField Example from ThingSpeak Library (Mathworks)
   
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/
+  Complete project details at https://RandomNerdTutorials.com/esp8266-nodemcu-thingspeak-publish-arduino/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
