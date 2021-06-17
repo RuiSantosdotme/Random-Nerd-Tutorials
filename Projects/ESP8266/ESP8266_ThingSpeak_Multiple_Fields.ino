@@ -37,7 +37,7 @@ float pressure;
 String myStatus = "";
 
 // Create a sensor object
-Adafruit_BME280 bme; //BME280 connect to ESP8266 I2C (GPIO 21 = SDA, GPIO 22 = SCL)
+Adafruit_BME280 bme; //BME280 connect to ESP8266 I2C (GPIO 4 = SDA, GPIO 5 = SCL)
 
 void initBME(){
   if (!bme.begin(0x76)) {
