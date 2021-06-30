@@ -1,14 +1,14 @@
 # Complete project details at https://RandomNerdTutorials.com/micropython-ssd1306-oled-scroll-shapes-esp32-esp8266/
 
-from machine import Pin, I2C
+from machine import Pin, SoftI2C
 import ssd1306
 from time import sleep
 
-# ESP32 Pin assignment 
-i2c = I2C(-1, scl=Pin(22), sda=Pin(21))
+# ESP32 Pin assignment
+i2c = SoftI2C(scl=Pin(22), sda=Pin(21))
 
 # ESP8266 Pin assignment
-#i2c = I2C(-1, scl=Pin(5), sda=Pin(4))
+#i2c = SoftI2C(scl=Pin(5), sda=Pin(4))
 
 oled_width = 128
 oled_height = 64
@@ -36,7 +36,7 @@ def scroll_in_screen(screen):
     if i!= oled_width:
       oled.fill(0)
 
-# Scroll out screen horizontally from left to right    
+# Scroll out screen horizontally from left to right
 def scroll_out_screen(speed):
   for i in range ((oled_width+1)/speed):
     for j in range (oled_height):
@@ -52,8 +52,8 @@ def scroll_screen_in_out(screen):
     oled.show()
     if i!= oled_width:
       oled.fill(0)
- 
-# Scroll in screen vertically 
+
+# Scroll in screen vertically
 def scroll_in_screen_v(screen):
   for i in range (0, (oled_height+1), 1):
     for line in screen:
@@ -61,8 +61,8 @@ def scroll_in_screen_v(screen):
     oled.show()
     if i!= oled_height:
       oled.fill(0)
-      
-# Scroll out screen vertically 
+
+# Scroll out screen vertically
 def scroll_out_screen_v(speed):
   for i in range ((oled_height+1)/speed):
     for j in range (oled_width):
@@ -85,34 +85,34 @@ while True:
   scroll_in_screen(screen1)
   sleep(2)
   scroll_out_screen(4)
-  
+
   scroll_in_screen(screen2)
   sleep(2)
   scroll_out_screen(4)
-  
+
   scroll_in_screen(screen3)
   sleep(2)
   scroll_out_screen(4)
-  
+
   # Continuous horizontal scroll
   scroll_screen_in_out(screen1)
   scroll_screen_in_out(screen2)
   scroll_screen_in_out(screen3)
-  
+
   # Scroll in, stop, scroll out (vertical)
   scroll_in_screen_v(screen1)
   sleep(2)
   scroll_out_screen_v(4)
-  
+
   scroll_in_screen_v(screen2)
   sleep(2)
   scroll_out_screen_v(4)
-  
+
   scroll_in_screen_v(screen3)
   sleep(2)
   scroll_out_screen_v(4)
-  
-  # Continuous verticall scroll 
+
+  # Continuous verticall scroll
   scroll_screen_in_out_v(screen1)
   scroll_screen_in_out_v(screen2)
   scroll_screen_in_out_v(screen3)
