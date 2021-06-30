@@ -2,11 +2,11 @@
   Rui Santos
   Complete project details at Complete project details at https://RandomNerdTutorials.com/esp8266-nodemcu-http-get-post-arduino/
 
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+  
+  Code compatible with ESP8266 Boards Version 3.0.0 or above 
+  (see in Tools > Boards > Boards Manager > ESP8266)
 */
 
 #include <ESP8266WiFi.h>
@@ -44,16 +44,17 @@ void setup() {
 }
 
 void loop() {
-  //Send an HTTP POST request every 10 minutes
+  // Send an HTTP POST request depending on timerDelay
   if ((millis() - lastTime) > timerDelay) {
     //Check WiFi connection status
     if(WiFi.status()== WL_CONNECTED){
+      WiFiClient client;
       HTTPClient http;
 
       String serverPath = serverName + "?temperature=24.37";
       
       // Your Domain name with URL path or IP address with path
-      http.begin(serverPath.c_str());
+      http.begin(client, serverPath.c_str());
       
       // Send HTTP GET request
       int httpResponseCode = http.GET();
