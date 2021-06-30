@@ -1,11 +1,11 @@
 # Complete project details at https://RandomNerdTutorials.com
 
-from machine import Pin, I2C
+from machine import Pin, SoftI2C
 import ssd1306
 from time import sleep
 
 # Start I2C Communication SCL = 4 and SDA = 5 on Wemos Lolin32 ESP32 with built-in SSD1306 OLED
-i2c = I2C(-1, scl=Pin(4), sda=Pin(5))
+i2c = SoftI2C(scl=Pin(4), sda=Pin(5))
 
 oled_width = 128
 oled_height = 64
