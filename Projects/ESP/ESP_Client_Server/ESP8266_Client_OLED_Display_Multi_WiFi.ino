@@ -54,9 +54,10 @@ void setup() {
   display.clearDisplay();
   display.setTextColor(WHITE);
  
-  WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP(ssid, password);
-  while((WiFiMulti.run() == WL_CONNECTED)) { 
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
