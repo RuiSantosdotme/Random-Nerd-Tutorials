@@ -52,10 +52,11 @@ void loop() {
   if ((millis() - lastTime) > timerDelay) {
     //Check WiFi connection status
     if(WiFi.status()== WL_CONNECTED){
+      WiFiClient client;
       HTTPClient http;
-      
+    
       // Your Domain name with URL path or IP address with path
-      http.begin(serverName);
+      http.begin(client, serverName);
       
       // Specify content-type header
       http.addHeader("Content-Type", "application/x-www-form-urlencoded");
