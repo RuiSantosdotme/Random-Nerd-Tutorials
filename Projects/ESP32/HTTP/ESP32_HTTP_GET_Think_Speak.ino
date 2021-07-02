@@ -52,12 +52,13 @@ void loop() {
   if ((millis() - lastTime) > timerDelay) {
     // Check WiFi connection status
     if(WiFi.status()== WL_CONNECTED){
+      WiFiClient client;
       HTTPClient http;
 
       String serverPath = serverName + "&field1=" + String(random(40));
       
       // Your Domain name with URL path or IP address with path
-      http.begin(serverPath.c_str());
+      http.begin(client, serverPath.c_str());
       
       // Send HTTP GET request
       int httpResponseCode = http.GET();
