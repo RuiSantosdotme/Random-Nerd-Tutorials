@@ -21,10 +21,10 @@ const char* ssid = "REPLACE_WITH_YOUR_SSID";
 const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
 //Uncomment if using SPI
-/*#define BME_SCK 14
-#define BME_MISO 12
-#define BME_MOSI 13
-#define BME_CS 15*/
+/*#define BMP_SCK 14
+#define BMP_MISO 12
+#define BMP_MOSI 13
+#define BMP_CS 15*/
 
 #define SEALEVELPRESSURE_HPA (1013.25)
 
