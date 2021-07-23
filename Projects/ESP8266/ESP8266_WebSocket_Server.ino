@@ -194,6 +194,7 @@ String processor(const String& var){
       return "OFF";
     }
   }
+  return String();
 }
 
 void setup(){
