@@ -62,7 +62,7 @@ void setup() {
   // Clear the buffer
   display3.clearDisplay();
 
-  // Init OLED display on bus number 4
+  // Init OLED display on bus number 5
   TCA9548A(5);
   if(!display4.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
     Serial.println(F("SSD1306 allocation failed"));
