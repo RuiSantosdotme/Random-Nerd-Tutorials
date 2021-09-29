@@ -70,9 +70,10 @@ String processor(const String& var){
   else if(var == "PRESSURE"){
     return String(pressure);
   }
- else if(var == "GAS"){
+  else if(var == "GAS"){
     return String(gasResistance);
   }
+  return String();
 }
 
 const char index_html[] PROGMEM = R"rawliteral(
