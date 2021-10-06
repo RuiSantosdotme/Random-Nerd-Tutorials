@@ -1,0 +1,78 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 1.8rem;
+  color: white;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #0A1128;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+}
+
+.content {
+  padding: 20px;
+  max-width: max-content;
+  margin: 0 auto;
+}
+
+form{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+input[type=number], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #034078;
+  border: none;
+  padding: 14px 20px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 4px;
+  transition-duration: 0.4s;
+  width: 100%;
+  color: white;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #1282A2;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+}
+
+input[type="radio"]:checked{
+  border: 6px solid #1282A2;
+}
