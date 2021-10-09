@@ -23,8 +23,11 @@ typedef struct struct_message {
     int y;
 } struct_message;
 
-//Create a struct_message called myData
+// Create a struct_message called myData
 struct_message myData;
+
+// Create peer interface
+esp_now_peer_info_t peerInfo;
 
 // callback when data is sent
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
@@ -50,7 +53,6 @@ void setup() {
   esp_now_register_send_cb(OnDataSent);
   
   // Register peer
-  esp_now_peer_info_t peerInfo;
   memcpy(peerInfo.peer_addr, broadcastAddress, 6);
   peerInfo.channel = 0;  
   peerInfo.encrypt = false;
