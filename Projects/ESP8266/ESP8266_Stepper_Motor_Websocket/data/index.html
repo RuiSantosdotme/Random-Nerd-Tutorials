@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stepper Motor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+  <div class="topnav">
+    <h1>Stepper Motor Control <i class="fas fa-cogs"></i></h1>
+  </div>
+  <div class="content">
+        <form>
+          <input type="radio" id="CW" name="direction" value="CW" checked>
+          <label for="CW">Clockwise</label>
+          <input type="radio" id="CCW" name="direction" value="CCW">
+          <label for="CW">Counterclockwise</label><br><br><br>
+          <label for="steps">Number of steps:</label>
+          <input type="number" id="steps" name="steps">
+        </form>
+        <button onclick="submitForm()">GO!</button>
+        <p>Motor state: <span id="motor-state">Stopped</span></p>
+        <p><i id="gear" class="fas fa-cog"></i> </p>
+
+  </div>
+</body>
+<script src="script.js"></script>
+</html>
