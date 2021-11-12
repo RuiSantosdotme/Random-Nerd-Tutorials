@@ -132,7 +132,7 @@ void loop() {
         Serial.print(" ºC");
       #else
         static char temperatureFTemp[6];
-        dtostrf(f, 6, 2, temperatureFTemp);
+        dtostrf(tempF, 6, 2, temperatureFTemp);
         //Set temperature Characteristic value and notify connected client
         bmeTemperatureFahrenheitCharacteristics.setValue(tempF);
         bmeTemperatureFahrenheitCharacteristics.notify();
