@@ -42,7 +42,7 @@ bool deviceConnected = false;
   BLEDescriptor bmeTemperatureCelsiusDescriptor(BLEUUID((uint16_t)0x2902));
 #else
   BLECharacteristic bmeTemperatureFahrenheitCharacteristics("f78ebbff-c8b7-4107-93de-889a6a06d408", BLECharacteristic::PROPERTY_NOTIFY);
-  BLEDescriptor bmeTemperatureFahrenheitDescriptor(BLEUUID((uint16_t)0x2901));
+  BLEDescriptor bmeTemperatureFahrenheitDescriptor(BLEUUID((uint16_t)0x2902));
 #endif
 
 // Humidity Characteristic and Descriptor
@@ -88,11 +88,11 @@ void setup() {
   #ifdef temperatureCelsius
     bmeService->addCharacteristic(&bmeTemperatureCelsiusCharacteristics);
     bmeTemperatureCelsiusDescriptor.setValue("BME temperature Celsius");
-    bmeTemperatureCelsiusCharacteristics.addDescriptor(new BLE2902());
+    bmeTemperatureCelsiusCharacteristics.addDescriptor(&bmeTemperatureCelsiusDescriptor);
   #else
-    bmeService->addCharacteristic(&dhtTemperatureFahrenheitCharacteristics);
+    bmeService->addCharacteristic(&bmeTemperatureFahrenheitCharacteristics);
     bmeTemperatureFahrenheitDescriptor.setValue("BME temperature Fahrenheit");
-    bmeTemperatureFahrenheitCharacteristics.addDescriptor(new BLE2902());
+    bmeTemperatureFahrenheitCharacteristics.addDescriptor(&bmeTemperatureFahrenheitDescriptor);
   #endif  
 
   // Humidity
@@ -116,7 +116,7 @@ void loop() {
       // Read temperature as Celsius (the default)
       temp = bme.readTemperature();
       // Fahrenheit
-      tempF = temp*1.8 +32;
+      tempF = 1.8*temp +32;
       // Read humidity
       hum = bme.readHumidity();
   
@@ -134,14 +134,14 @@ void loop() {
         static char temperatureFTemp[6];
         dtostrf(tempF, 6, 2, temperatureFTemp);
         //Set temperature Characteristic value and notify connected client
-        bmeTemperatureFahrenheitCharacteristics.setValue(tempF);
+        bmeTemperatureFahrenheitCharacteristics.setValue(temperatureFTemp);
         bmeTemperatureFahrenheitCharacteristics.notify();
         Serial.print("Temperature Fahrenheit: ");
         Serial.print(tempF);
         Serial.print(" ºF");
       #endif
       
-      //Notify humidity reading from DHT
+      //Notify humidity reading from BME
       static char humidityTemp[6];
       dtostrf(hum, 6, 2, humidityTemp);
       //Set humidity Characteristic value and notify connected client
