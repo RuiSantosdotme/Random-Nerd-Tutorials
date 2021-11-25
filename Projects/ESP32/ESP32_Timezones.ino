@@ -1,6 +1,7 @@
 // RTC demo for ESP32, that includes TZ and DST adjustments
 // Get the POSIX style TZ format string from  https://github.com/nayarsystems/posix_tz_db/blob/master/zones.csv
 // Created by Hardy Maxa
+// Complete project details at: https://RandomNerdTutorials.com/esp32-ntp-timezones-daylight-saving/
 
 #include <WiFi.h>
 #include "time.h"
