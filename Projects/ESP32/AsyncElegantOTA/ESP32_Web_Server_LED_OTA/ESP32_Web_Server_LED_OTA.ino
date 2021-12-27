@@ -235,7 +235,6 @@ void setup(){
 }
 
 void loop() {
-  AsyncElegantOTA.loop();
   ws.cleanupClients();
   digitalWrite(ledPin, ledState);
 }
