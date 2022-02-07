@@ -19,22 +19,27 @@ AsyncWebServer server(80);
 const char* PARAM_INPUT_1 = "ssid";
 const char* PARAM_INPUT_2 = "pass";
 const char* PARAM_INPUT_3 = "ip";
+const char* PARAM_INPUT_4 = "gateway";
+
 
 //Variables to save values from HTML form
 String ssid;
 String pass;
 String ip;
+String gateway;
 
 // File paths to save input values permanently
 const char* ssidPath = "/ssid.txt";
 const char* passPath = "/pass.txt";
 const char* ipPath = "/ip.txt";
+const char* gatewayPath = "/gateway.txt";
 
 IPAddress localIP;
 //IPAddress localIP(192, 168, 1, 200); // hardcoded
 
 // Set your Gateway IP address
-IPAddress gateway(192, 168, 1, 1);
+IPAddress localGateway;
+//IPAddress localGateway(192, 168, 1, 1); //hardcoded
 IPAddress subnet(255, 255, 0, 0);
 
 // Timer variables
@@ -98,8 +103,10 @@ bool initWiFi() {
 
   WiFi.mode(WIFI_STA);
   localIP.fromString(ip.c_str());
+  localGateway.fromString(gateway.c_str());
 
-  if (!WiFi.config(localIP, gateway, subnet)){
+
+  if (!WiFi.config(localIP, localGateway, subnet)){
     Serial.println("STA Failed to configure");
     return false;
   }
@@ -149,9 +156,11 @@ void setup() {
   ssid = readFile(SPIFFS, ssidPath);
   pass = readFile(SPIFFS, passPath);
   ip = readFile(SPIFFS, ipPath);
+  gateway = readFile (SPIFFS, gatewayPath);
   Serial.println(ssid);
   Serial.println(pass);
   Serial.println(ip);
+  Serial.println(gateway);
 
   if(initWiFi()) {
     // Route for root / web page
@@ -218,6 +227,14 @@ void setup() {
             Serial.println(ip);
             // Write file to save value
             writeFile(SPIFFS, ipPath, ip.c_str());
+          }
+          // HTTP POST gateway value
+          if (p->name() == PARAM_INPUT_4) {
+            gateway = p->value().c_str();
+            Serial.print("Gateway set to: ");
+            Serial.println(gateway);
+            // Write file to save value
+            writeFile(SPIFFS, gatewayPath, gateway.c_str());
           }
           //Serial.printf("POST[%s]: %s\n", p->name().c_str(), p->value().c_str());
         }
