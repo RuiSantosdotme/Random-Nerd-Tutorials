@@ -57,6 +57,8 @@ struct_message BME280Readings;
 // Create a struct_message to hold incoming sensor readings
 struct_message incomingReadings;
 
+esp_now_peer_info_t peerInfo;
+
 // Callback when data is sent
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   Serial.print("\r\nLast Packet Send Status:\t");
@@ -110,7 +112,6 @@ void setup() {
   esp_now_register_send_cb(OnDataSent);
   
   // Register peer
-  esp_now_peer_info_t peerInfo;
   memcpy(peerInfo.peer_addr, broadcastAddress, 6);
   peerInfo.channel = 0;  
   peerInfo.encrypt = false;
