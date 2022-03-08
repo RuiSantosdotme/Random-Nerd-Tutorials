@@ -8,8 +8,8 @@
   Example adapted K. Suwatchai (Mobizt): https://github.com/mobizt/ESP-Mail-Client Copyright (c) 2021 mobizt
 */
 
-//To use send Email for Gmail to port 465 (SSL), less secure app option should be enabled. https://myaccount.google.com/lesssecureapps?pli=1
-//The file systems for flash and sd memory can be changed in ESP_Mail_FS.h.
+// To send Emails using Gmail on port 465 (SSL), you need to create an app password: https://support.google.com/accounts/answer/185833
+// The file systems for flash and sd memory can be changed in ESP_Mail_FS.h.
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
