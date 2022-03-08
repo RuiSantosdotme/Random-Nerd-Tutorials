@@ -17,8 +17,7 @@
 const char* ssid = "REPLACE_WITH_YOUR_SSID";
 const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
-// To send Email using Gmail use port 465 (SSL) and SMTP Server smtp.gmail.com
-// YOU MUST ENABLE less secure app option https://myaccount.google.com/lesssecureapps?pli=1
+// To send Emails using Gmail on port 465 (SSL), you need to create an app password: https://support.google.com/accounts/answer/185833
 #define emailSenderAccount    "EXAMPLE_EMAIL@gmail.com"
 #define emailSenderPassword   "YOUR_EXAMPLE_EMAIL_PASSWORD"
 #define emailRecipient        "YOUR_EMAIL_RECIPIENT@EXAMPLE.com"
