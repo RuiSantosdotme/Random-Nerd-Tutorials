@@ -53,7 +53,7 @@ void setup() {
 void loop() {
   timeClient.update();
 
-  unsigned long epochTime = timeClient.getEpochTime();
+  time_t epochTime = timeClient.getEpochTime();
   Serial.print("Epoch Time: ");
   Serial.println(epochTime);
   
