@@ -9,7 +9,7 @@
   Example adapted from: https://github.com/mobizt/ESP-Mail-Client
 */
 
-//To use send Email for Gmail to port 465 (SSL), less secure app option should be enabled. https://myaccount.google.com/lesssecureapps?pli=1
+// To send Emails using Gmail on port 465 (SSL), you need to create an app password: https://support.google.com/accounts/answer/185833
 
 #include <Arduino.h>
 #if defined(ESP32)
