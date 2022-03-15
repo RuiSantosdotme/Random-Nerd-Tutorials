@@ -4,7 +4,7 @@
 
 int thermoDO = 12;
 int thermoCS = 15;
-int thermoCLK = 14 ;
+int thermoCLK = 14;
 
 MAX6675 thermocouple(thermoCLK, thermoCS, thermoDO);
 
