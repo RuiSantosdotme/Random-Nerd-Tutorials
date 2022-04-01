@@ -25,7 +25,7 @@ import program
 import machine #needed for the deep sleep function
 
 #URLs for the updates
-#upd_url="http://daveflory.co.uk/weather/Script/get_ESP_data.php?file=program.py"
+#upd_url="http://192.168.1.XXX/get_ESP_data.php?file=program.py"
 upd_url = program.upd_url
 
 
