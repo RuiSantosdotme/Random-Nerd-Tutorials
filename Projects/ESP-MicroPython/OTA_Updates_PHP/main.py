@@ -40,7 +40,7 @@ print('OTA is ' + str(OTA))#debug
 station = network.WLAN(network.STA_IF)
 station.active(False)
 station.active(True)
-station.config(reconnects = 5)
+#station.config(reconnects = 5)
 
 station.connect(ssid,password)
 
