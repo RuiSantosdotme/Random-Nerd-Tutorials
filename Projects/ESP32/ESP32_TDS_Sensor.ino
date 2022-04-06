@@ -12,7 +12,7 @@ int copyIndex = 0;
 
 float averageVoltage = 0;
 float tdsValue = 0;
-float temperature = 16;       // current temperature for compensation
+float temperature = 25;       // current temperature for compensation
 
 // median filtering algorithm
 int getMedianNum(int bArray[], int iFilterLen){
