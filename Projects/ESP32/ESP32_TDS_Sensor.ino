@@ -66,10 +66,10 @@ void loop(){
       //temperature compensation formula: fFinalResult(25^C) = fFinalResult(current)/(1.0+0.02*(fTP-25.0)); 
       float compensationCoefficient = 1.0+0.02*(temperature-25.0);
       //temperature compensation
-      float compensationVolatge=averageVoltage/compensationCoefficient;
+      float compensationVoltage=averageVoltage/compensationCoefficient;
       
       //convert voltage value to tds value
-      tdsValue=(133.42*compensationVolatge*compensationVolatge*compensationVolatge - 255.86*compensationVolatge*compensationVolatge + 857.39*compensationVolatge)*0.5;
+      tdsValue=(133.42*compensationVoltage*compensationVoltage*compensationVoltage - 255.86*compensationVoltage*compensationVoltage + 857.39*compensationVoltage)*0.5;
       
       //Serial.print("voltage:");
       //Serial.print(averageVoltage,2);
