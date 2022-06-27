@@ -88,9 +88,6 @@ const char index_html[] PROGMEM = R"rawliteral(
      font-weight: bold;
    }
   </style>
-<title>ESP Web Server</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="data:,">
 </head>
 <body>
   <div class="topnav">
