@@ -54,6 +54,9 @@ void loop() {
       // Your Domain name with URL path or IP address with path
       http.begin(serverPath.c_str());
       
+      // If you need Node-RED/server authentication, insert user and password below
+      //http.setAuthorization("REPLACE_WITH_SERVER_USERNAME", "REPLACE_WITH_SERVER_PASSWORD");
+      
       // Send HTTP GET request
       int httpResponseCode = http.GET();
       
