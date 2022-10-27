@@ -96,6 +96,9 @@ String httpGETRequest(const char* serverName) {
   // Your Domain name with URL path or IP address with path
   http.begin(client, serverName);
   
+  // If you need Node-RED/server authentication, insert user and password below
+  //http.setAuthorization("REPLACE_WITH_SERVER_USERNAME", "REPLACE_WITH_SERVER_PASSWORD");
+  
   // Send HTTP POST request
   int httpResponseCode = http.GET();
   
