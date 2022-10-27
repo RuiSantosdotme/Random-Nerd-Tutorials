@@ -21,7 +21,8 @@ void setDS3231time(byte second, byte minute, byte hour, byte dayOfWeek, byte
 dayOfMonth, byte month, byte year){
   // sets time and date data to DS3231
   Wire.beginTransmission(DS3231_I2C_ADDRESS);
-  Wire.write(0); // set next input to start at the seconds register
+  Wire.write(0x0E); // select register
+  Wire.write(0b00011100); // write register bitmap, bit 7 is /EOS
   Wire.write(decToBcd(second)); // set seconds
   Wire.write(decToBcd(minute)); // set minutes
   Wire.write(decToBcd(hour)); // set hours
