@@ -35,9 +35,8 @@
 
 #include <WiFi.h>
 
-const char* ssid     = "MEO-D32A40";
-const char* password = "384e6d3cec";
-
+const char* ssid     = "REPLACE_WITH_YOUR_SSID";
+const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
 void WiFiEvent(WiFiEvent_t event){
     Serial.printf("[WiFi-event] event: %d\n", event);
