@@ -13,8 +13,8 @@
 #include <HTTPClient.h>
 #include <UrlEncode.h>
 
-const char* ssid = "REPLACE_WITH_YOUR_SSID"
-const char* password = "REPLACE_WITH_YOUR_PASSWORD"
+const char* ssid = "REPLACE_WITH_YOUR_SSID";
+const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
 // +international_country_code + phone number
 // Portugal +351, example: +351912345678
