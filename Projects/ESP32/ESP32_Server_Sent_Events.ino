@@ -182,7 +182,7 @@ void loop() {
     Serial.printf("Pressure = %.2f hPa \n", pressure);
     Serial.println();
 
-    // Send Events to the Web Server with the Sensor Readings
+    // Send Events to the Web Client with the Sensor Readings
     events.send("ping",NULL,millis());
     events.send(String(temperature).c_str(),"temperature",millis());
     events.send(String(humidity).c_str(),"humidity",millis());
