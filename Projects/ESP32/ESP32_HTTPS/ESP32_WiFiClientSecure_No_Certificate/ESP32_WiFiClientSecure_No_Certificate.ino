@@ -1,5 +1,5 @@
 /*
-  Complete project details: https://RandomNerdTutorials.com/
+  Complete project details: https://RandomNerdTutorials.com/esp32-https-requests/
   
   Based on the WiFiClientSecure example HTTPS Requests without Certificate
   Wifi secure connection example for ESP32
