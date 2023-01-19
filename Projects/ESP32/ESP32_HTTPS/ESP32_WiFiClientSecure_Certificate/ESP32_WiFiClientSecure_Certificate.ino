@@ -1,5 +1,5 @@
 /*
-  Complete project details: https://RandomNerdTutorials.com/
+  Complete project details: https://RandomNerdTutorials.com/esp32-https-requests/
   
   Wifi secure connection example for ESP32 - Running on TLS 1.2 using mbedTLS
   Suporting the following chipersuites:
