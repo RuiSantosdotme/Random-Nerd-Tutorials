@@ -1,5 +1,5 @@
 /*
-  Complete project details: https://RandomNerdTutorials.com/
+  Complete project details: https://RandomNerdTutorials.com/esp32-https-requests/
   Based on the BasicHTTPSClient.ino example found at Examples > BasicHttpsClient
 */
 
