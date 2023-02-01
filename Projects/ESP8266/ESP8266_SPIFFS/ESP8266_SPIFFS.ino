@@ -75,7 +75,8 @@ String processor(const String& var){
   }
   else if (var == "PRESSURE"){
     return getPressure();
-  }  
+  }
+  return String();
 }
  
 void setup(){
