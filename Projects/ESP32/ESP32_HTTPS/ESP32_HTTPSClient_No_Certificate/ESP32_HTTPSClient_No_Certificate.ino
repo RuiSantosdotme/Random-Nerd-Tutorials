@@ -29,7 +29,7 @@ void setup() {
 void loop() {
  WiFiClientSecure *client = new WiFiClientSecure;
   if(client) {
-    // set secure client with certificate
+    // set secure client without certificate
     client->setInsecure();
     //create an HTTPClient instance
     HTTPClient https;
