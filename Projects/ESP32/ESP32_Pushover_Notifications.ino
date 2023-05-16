@@ -1,6 +1,6 @@
 /*
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/pushover-notifications-esp32/
+  Complete project details at https://RandomNerdTutorials.com/esp32-pushover-notifications-arduino/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
@@ -64,13 +64,13 @@ void setup() {
     notification["token"] = apiToken; //required
     notification["user"] = userToken; //required
     notification["message"] = "Hello from ESP32"; //required
-    notification["title"] = "ESP32 Notification"; //optinal
-    notification["url"] = ""; //optinal
-    notification["url_title"] = ""; //optinal
-    notification["html"] = ""; //optinal
-    notification["priority"] = ""; //optinal
-    notification["sound"] = "cosmic"; //optinal
-    notification["timestamp"] = ""; //optinal
+    notification["title"] = "ESP32 Notification"; //optional
+    notification["url"] = ""; //optional
+    notification["url_title"] = ""; //optional
+    notification["html"] = ""; //optional
+    notification["priority"] = ""; //optional
+    notification["sound"] = "cosmic"; //optional
+    notification["timestamp"] = ""; //optional
 
     // Serialize the JSON object to a string
     String jsonStringNotification;
