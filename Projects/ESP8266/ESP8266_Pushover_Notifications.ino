@@ -1,6 +1,6 @@
 /*
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/pushover-notifications-esp8266-nodemcu/
+  Complete project details at https://RandomNerdTutorials.com/esp8266-nodemcu-pushover-arduino/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
