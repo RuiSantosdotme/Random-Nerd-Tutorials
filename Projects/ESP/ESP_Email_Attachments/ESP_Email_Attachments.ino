@@ -2,14 +2,14 @@
   Rui Santos
   Complete project details at:
    - ESP32: https://RandomNerdTutorials.com/esp32-send-email-smtp-server-arduino-ide/
+   - ESP8266: https://RandomNerdTutorials.com/esp8266-nodemcu-send-email-smtp-server-arduino/
    
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
   Example adapted K. Suwatchai (Mobizt): https://github.com/mobizt/ESP-Mail-Client Copyright (c) 2021 mobizt
 */
 
-// To send Emails using Gmail on port 465 (SSL), you need to create an app password: https://support.google.com/accounts/answer/185833
-// The file systems for flash and sd memory can be changed in ESP_Mail_FS.h.
+// To use send Email for Gmail to port 465 (SSL), less secure app option should be enabled. https://myaccount.google.com/lesssecureapps?pli=1
 
 #include <Arduino.h>
 #if defined(ESP32)
@@ -31,14 +31,14 @@
 */
 #define SMTP_PORT 465
 
-/* The log in credentials */
+/* The sign in credentials */
 #define AUTHOR_EMAIL "YOUR_EMAIL@XXXX.com"
-#define AUTHOR_PASSWORD "YOUR_EMAIL_PASS"
+#define AUTHOR_PASSWORD "YOUR_EMAIL_APP_PASS"
 
 /* Recipient's email*/
 #define RECIPIENT_EMAIL "RECIPIENTE_EMAIL@XXXX.com"
-/* The SMTP Session object used for Email sending */
 
+/* The SMTP Session object used for Email sending */
 SMTPSession smtp;
 
 /* Callback function to get the Email sending status */
@@ -59,12 +59,8 @@ void setup(){
   Serial.println(WiFi.localIP());
   Serial.println();
 
-  if (!SPIFFS.begin(true)) {
-    Serial.println("An error has occurred while mounting SPIFFS");
-  }
-  else{
-    Serial.println("SPIFFS mounted successfully");
-  }
+  // Init filesystem
+  ESP_MAIL_DEFAULT_FLASH_FS.begin();
 
   /** Enable the debug via Serial port
    * none debug or 0
@@ -75,15 +71,26 @@ void setup(){
   /* Set the callback function to get the sending results */
   smtp.callback(smtpCallback);
 
-  /* Declare the session config data */
-  ESP_Mail_Session session;
+  /* Declare the Session_Config for user defined session credentials */
+  Session_Config config;
 
   /* Set the session config */
-  session.server.host_name = SMTP_HOST;
-  session.server.port = SMTP_PORT;
-  session.login.email = AUTHOR_EMAIL;
-  session.login.password = AUTHOR_PASSWORD;
-  session.login.user_domain = "mydomain.net";
+  config.server.host_name = SMTP_HOST;
+  config.server.port = SMTP_PORT;
+  config.login.email = AUTHOR_EMAIL;
+  config.login.password = AUTHOR_PASSWORD;
+  config.login.user_domain = "mydomain.net";
+  
+  /*
+  Set the NTP config time
+  For times east of the Prime Meridian use 0-12
+  For times west of the Prime Meridian add 12 to the offset.
+  Ex. American/Denver GMT would be -6. 6 + 12 = 18
+  See https://en.wikipedia.org/wiki/Time_zone for a list of the GMT/UTC timezone offsets
+  */
+  config.time.ntp_server = F("pool.ntp.org,time.nist.gov");
+  config.time.gmt_offset = 3;
+  config.time.day_light_offset = 0;
 
   /* Declare the message class */
   SMTP_Message message;
@@ -95,8 +102,8 @@ void setup(){
   message.sender.name = "ESP Mail";
   message.sender.email = AUTHOR_EMAIL;
 
-  message.subject = "Test sending Email with attachments and inline images from SD card and Flash";
-  message.addRecipient("Sara", RECIPIENT_EMAIL);
+  message.subject = F("Test sending Email with attachments and inline images from Flash");
+  message.addRecipient(F("Sara"), RECIPIENT_EMAIL);
 
   /** Two alternative content versions are sending in this example e.g. plain text and html */
   String htmlMsg = "This message contains attachments: image and text file.";
@@ -134,16 +141,27 @@ void setup(){
   message.addAttachment(att);
 
   /* Connect to server with the session config */
-  if (!smtp.connect(&session))
+  if (!smtp.connect(&config)){
+    ESP_MAIL_PRINTF("Connection error, Status Code: %d, Error Code: %d, Reason: %s", smtp.statusCode(), smtp.errorCode(), smtp.errorReason().c_str());
     return;
+  }
+
+  if (!smtp.isLoggedIn()){
+    Serial.println("\nNot yet logged in.");
+  }
+  else{
+    if (smtp.isAuthenticated())
+      Serial.println("\nSuccessfully logged in.");
+    else
+      Serial.println("\nConnected with no Auth.");
+  }
 
   /* Start sending the Email and close the session */
   if (!MailClient.sendMail(&smtp, &message, true))
     Serial.println("Error sending Email, " + smtp.errorReason());
 }
 
-void loop()
-{
+void loop(){
 }
 
 /* Callback function to get the Email sending status */
@@ -172,5 +190,8 @@ void smtpCallback(SMTP_Status status){
       ESP_MAIL_PRINTF("Subject: %s\n", result.subject.c_str());
     }
     Serial.println("----------------\n");
+    
+    // You need to clear sending result as the memory usage will grow up.
+    smtp.sendingResult.clear();
   }
 }
