@@ -1,6 +1,6 @@
 /*********
   Rui Santos
-  Complete project details at https://randomnerdtutorials.com  
+  Complete project details at https://RandomNerdTutorials.com/esp32-littlefs-arduino-ide/
 *********/
 
 #include "LittleFS.h"
