@@ -6,8 +6,8 @@
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-int led = 2;                // the pin that the LED is atteched to
-int sensor = 15;            // the pin that the sensor is atteched to
+int led = 2;                // the pin that the LED is attached to
+int sensor = 15;            // the pin that the sensor is attached to
 int state = LOW;            // by default, no motion detected
 int val = 0;                // variable to store the sensor status (value)
 
