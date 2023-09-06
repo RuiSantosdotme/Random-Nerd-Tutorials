@@ -8,8 +8,8 @@
 
 //If you're using the built-in LED for testing, remember that it works with inverted logic
 //(HIGH=LOW, and LOW=HIGH)
-int led = 13;                // the pin that the LED is atteched to
-int sensor = 12;              // the pin that the sensor is atteched to
+int led = 13;                // the pin that the LED is attached to
+int sensor = 12;              // the pin that the sensor is attached to
 int state = LOW;             // by default, no motion detected
 int val = 0;                 // variable to store the sensor status (value)
 
