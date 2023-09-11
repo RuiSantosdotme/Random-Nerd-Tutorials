@@ -1,6 +1,6 @@
 /*********
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/raspberry-pi-pico-analog-inputs-arduino/
+  Complete project details at https://RandomNerdTutorials.com/raspberry-pi-pico-dht11-dht22-arduino/
   Example testing sketch for various DHT humidity/temperature sensors - Adapted from the Adafruit DHT examples written by ladyada
   REQUIRES the following Arduino libraries:
   - DHT Sensor Library: https://github.com/adafruit/DHT-sensor-library
