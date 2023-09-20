@@ -1,8 +1,8 @@
-/* Example showing timestamp support in LittleFS */
-/* Released into the public domain. */
-/* Earle F. Philhower, III <earlephilhower@yahoo.com> */
+/* Example showing timestamp support in LittleFS - Released into the public domain.
+   Earle F. Philhower, III <earlephilhower@yahoo.com> Official example: https://github.com/esp8266/Arduino/blob/master/libraries/LittleFS/examples/LittleFS_Timestamp/LittleFS_Timestamp.ino
+*/
 
-//Official example: https://github.com/esp8266/Arduino/blob/master/libraries/LittleFS/examples/LittleFS_Timestamp/LittleFS_Timestamp.ino
+// Project details: https://RandomNerdTutorials.com/esp8266-nodemcu-write-data-littlefs-arduino/
 
 #include <FS.h>
 #include <LittleFS.h>
