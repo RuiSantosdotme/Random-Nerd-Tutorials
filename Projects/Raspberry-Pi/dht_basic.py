@@ -1,4 +1,4 @@
-# Complete Project Details: https://RandomNerdTutorials.com/raspberry-pi-motion-email-python/
+# Complete Project Details: https://RandomNerdTutorials.com/raspberry-pi-dht11-dht22-python/
 
 import Adafruit_DHT
 import time
