@@ -97,9 +97,9 @@ void loop() {
   if (deviceConnected) {
     // Read temperature as Celsius (the default)
     float t = bme.readTemperature();
-    // Read temperature as Fahrenheit (isFahrenheit = true)
-    float h = bme.readHumidity();
     // Read humidity
+    float h = bme.readHumidity();
+    // Read pressure
     float p = bme.readPressure()/100.0F;
     
     //Notify temperature reading
