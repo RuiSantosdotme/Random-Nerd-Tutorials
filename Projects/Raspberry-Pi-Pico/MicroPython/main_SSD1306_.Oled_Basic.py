@@ -16,5 +16,3 @@ oled.text('Hello, World 2!', 0, 10)
 oled.text('Hello, World 3!', 0, 20)
         
 oled.show()
-oled.fill(0)
-oled.show()
