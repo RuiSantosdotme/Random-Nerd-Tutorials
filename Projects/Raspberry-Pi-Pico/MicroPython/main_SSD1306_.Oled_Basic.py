@@ -2,7 +2,6 @@
 
 from machine import Pin, SoftI2C
 import ssd1306
-from time import sleep
 
 #You can choose any other combination of I2C pins
 i2c = SoftI2C(scl=Pin(5), sda=Pin(4))
