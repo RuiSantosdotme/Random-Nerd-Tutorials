@@ -20,7 +20,10 @@ HX711 scale;
 
 void setup() {
   Serial.begin(115200);
-  rtc_clk_cpu_freq_set(RTC_CPU_FREQ_80M);
+  rtc_cpu_freq_config_t config;
+  rtc_clk_cpu_freq_get_config(&config);
+  rtc_clk_cpu_freq_to_config(RTC_CPU_FREQ_80M, &config);
+  rtc_clk_cpu_freq_set_config_fast(&config);
   Serial.println("HX711 Demo");
 
   Serial.println("Initializing the scale");
