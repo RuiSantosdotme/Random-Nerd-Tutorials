@@ -27,7 +27,7 @@
 // #define TINY_GSM_YIELD() { delay(2); }
 
 // set GSM PIN, if any
-#define GSM_PIN "7511"
+#define GSM_PIN ""
 
 // flag to force SSL client authentication, if needed
 // #define TINY_GSM_SSL_CLIENT_AUTHENTICATION
