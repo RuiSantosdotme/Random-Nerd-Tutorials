@@ -20,7 +20,7 @@ MQTT_USER = config.mqtt_username
 MQTT_PASSWORD = config.mqtt_password
 MQTT_CLIENT_ID = b'raspberrypi_picow'
 MQTT_KEEPALIVE = 7200
-MQTT_SSL = True
+MQTT_SSL = True   # set to False if using local Mosquitto MQTT broker
 MQTT_SSL_PARAMS = {'server_hostname': MQTT_SERVER}
 
 # Init Wi-Fi Interface
