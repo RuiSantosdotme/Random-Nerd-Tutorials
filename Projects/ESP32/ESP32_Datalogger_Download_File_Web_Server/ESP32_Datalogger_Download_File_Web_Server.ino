@@ -182,7 +182,7 @@ void setup() {
 
   // Handle the View Data button
   server.on("/view-data", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SD, "/data.txt", "text/txt");
+    request->send(SD, "/data.txt", "text/plain", false);
   });
 
   // Handle the delete button
