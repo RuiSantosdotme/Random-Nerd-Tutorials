@@ -1,14 +1,9 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp-now-one-to-many-esp32-esp8266/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
-
 #include <esp_now.h>
 #include <WiFi.h>
 
@@ -21,6 +16,8 @@ typedef struct test_struct {
   int x;
   int y;
 } test_struct;
+
+esp_now_peer_info_t peerInfo;
 
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   char macStr[18];
@@ -47,7 +44,6 @@ void setup() {
   esp_now_register_send_cb(OnDataSent);
 
   // register peer
-  esp_now_peer_info_t peerInfo;
   peerInfo.channel = 0;  
   peerInfo.encrypt = false;
     
