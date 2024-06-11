@@ -165,7 +165,7 @@ PairingStatus autoPairing(){
 
     // set callback routines
     esp_now_register_send_cb(OnDataSent);
-    esp_now_register_recv_cb(OnDataRecv);
+    esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));
   
     // set pairing data to send to the server
     pairingData.msgType = PAIRING;
