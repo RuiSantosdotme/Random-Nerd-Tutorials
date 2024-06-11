@@ -1,6 +1,6 @@
 /*
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/?s=esp-now
+  Rui Santos & Sara Santos - Random Nerd Tutorials
+  Complete project details at https://RandomNerdTutorials.com/esp-now-auto-pairing-esp32-esp8266/
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
   Based on JC Servaye example: https://https://github.com/Servayejc/esp8266_espnow
