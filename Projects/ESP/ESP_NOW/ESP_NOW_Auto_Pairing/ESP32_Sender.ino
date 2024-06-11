@@ -37,7 +37,9 @@ typedef struct struct_pairing {       // new structure for pairing
     uint8_t channel;
 } struct_pairing;
 
-//Create 2 struct_message 
+esp_now_peer_info_t peer;
+
+// Create 2 struct_message 
 struct_message myData;  // data to send
 struct_message inData;  // data received
 struct_pairing pairingData;
@@ -76,7 +78,6 @@ float readDHTHumidity() {
 }
 
 void addPeer(const uint8_t * mac_addr, uint8_t chan){
-  esp_now_peer_info_t peer;
   ESP_ERROR_CHECK(esp_wifi_set_channel(chan ,WIFI_SECOND_CHAN_NONE));
   esp_now_del_peer(mac_addr);
   memset(&peer, 0, sizeof(esp_now_peer_info_t));
