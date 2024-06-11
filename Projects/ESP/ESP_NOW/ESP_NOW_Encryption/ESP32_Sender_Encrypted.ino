@@ -1,10 +1,9 @@
 /*
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/?s=esp-now
+  Rui Santos & Sara Santos - Random Nerd Tutorials
+  Complete project details at https://RandomNerdTutorials.com/esp32-esp-now-encrypted-messages/
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
 #include <esp_now.h>
 #include <WiFi.h>
 
@@ -29,6 +28,9 @@ struct_message myData;
 // Counter variable to keep track of number of sent packets
 int counter;
 
+// Variable to save peerInfo
+esp_now_peer_info_t peerInfo;
+
 // callback when data is sent
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   Serial.print("\r\nLast Packet Send Status:\t");
@@ -52,7 +54,6 @@ void setup() {
   esp_now_set_pmk((uint8_t *)PMK_KEY_STR);
   
   // Register the receiver board as peer
-  esp_now_peer_info_t peerInfo;
   memcpy(peerInfo.peer_addr, receiverAddress, 6);
   peerInfo.channel = 0;
   //Set the receiver device LMK key
