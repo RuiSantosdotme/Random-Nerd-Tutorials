@@ -1,14 +1,9 @@
 /*
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-esp-now-wi-fi-web-server/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
 #include <esp_now.h>
 #include <esp_wifi.h>
 #include <WiFi.h>
@@ -39,6 +34,8 @@ typedef struct struct_message {
     float hum;
     int readingId;
 } struct_message;
+
+esp_now_peer_info_t peerInfo;
 
 //Create a struct_message called myData
 struct_message myData;
@@ -115,7 +112,7 @@ void setup() {
   esp_wifi_set_promiscuous(false);
   WiFi.printDiag(Serial); // Uncomment to verify channel change after
 
-  //Init ESP-NOW
+  // Init ESP-NOW
   if (esp_now_init() != ESP_OK) {
     Serial.println("Error initializing ESP-NOW");
     return;
@@ -125,12 +122,11 @@ void setup() {
   // get the status of Trasnmitted packet
   esp_now_register_send_cb(OnDataSent);
   
-  //Register peer
-  esp_now_peer_info_t peerInfo;
+  // Register peer
   memcpy(peerInfo.peer_addr, broadcastAddress, 6);
   peerInfo.encrypt = false;
   
-  //Add peer        
+  // Add peer        
   if (esp_now_add_peer(&peerInfo) != ESP_OK){
     Serial.println("Failed to add peer");
     return;
