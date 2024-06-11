@@ -1,12 +1,8 @@
 /*
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp-now-esp32-arduino-ide/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Rui Santos & Sara Santos - Random Nerd Tutorials
+  Complete project details at https://RandomNerdTutorials.com/esp-now-esp32-arduino-ide/  
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
 #include <esp_now.h>
@@ -55,7 +51,7 @@ void setup() {
   
   // Once ESPNow is successfully Init, we will register for recv CB to
   // get recv packer info
-  esp_now_register_recv_cb(OnDataRecv);
+  esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));
 }
  
 void loop() {
