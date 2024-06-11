@@ -1,8 +1,9 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-dc-motor-l298n-motor-driver-control-speed-direction/
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.  
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
-
 // Motor A
 int motor1Pin1 = 27; 
 int motor1Pin2 = 26; 
@@ -20,11 +21,8 @@ void setup() {
   pinMode(motor1Pin2, OUTPUT);
   pinMode(enable1Pin, OUTPUT);
   
-  // configure LED PWM functionalitites
-  ledcSetup(pwmChannel, freq, resolution);
-  
-  // attach the channel to the GPIO to be controlled
-  ledcAttachPin(enable1Pin, pwmChannel);
+  // configure LEDC PWM
+  ledcAttachChannel(enable1Pin, freq, resolution, pwmChannel);
 
   Serial.begin(115200);
 
@@ -61,7 +59,7 @@ void loop() {
   digitalWrite(motor1Pin1, HIGH);
   digitalWrite(motor1Pin2, LOW);
   while (dutyCycle <= 255){
-    ledcWrite(pwmChannel, dutyCycle);   
+    ledcWrite(enable1Pin, dutyCycle);   
     Serial.print("Forward with duty cycle: ");
     Serial.println(dutyCycle);
     dutyCycle = dutyCycle + 5;
