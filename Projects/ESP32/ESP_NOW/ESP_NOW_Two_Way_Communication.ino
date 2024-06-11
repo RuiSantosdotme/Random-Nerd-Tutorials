@@ -1,5 +1,5 @@
 /*
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp-now-two-way-communication-esp32/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -122,7 +122,7 @@ void setup() {
     return;
   }
   // Register for a callback function that will be called when data is received
-  esp_now_register_recv_cb(OnDataRecv);
+  esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));
 }
  
 void loop() {
