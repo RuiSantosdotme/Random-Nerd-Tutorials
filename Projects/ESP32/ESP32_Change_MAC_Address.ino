@@ -36,6 +36,7 @@ void setup(){
   Serial.print("[DEFAULT] ESP32 Board MAC Address: ");
   readMacAddress();
 
+  // Change ESP32 Mac Address
   esp_err_t err = esp_wifi_set_mac(WIFI_IF_STA, &newMACAddress[0]);
   if (err == ESP_OK) {
     Serial.println("Success changing Mac Address");
