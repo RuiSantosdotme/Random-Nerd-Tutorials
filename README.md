@@ -1,4 +1,5 @@
-Random Nerd Tutorials - Created by Rui Santos & Sara Santos
+# Random Nerd Tutorials
+## *Created by Rui Santos & Sara Santos*
 =====================
 
 Random Nerd Tutorials is a blog where we share electronics projects, tutorials and reviews.
@@ -7,7 +8,7 @@ We help makers, hobbyists and engineers build electronics projects. We make proj
 
 For complete project details, go to » https://RandomNerdTutorials.com/
 
-Grab our eBooks and Courses » https://RandomNerdTutorials.com/courses/
+Grab our eBooks and courses » https://RandomNerdTutorials.com/courses/
 
 Read our product reviews » https://MakerAdvisor.com/
 
