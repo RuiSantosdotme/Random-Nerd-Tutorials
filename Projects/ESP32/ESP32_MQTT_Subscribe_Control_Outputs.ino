@@ -1,13 +1,10 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details: https://randomnerdtutorials.com/esp32-big-timer-node-red/
-  
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
-
 #include <Arduino.h>
-
 #include <WiFi.h>
 extern "C" {
   #include "freertos/FreeRTOS.h"
@@ -29,11 +26,9 @@ extern "C" {
 //MQTT Subscribe Topics
 #define MQTT_SUB_DIGITAL "esp32/digital/#"
 
-
 AsyncMqttClient mqttClient;
 TimerHandle_t mqttReconnectTimer;
 TimerHandle_t wifiReconnectTimer;
-
 
 void connectToWifi() {
   Serial.println("Connecting to Wi-Fi...");
@@ -48,13 +43,13 @@ void connectToMqtt() {
 void WiFiEvent(WiFiEvent_t event) {
   Serial.printf("[WiFi-event] event: %d\n", event);
   switch(event) {
-    case SYSTEM_EVENT_STA_GOT_IP:
+    case ARDUINO_EVENT_WIFI_STA_GOT_IP:
       Serial.println("WiFi connected");
       Serial.println("IP address: ");
       Serial.println(WiFi.localIP());
       connectToMqtt();
       break;
-    case SYSTEM_EVENT_STA_DISCONNECTED:
+    case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
       Serial.println("WiFi lost connection");
       xTimerStop(mqttReconnectTimer, 0); // ensure we don't reconnect to MQTT while reconnecting to Wi-Fi
       xTimerStart(wifiReconnectTimer, 0);
@@ -91,7 +86,6 @@ void onMqttSubscribe(uint16_t packetId, uint8_t qos) {
 
 void onMqttMessage(char* topic, char* payload, AsyncMqttClientMessageProperties properties, size_t len, size_t index, size_t total) {
   // Do whatever you want when you receive a message
-  
   // Save the message in a variable
   String receivedMessage;
   for (int i = 0; i < len; i++) {
