@@ -5,9 +5,9 @@
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
   Based on JC Servaye example: https://github.com/Servayejc/esp_now_web_server/
 */
-
 #include <esp_now.h>
 #include <WiFi.h>
+#include <esp_wifi.h>
 #include "ESPAsyncWebServer.h"
 #include "AsyncTCP.h"
 #include <ArduinoJson.h>
@@ -23,6 +23,8 @@ enum MessageType {PAIRING, DATA,};
 MessageType messageType;
 
 int counter = 0;
+
+uint8_t clientMacAddress[6];
 
 // Structure example to receive data
 // Must match the sender structure
@@ -119,6 +121,18 @@ if (!!window.EventSource) {
 </body>
 </html>)rawliteral";
 
+void readMacAddress(){
+  uint8_t baseMac[6];
+  esp_err_t ret = esp_wifi_get_mac(WIFI_IF_STA, baseMac);
+  if (ret == ESP_OK) {
+    Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x\n",
+                  baseMac[0], baseMac[1], baseMac[2],
+                  baseMac[3], baseMac[4], baseMac[5]);
+  } else {
+    Serial.println("Failed to read MAC address");
+  }
+}
+
 void readDataToSend() {
   outgoingSetpoints.msgType = DATA;
   outgoingSetpoints.id = 0;
@@ -126,7 +140,6 @@ void readDataToSend() {
   outgoingSetpoints.hum = random(0, 100);
   outgoingSetpoints.readingId = counter++;
 }
-
 
 // ---------------------------- esp_ now -------------------------
 void printMAC(const uint8_t * mac_addr){
@@ -175,9 +188,7 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 
 void OnDataRecv(const uint8_t * mac_addr, const uint8_t *incomingData, int len) { 
   Serial.print(len);
-  Serial.print(" bytes of data received from : ");
-  printMAC(mac_addr);
-  Serial.println();
+  Serial.println(" bytes of new data received.");
   StaticJsonDocument<1000> root;
   String payload;
   uint8_t type = incomingData[0];       // first message byte is the type of message 
@@ -200,19 +211,29 @@ void OnDataRecv(const uint8_t * mac_addr, const uint8_t *incomingData, int len) 
     memcpy(&pairingData, incomingData, sizeof(pairingData));
     Serial.println(pairingData.msgType);
     Serial.println(pairingData.id);
-    Serial.print("Pairing request from: ");
-    printMAC(mac_addr);
-    Serial.println();
+    Serial.print("Pairing request from MAC Address: ");
+    printMAC(pairingData.macAddr);
+    Serial.print(" on channel ");
     Serial.println(pairingData.channel);
+
+    clientMacAddress[0] = pairingData.macAddr[0];
+    clientMacAddress[1] = pairingData.macAddr[1];
+    clientMacAddress[2] = pairingData.macAddr[2];
+    clientMacAddress[3] = pairingData.macAddr[3];
+    clientMacAddress[4] = pairingData.macAddr[4];
+    clientMacAddress[5] = pairingData.macAddr[5];
+
     if (pairingData.id > 0) {     // do not replay to server itself
       if (pairingData.msgType == PAIRING) { 
         pairingData.id = 0;       // 0 is server
         // Server is in AP_STA mode: peers need to send data to server soft AP MAC address 
-        WiFi.softAPmacAddress(pairingData.macAddr);   
+        WiFi.softAPmacAddress(pairingData.macAddr);
+        Serial.print("Pairing MAC Address: ");
+        printMAC(clientMacAddress);
         pairingData.channel = chan;
-        Serial.println("send response");
-        esp_err_t result = esp_now_send(mac_addr, (uint8_t *) &pairingData, sizeof(pairingData));
-        addPeer(mac_addr);
+        Serial.println(" send response");
+        esp_err_t result = esp_now_send(clientMacAddress, (uint8_t *) &pairingData, sizeof(pairingData));
+        addPeer(clientMacAddress);
       }  
     }  
     break; 
@@ -233,9 +254,10 @@ void setup() {
   // Initialize Serial Monitor
   Serial.begin(115200);
 
-  Serial.println();
-  Serial.print("Server MAC Address:  ");
-  Serial.println(WiFi.macAddress());
+  WiFi.mode(WIFI_STA);
+  WiFi.STA.begin();
+  Serial.print("Server MAC Address: ");
+  readMacAddress();
 
   // Set the device as a Station and Soft Access Point simultaneously
   WiFi.mode(WIFI_AP_STA);
@@ -262,7 +284,6 @@ void setup() {
     request->send_P(200, "text/html", index_html);
   });
   
-
   // Events 
   events.onConnect([](AsyncEventSourceClient *client){
     if(client->lastId()){
@@ -273,17 +294,15 @@ void setup() {
     client->send("hello!", NULL, millis(), 10000);
   });
   server.addHandler(&events);
-  
   // start server
   server.begin();
-
 }
 
 void loop() {
   static unsigned long lastEventTime = millis();
   static const unsigned long EVENT_INTERVAL_MS = 5000;
   if ((millis() - lastEventTime) > EVENT_INTERVAL_MS) {
-    events.send("ping",NULL,millis());
+    events.send("ping", NULL, millis());
     lastEventTime = millis();
     readDataToSend();
     esp_now_send(NULL, (uint8_t *) &outgoingSetpoints, sizeof(outgoingSetpoints));
