@@ -1,14 +1,9 @@
 /*
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/cloud-mqtt-mosquitto-broker-access-anywhere-digital-ocean/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
 #include <WiFi.h>
 extern "C" {
   #include "freertos/FreeRTOS.h"
@@ -53,13 +48,13 @@ void connectToMqtt() {
 void WiFiEvent(WiFiEvent_t event) {
   Serial.printf("[WiFi-event] event: %d\n", event);
   switch(event) {
-    case SYSTEM_EVENT_STA_GOT_IP:
+    case ARDUINO_EVENT_WIFI_STA_GOT_IP:
       Serial.println("WiFi connected");
       Serial.println("IP address: ");
       Serial.println(WiFi.localIP());
       connectToMqtt();
       break;
-    case SYSTEM_EVENT_STA_DISCONNECTED:
+    case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
       Serial.println("WiFi lost connection");
       xTimerStop(mqttReconnectTimer, 0); // ensure we don't reconnect to MQTT while reconnecting to Wi-Fi
       xTimerStart(wifiReconnectTimer, 0);
