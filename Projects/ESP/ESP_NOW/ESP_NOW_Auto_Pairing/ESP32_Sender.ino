@@ -2,10 +2,9 @@
   Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp-now-auto-pairing-esp32-esp8266/
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
-  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. 
   Based on JC Servaye example: https://github.com/Servayejc/esp_now_sender/
 */
-
 #include <Arduino.h>
 #include <esp_now.h>
 #include <esp_wifi.h>
@@ -14,12 +13,13 @@
 
 // Set your Board and Server ID 
 #define BOARD_ID 1
-#define MAX_CHANNEL 11  // for North America // 13 in Europe
+#define MAX_CHANNEL 13  // 11 in North America or 13 in Europe
 
 uint8_t serverAddress[] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+uint8_t clientMacAddress[6];
 
-//Structure to send data
-//Must match the receiver structure
+// Structure to send data
+// Must match the receiver structure
 // Structure example to receive data
 // Must match the sender structure
 typedef struct struct_message {
@@ -65,6 +65,24 @@ const long interval = 10000;        // Interval at which to publish sensor readi
 unsigned long start;                // used to measure Pairing time
 unsigned int readingId = 0;   
 
+void readGetMacAddress(){
+  uint8_t baseMac[6];
+  esp_err_t ret = esp_wifi_get_mac(WIFI_IF_STA, baseMac);
+  if (ret == ESP_OK) {
+    Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x\n",
+                  baseMac[0], baseMac[1], baseMac[2],
+                  baseMac[3], baseMac[4], baseMac[5]);
+  } else {
+    Serial.println("Failed to read MAC address");
+  }
+  clientMacAddress[0] = baseMac[0];
+  clientMacAddress[1] = baseMac[1];
+  clientMacAddress[2] = baseMac[2];
+  clientMacAddress[3] = baseMac[3];
+  clientMacAddress[4] = baseMac[4];
+  clientMacAddress[5] = baseMac[5];
+}
+
 // simulate temperature reading
 float readDHTTemperature() {
   t = random(0,40);
@@ -104,9 +122,7 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 }
 
 void OnDataRecv(const uint8_t * mac_addr, const uint8_t *incomingData, int len) { 
-  Serial.print("Packet received from: ");
-  printMAC(mac_addr);
-  Serial.println();
+  Serial.print("Packet received with ");
   Serial.print("data size = ");
   Serial.println(sizeof(incomingData));
   uint8_t type = incomingData[0];
@@ -132,8 +148,7 @@ void OnDataRecv(const uint8_t * mac_addr, const uint8_t *incomingData, int len) 
   case PAIRING:    // we received pairing data from server
     memcpy(&pairingData, incomingData, sizeof(pairingData));
     if (pairingData.id == 0) {              // the message comes from server
-      printMAC(mac_addr);
-      Serial.print("Pairing done for ");
+      Serial.print("Pairing done for MAC Address: ");
       printMAC(pairingData.macAddr);
       Serial.print(" on channel " );
       Serial.print(pairingData.channel);    // channel used by the server
@@ -155,43 +170,49 @@ void OnDataRecv(const uint8_t * mac_addr, const uint8_t *incomingData, int len) 
 PairingStatus autoPairing(){
   switch(pairingStatus) {
     case PAIR_REQUEST:
-    Serial.print("Pairing request on channel "  );
-    Serial.println(channel);
+      Serial.print("Pairing request on channel "  );
+      Serial.println(channel);
 
-    // set WiFi channel   
-    ESP_ERROR_CHECK(esp_wifi_set_channel(channel,  WIFI_SECOND_CHAN_NONE));
-    if (esp_now_init() != ESP_OK) {
-      Serial.println("Error initializing ESP-NOW");
-    }
+      // set WiFi channel   
+      ESP_ERROR_CHECK(esp_wifi_set_channel(channel,  WIFI_SECOND_CHAN_NONE));
+      if (esp_now_init() != ESP_OK) {
+        Serial.println("Error initializing ESP-NOW");
+      }
 
-    // set callback routines
-    esp_now_register_send_cb(OnDataSent);
-    esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));
-  
-    // set pairing data to send to the server
-    pairingData.msgType = PAIRING;
-    pairingData.id = BOARD_ID;     
-    pairingData.channel = channel;
+      // set callback routines
+      esp_now_register_send_cb(OnDataSent);
+      esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));
+    
+      // set pairing data to send to the server
+      pairingData.msgType = PAIRING;
+      pairingData.id = BOARD_ID;     
+      pairingData.channel = channel;
+      pairingData.macAddr[0] = clientMacAddress[0];
+      pairingData.macAddr[1] = clientMacAddress[1];
+      pairingData.macAddr[2] = clientMacAddress[2];
+      pairingData.macAddr[3] = clientMacAddress[3];
+      pairingData.macAddr[4] = clientMacAddress[4];
+      pairingData.macAddr[5] = clientMacAddress[5];
 
-    // add peer and send request
-    addPeer(serverAddress, channel);
-    esp_now_send(serverAddress, (uint8_t *) &pairingData, sizeof(pairingData));
-    previousMillis = millis();
-    pairingStatus = PAIR_REQUESTED;
-    break;
+      // add peer and send request
+      addPeer(serverAddress, channel);
+      esp_now_send(serverAddress, (uint8_t *) &pairingData, sizeof(pairingData));
+      previousMillis = millis();
+      pairingStatus = PAIR_REQUESTED;
+      break;
 
     case PAIR_REQUESTED:
-    // time out to allow receiving response from server
-    currentMillis = millis();
-    if(currentMillis - previousMillis > 250) {
-      previousMillis = currentMillis;
-      // time out expired,  try next channel
-      channel ++;
-      if (channel > MAX_CHANNEL){
-         channel = 1;
-      }   
-      pairingStatus = PAIR_REQUEST;
-    }
+      // time out to allow receiving response from server
+      currentMillis = millis();
+      if(currentMillis - previousMillis > 1000) {
+        previousMillis = currentMillis;
+        // time out expired,  try next channel
+        channel ++;
+        if (channel > MAX_CHANNEL){
+          channel = 1;
+        }   
+        pairingStatus = PAIR_REQUEST;
+      }
     break;
 
     case PAIR_PAIRED:
@@ -205,9 +226,11 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.print("Client Board MAC Address:  ");
-  Serial.println(WiFi.macAddress());
+  
   WiFi.mode(WIFI_STA);
+  WiFi.STA.begin();
+  Serial.print("Client Board MAC Address:  ");
+  readGetMacAddress();
   WiFi.disconnect();
   start = millis();
 
