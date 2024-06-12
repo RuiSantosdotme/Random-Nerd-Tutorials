@@ -5,7 +5,6 @@
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
   Based on JC Servaye example: https://https://github.com/Servayejc/esp8266_espnow
 */
-
 #include <ESP8266WiFi.h>
 #include <espnow.h>
 
@@ -13,11 +12,15 @@ uint8_t channel = 1;
 int readingId = 0;
 int id = 2;
 
+#define MAX_CHANNEL 13  // 11 in North America or 13 in Europe
+
 unsigned long currentMillis = millis(); 
 unsigned long lastTime = 0;  
 unsigned long timerDelay = 2000;  // send readings timer
 
 uint8_t broadcastAddressX[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+uint8_t clientMacAddress[6];
 
 enum PairingStatus {PAIR_REQUEST, PAIR_REQUESTED, PAIR_PAIRED, };
 PairingStatus pairingStatus = PAIR_REQUEST;
@@ -145,6 +148,21 @@ void getReadings(){
   humidity = 55.5;
 }
 
+void readGetMacAddress(){
+  String val = WiFi.macAddress();
+  Serial.println(val);
+  char* endPtr; 
+  clientMacAddress[0] = strtol(val.c_str(), &endPtr, 16); // read the first starting at the beginning of the buffer. this initializes endPtr as a pointer to the ':' after the first number 
+  for (int i = 1;  (*endPtr) && (i < 6); i++) {
+    clientMacAddress[i] = strtol(endPtr + 1, &endPtr, 16); // using +1 for the pointer as we want to skip the ':'
+  }
+
+  for (int i = 0; i < 6; i++) {
+    Serial.print(clientMacAddress[i], HEX);
+    if (i != 5) Serial.print(F(":"));
+  }
+}
+
 PairingStatus autoPairing(){
   switch(pairingStatus) {
   case PAIR_REQUEST:
@@ -173,6 +191,12 @@ PairingStatus autoPairing(){
     // set pairing data to send to the server
     pairingData.id = BOARD_ID;     
     pairingData.channel = channel;
+    pairingData.macAddr[0] = clientMacAddress[0];
+    pairingData.macAddr[1] = clientMacAddress[1];
+    pairingData.macAddr[2] = clientMacAddress[2];
+    pairingData.macAddr[3] = clientMacAddress[3];
+    pairingData.macAddr[4] = clientMacAddress[4];
+    pairingData.macAddr[5] = clientMacAddress[5];
     previousMillis = millis();
     // add peer and send request
     Serial.println(esp_now_send(broadcastAddressX, (uint8_t *) &pairingData, sizeof(pairingData)));
@@ -182,11 +206,11 @@ PairingStatus autoPairing(){
   case PAIR_REQUESTED:
     // time out to allow receiving response from server
     currentMillis = millis();
-    if(currentMillis - previousMillis > 100) {
+    if(currentMillis - previousMillis > 1000) {
       previousMillis = currentMillis;
       // time out expired,  try next channel
       channel ++;
-      if (channel > 11) {
+      if (channel > MAX_CHANNEL) {
         channel = 0;
       }
       pairingStatus = PAIR_REQUEST; 
@@ -210,7 +234,8 @@ void setup() {
  
   // Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
-  Serial.println(WiFi.macAddress());
+  readGetMacAddress();
+  //Serial.println(WiFi.macAddress());
   WiFi.disconnect();
 
   // Init ESP-NOW
