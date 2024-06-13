@@ -1,14 +1,9 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-mpu-6050-web-server/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
-
 #include <Arduino.h>
 #include <WiFi.h>
 #include <AsyncTCP.h>
@@ -16,7 +11,7 @@
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <Arduino_JSON.h>
-#include "SPIFFS.h"
+#include "LittleFS.h"
 
 // Replace with your network credentials
 const char* ssid = "REPLACE_WITH_YOUR_SSID";
@@ -64,11 +59,11 @@ void initMPU(){
   Serial.println("MPU6050 Found!");
 }
 
-void initSPIFFS() {
-  if (!SPIFFS.begin()) {
-    Serial.println("An error has occurred while mounting SPIFFS");
+void initLittleFS() {
+  if (!LittleFS.begin()) {
+    Serial.println("An error has occurred while mounting LittleFS");
   }
-  Serial.println("SPIFFS mounted successfully");
+  Serial.println("LittleFS mounted successfully");
 }
 
 // Initialize WiFi
@@ -133,15 +128,15 @@ String getTemperature(){
 void setup() {
   Serial.begin(115200);
   initWiFi();
-  initSPIFFS();
+  initLittleFS();
   initMPU();
 
   // Handle Web Server
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/index.html", "text/html");
+    request->send(LittleFS, "/index.html", "text/html");
   });
 
-  server.serveStatic("/", SPIFFS, "/");
+  server.serveStatic("/", LittleFS, "/");
 
   server.on("/reset", HTTP_GET, [](AsyncWebServerRequest *request){
     gyroX=0;
