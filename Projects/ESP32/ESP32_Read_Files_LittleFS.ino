@@ -1,5 +1,5 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-littlefs-arduino-ide/
 *********/
 
