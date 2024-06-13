@@ -1,6 +1,7 @@
 /*********
   Rui Santos
-  Complete project details at https://RandomNerdTutorials.com  
+  This code has been deprecated, you should use the new code available: 
+  https://RandomNerdTutorials.com/display-images-esp32-esp8266-web-server/
 *********/
 
 #ifdef ESP32
