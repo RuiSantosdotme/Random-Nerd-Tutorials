@@ -1,25 +1,20 @@
 /*********
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Rui Santos & Sara Santos - Random Nerd Tutorials
+  Complete project details at https://RandomNerdTutorials.com/esp32-esp8266-plot-chart-web-server/
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
-
-// Import required libraries
 #ifdef ESP32
   #include <WiFi.h>
   #include <ESPAsyncWebServer.h>
-  #include <SPIFFS.h>
+  #include <LittleFS.h>
 #else
   #include <Arduino.h>
   #include <ESP8266WiFi.h>
   #include <Hash.h>
   #include <ESPAsyncTCP.h>
   #include <ESPAsyncWebServer.h>
+  #include <LittleFS.h>
   #include <FS.h>
 #endif
 #include <Wire.h>
@@ -37,8 +32,8 @@ Adafruit_BME280 bme; // I2C
 //Adafruit_BME280 bme(BME_CS, BME_MOSI, BME_MISO, BME_SCK); // software SPI
 
 // Replace with your network credentials
-const char* ssid = "REPLACE_WITH_YOUR_SSID";
-const char* password = "REPLACE_WITH_YOUR_PASSWORD";
+const char* ssid = "REPLACE_IWTH_YOUR_SSID";
+const char* password = "REPLACE_IWTH_YOUR_PASSWORD";
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -95,10 +90,10 @@ void setup(){
     while (1);
   }
 
-  // Initialize SPIFFS
-  if(!SPIFFS.begin()){
-    Serial.println("An Error has occurred while mounting SPIFFS");
-    return;
+  // Initialize LittleFS
+  if(!LittleFS.begin()){
+    Serial.println("An Error has occurred while mounting LittleFS");
+        return;
   }
 
   // Connect to Wi-Fi
@@ -113,7 +108,7 @@ void setup(){
 
   // Route for root / web page
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/index.html");
+    request->send(LittleFS, "/index.html");
   });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/plain", readBME280Temperature().c_str());
