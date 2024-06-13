@@ -60,12 +60,10 @@ void initWiFi() {
 
 void setup() {
   // Serial port for debugging purposes
-
   Serial.begin(115200);
   initWiFi();
   initLittleFS();
   myStepper.setSpeed(5);
-
 
   // Web Server Root URL
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
