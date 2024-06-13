@@ -1,24 +1,19 @@
 /* 
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-web-server-websocket-sliders/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
 #include <Arduino.h>
 #include <WiFi.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
-#include "SPIFFS.h"
+#include "LittleFS.h"
 #include <Arduino_JSON.h>
 
 // Replace with your network credentials
 const char* ssid = "REPLACE_WITH_YOUR_SSID";
-const char* password = "REPLACE_WITH_YOUR_PASSWORD";
+const char* password = "REPLACE_WITH_YOUR_SSID";
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -60,13 +55,13 @@ String getSliderValues(){
   return jsonString;
 }
 
-// Initialize SPIFFS
+// Initialize LittleFS
 void initFS() {
-  if (!SPIFFS.begin()) {
-    Serial.println("An error has occurred while mounting SPIFFS");
+  if (!LittleFS.begin()) {
+    Serial.println("An error has occurred while mounting LittleFS");
   }
   else{
-   Serial.println("SPIFFS mounted successfully");
+   Serial.println("LittleFS mounted successfully");
   }
 }
 
@@ -139,7 +134,6 @@ void initWebSocket() {
   server.addHandler(&ws);
 }
 
-
 void setup() {
   Serial.begin(115200);
   pinMode(ledPin1, OUTPUT);
@@ -148,35 +142,28 @@ void setup() {
   initFS();
   initWiFi();
 
-  // configure LED PWM functionalitites
-  ledcSetup(ledChannel1, freq, resolution);
-  ledcSetup(ledChannel2, freq, resolution);
-  ledcSetup(ledChannel3, freq, resolution);
-
-  // attach the channel to the GPIO to be controlled
-  ledcAttachPin(ledPin1, ledChannel1);
-  ledcAttachPin(ledPin2, ledChannel2);
-  ledcAttachPin(ledPin3, ledChannel3);
-
+  // Set up LEDC pins
+  ledcAttachChannel(ledPin1, freq, resolution, ledChannel1);
+  ledcAttachChannel(ledPin2, freq, resolution, ledChannel2);
+  ledcAttachChannel(ledPin3, freq, resolution, ledChannel3);
 
   initWebSocket();
   
   // Web Server Root URL
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/index.html", "text/html");
+    request->send(LittleFS, "/index.html", "text/html");
   });
   
-  server.serveStatic("/", SPIFFS, "/");
+  server.serveStatic("/", LittleFS, "/");
 
   // Start server
   server.begin();
-
 }
 
 void loop() {
-  ledcWrite(ledChannel1, dutyCycle1);
-  ledcWrite(ledChannel2, dutyCycle2);
-  ledcWrite(ledChannel3, dutyCycle3);
+  ledcWrite(ledPin1, dutyCycle1);
+  ledcWrite(ledPin2, dutyCycle2);
+  ledcWrite(ledPin3, dutyCycle3);
 
   ws.cleanupClients();
 }
