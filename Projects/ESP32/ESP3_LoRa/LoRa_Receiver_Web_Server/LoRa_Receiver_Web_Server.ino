@@ -1,19 +1,14 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-lora-sensor-web-server/
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
-
 // Import Wi-Fi library
 #include <WiFi.h>
 #include "ESPAsyncWebServer.h"
 
-#include <SPIFFS.h>
+#include <LittleFS.h>
 
 //Libraries for LoRa
 #include <SPI.h>
@@ -217,13 +212,13 @@ void setup() {
   startLoRA();
   connectWiFi();
   
-  if(!SPIFFS.begin()){
-    Serial.println("An Error has occurred while mounting SPIFFS");
+  if(!LittleFS.begin()){
+    Serial.println("An Error has occurred while mounting LittleFS");
     return;
   }
   // Route for root / web page
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/index.html", String(), false, processor);
+    request->send(LittleFS, "/index.html", String(), false, processor);
   });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/plain", temperature.c_str());
@@ -241,7 +236,7 @@ void setup() {
     request->send_P(200, "text/plain", String(rssi).c_str());
   });
   server.on("/winter", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/winter.jpg", "image/jpg");
+    request->send(LittleFS, "/winter.jpg", "image/jpg");
   });
   // Start server
   server.begin();
