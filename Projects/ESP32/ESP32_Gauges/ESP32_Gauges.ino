@@ -1,16 +1,14 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete instructions at https://RandomNerdTutorials.com/esp32-web-server-gauges/
-  
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
-
 #include <Arduino.h>
 #include <WiFi.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
-#include "SPIFFS.h"
+#include "LittleFS.h"
 #include <Arduino_JSON.h>
 #include <Adafruit_BME280.h>
 #include <Adafruit_Sensor.h>
@@ -51,12 +49,12 @@ String getSensorReadings(){
   return jsonString;
 }
 
-// Initialize SPIFFS
-void initSPIFFS() {
-  if (!SPIFFS.begin()) {
-    Serial.println("An error has occurred while mounting SPIFFS");
+// Initialize LittleFS
+void initLittleFS() {
+  if (!LittleFS.begin()) {
+    Serial.println("An error has occurred while mounting LittleFS");
   }
-  Serial.println("SPIFFS mounted successfully");
+  Serial.println("LittleFS mounted successfully");
 }
 
 // Initialize WiFi
@@ -76,14 +74,14 @@ void setup() {
   Serial.begin(115200);
   initBME();
   initWiFi();
-  initSPIFFS();
+  initLittleFS();
 
   // Web Server Root URL
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/index.html", "text/html");
+    request->send(LittleFS, "/index.html", "text/html");
   });
 
-  server.serveStatic("/", SPIFFS, "/");
+  server.serveStatic("/", LittleFS, "/");
 
   // Request for the latest sensor readings
   server.on("/readings", HTTP_GET, [](AsyncWebServerRequest *request){
