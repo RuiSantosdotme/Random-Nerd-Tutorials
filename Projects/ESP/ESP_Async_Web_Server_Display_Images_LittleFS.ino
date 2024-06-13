@@ -38,7 +38,6 @@ const char index_html[] PROGMEM = R"rawliteral(
 </body>  
 </html>)rawliteral";
 
-
 void setup(){
   // Serial port for debugging purposes
   Serial.begin(115200);
