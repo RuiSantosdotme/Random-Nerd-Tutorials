@@ -1,16 +1,10 @@
 /*
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-stepper-motor-28byj-48-uln2003/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
-  
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
   Based on Stepper Motor Control - one revolution by Tom Igoe
 */
-
 #include <Stepper.h>
 
 const int stepsPerRevolution = 2048;  // change this to fit the number of steps per revolution
