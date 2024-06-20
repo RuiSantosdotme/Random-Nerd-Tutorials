@@ -32,12 +32,12 @@ void setup() {
   Wire.onRequest(onRequest);
   Wire.begin((uint8_t)I2C_DEV_ADDR);
 
-#if CONFIG_IDF_TARGET_ESP32
+/*#if CONFIG_IDF_TARGET_ESP32
   char message[64];
   snprintf(message, 64, "%lu Packets.", i++);
   Wire.slaveWrite((uint8_t *)message, strlen(message));
   Serial.print('Printing config %lu', i);
-#endif
+#endif*/
 }
 
 void loop() {
