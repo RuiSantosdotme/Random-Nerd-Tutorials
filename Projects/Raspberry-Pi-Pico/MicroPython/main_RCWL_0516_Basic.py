@@ -1,10 +1,11 @@
 # Complete project details at https://RandomNerdTutorials.com/raspberry-pi-pico-rcwl-0516-micropython/
+
 from machine import Pin
 import time
 
 # Pin numbers for LED and sensor
-led_pin = 2
-sensor_pin = 12
+led_pin = 21
+sensor_pin = 22
 
 # Set the LED pin as an output and the sensor pin as an input
 led = Pin(led_pin, Pin.OUT)
