@@ -1,6 +1,7 @@
 /*********
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Modified from the examples of the Arduino LoRa library
-  More resources: https://randomnerdtutorials.com
+  More resources: https://RandomNerdTutorials.com/esp32-lora-rfm95-transceiver-arduino-ide/
 *********/
 
 #include <SPI.h>
@@ -22,9 +23,9 @@ void setup() {
   
   //replace the LoRa.begin(---E-) argument with your location's frequency 
   //433E6 for Asia
-  //866E6 for Europe
+  //868E6 for Europe
   //915E6 for North America
-  while (!LoRa.begin(866E6)) {
+  while (!LoRa.begin(868E6)) {
     Serial.println(".");
     delay(500);
   }
