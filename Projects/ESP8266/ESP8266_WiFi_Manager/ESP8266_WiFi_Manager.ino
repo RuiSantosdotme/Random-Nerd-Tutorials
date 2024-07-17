@@ -1,5 +1,5 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete instructions at https://RandomNerdTutorials.com/esp8266-nodemcu-wi-fi-manager-asyncwebserver/
   
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
@@ -203,7 +203,7 @@ void setup() {
     server.on("/", HTTP_POST, [](AsyncWebServerRequest *request) {
       int params = request->params();
       for(int i=0;i<params;i++){
-        AsyncWebParameter* p = request->getParam(i);
+        const AsyncWebParameter* p = request->getParam(i);
         if(p->isPost()){
           // HTTP POST ssid value
           if (p->name() == PARAM_INPUT_1) {
