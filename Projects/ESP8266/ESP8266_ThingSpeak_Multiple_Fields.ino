@@ -80,7 +80,7 @@ void loop() {
     
     //uncomment if you want to get temperature in Fahrenheit
     /*temperatureF = 1.8 * bme.readTemperature() + 32;
-    Serial.print("Temperature (ºC): ");
+    Serial.print("Temperature (ºF): ");
     Serial.println(temperatureF);*/
 
     // set the fields with the values
