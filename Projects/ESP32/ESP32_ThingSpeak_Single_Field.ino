@@ -1,14 +1,9 @@
 /*
-  Adapted from WriteSingleField Example from ThingSpeak Library (Mathworks)
-  
-  Rui Santos
+  Adapted from WriteSingleField Example from ThingSpeak Library (Mathworks)  
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-thingspeak-publish-arduino/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
 #include <WiFi.h>
@@ -74,7 +69,6 @@ void loop() {
     /*temperatureF = 1.8 * bme.readTemperature() + 32;
     Serial.print("Temperature (ºF): ");
     Serial.println(temperatureF);*/
-    
     
     // Write to ThingSpeak. There are up to 8 fields in a channel, allowing you to store up to 8 different
     // pieces of information in a channel.  Here, we write to field 1.
