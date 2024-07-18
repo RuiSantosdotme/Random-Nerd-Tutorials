@@ -1,14 +1,9 @@
 /*
-  Adapted from Example from ThingSpeak Library (Mathworks)
-  
-  Rui Santos
+  Adapted from Example from ThingSpeak Library (Mathworks) 
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-thingspeak-publish-arduino/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
 #include <WiFi.h>
@@ -80,7 +75,7 @@ void loop() {
     
     //uncomment if you want to get temperature in Fahrenheit
     /*temperatureF = 1.8 * bme.readTemperature() + 32;
-    Serial.print("Temperature (ºC): ");
+    Serial.print("Temperature (ºF): ");
     Serial.println(temperatureF);*/
 
     // set the fields with the values
