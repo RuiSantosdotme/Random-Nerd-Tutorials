@@ -26,4 +26,4 @@ except KeyboardInterrupt:
     blink_timer.deinit()
     print('Timer deinitialized')
     # Turn off the LED
-    led_pin.value(0)
+    led.value(0)
