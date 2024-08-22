@@ -153,7 +153,7 @@ void moveBackward(){
 void stopMotor(){
   Serial.print("Motor Stopped");
   digitalWrite(enable1Pin, LOW);
-  digitalWrite(motor1Pin1, HIGH);
+  digitalWrite(motor1Pin1, LOW);
   digitalWrite(motor1Pin2, LOW);
 }
 
