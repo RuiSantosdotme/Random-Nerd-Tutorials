@@ -1,5 +1,5 @@
-"""Implements a HD44780 character LCD connected via PCF8574 on I2C.
-   This was tested with: https://www.wemos.cc/product/d1-mini.html"""
+# Implements a HD44780 character LCD connected via PCF8574 on I2C.
+# This was tested with: https://www.wemos.cc/product/d1-mini.html
 # https://github.com/dhylands/python_lcd/blob/master/lcd/machine_i2c_lcd.py
 
 from lcd_api import LcdApi
