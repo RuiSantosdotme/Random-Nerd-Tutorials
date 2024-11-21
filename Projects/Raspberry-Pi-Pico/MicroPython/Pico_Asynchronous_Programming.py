@@ -13,13 +13,13 @@ blue_led = Pin(blue_led_pin, Pin.OUT)
 async def blink_green_led():
     while True:
         green_led.toggle()
-        await asyncio.sleep(0.5) 
+        await asyncio.sleep(2) 
 
 # Define coroutine function
 async def blink_blue_led():
     while True:
         blue_led.toggle()
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.5)
 
 # Define the main function to run the event loop
 async def main():
