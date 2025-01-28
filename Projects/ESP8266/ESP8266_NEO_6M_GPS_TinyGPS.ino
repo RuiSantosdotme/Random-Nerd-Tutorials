@@ -9,8 +9,8 @@
 #include <TinyGPS++.h>
 
 // Define the RX and TX pins for Software Serial 2
-#define RX 12
-#define TX 14
+#define RX 14
+#define TX 12
 
 #define GPS_BAUD 9600
 
