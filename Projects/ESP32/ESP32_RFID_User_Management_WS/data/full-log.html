@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="brand">User Management</a>
+            <ul class="nav-menu">
+                <li><a href="/">📄 Full Log</a></li>
+                <li><a href="add-user">➕ Add User</a></li>
+                <li><a href="manage-users">👤 Manage Users</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main-container">
+        <section class="main-section">
+            <h2>📄 Full Access Log</h2>
+            <table id="tableData">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>UID</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data from log.txt will be loaded here -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <div class="main-container">
+        <a href="get?delete=log"><button class="button button-delete">🗑️ Delete log.txt File</button></a>
+    </div>
+    <script>
+        // JavaScript to load and parse log.txt
+        async function loadTableData() {
+            try {
+                const response = await fetch('view-log');
+                const data = await response.text();
+                const rows = data.trim().split('\n').slice(1); // Skip the header line
+
+                const tableBody = document.querySelector('#tableData tbody');
+                rows.forEach(row => {
+                    const columns = row.split(',');
+                    const tr = document.createElement('tr');
+                    columns.forEach(column => {
+                        const td = document.createElement('td');
+                        td.textContent = column;
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error('Error loading log data:', error);
+            }
+        }
+        // Call the function to load log data
+        loadTableData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="brand">User Management</a>
+            <ul class="nav-menu">
+                <li><a href="/">📄 Full Log</a></li>
+                <li><a href="add-user">➕ Add User</a></li>
+                <li><a href="manage-users">👤 Manage Users</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main-container">
+        <section class="main-section">
+            <h2>➕ Add User</h2>
+            <p>Enter the UID in lower case letters and no spaces.</p><br>
+            <form action="get" class="user-form">
+                <label for="uid">UID</label>
+                <input type="text" id="uid" name="uid" required>
+                <label for="role">Role</label>
+                <select id="role" name="role">
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+                <button type="submit">✅ Save</button>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
