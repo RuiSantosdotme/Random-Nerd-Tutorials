@@ -37,7 +37,7 @@ void print_wakeup_reason() {
   }
 }
 
-void onAlarm(){
+void IRAM_ATTR onAlarm(){
   Serial.print("Alarm occurred!");
 }
 
