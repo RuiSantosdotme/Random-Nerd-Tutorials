@@ -20,11 +20,11 @@ const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 const char* timezone = "WET0WEST,M3.5.0/1,M10.5.0"; // WET0WEST,M3.5.0/1,M10.5.0 = Europe/Lisbon
 
 // Time that the daily task runs in 24 hour format
-const int task1Hour = 15;    // Task 1 at 8:15 AM
-const int task1Minute = 21;
+const int task1Hour = 8;    // Task 1 at 8:15 AM
+const int task1Minute = 15;
 
-const int task2Hour = 15;   // Task 2 at 6:45 PM
-const int task2Minute = 24;
+const int task2Hour = 18;   // Task 2 at 6:45 PM
+const int task2Minute = 45;
   
 // Store the day when the task last ran to ensure it only runs once per day
 int lastRunDayTask1 = -1;
