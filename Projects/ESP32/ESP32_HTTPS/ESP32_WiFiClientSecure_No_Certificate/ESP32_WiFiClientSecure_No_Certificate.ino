@@ -9,6 +9,8 @@
   2017 - Evandro Copercini - Apache 2.0 License.
 */
 
+#include <Arduino.h>
+#include <WiFi.h>
 #include <WiFiClientSecure.h>
 
 const char* ssid = "REPLACE_WITH_YOUR_SSID";
