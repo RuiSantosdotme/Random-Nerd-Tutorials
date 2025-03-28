@@ -1,6 +1,6 @@
 /*
- * Rui Santos 
- * Complete Project Details http://randomnerdtutorials.com
+ * Rui Santos & Sara Santos - Random Nerd Tutorials
+ * Complete Project Details https://RandomNerdTutorials.com/
  */
 
 #include "Nextion.h"
@@ -129,7 +129,7 @@ void setup(void) {
 
 void loop(void) {   
   /*
-   * When a pop or push event occured every time,
+   * When a pop or push event occurred every time,
    * the corresponding component[right page id and component id] in touch event list will be asked.
    */
   nexLoop(nex_listen_list);
