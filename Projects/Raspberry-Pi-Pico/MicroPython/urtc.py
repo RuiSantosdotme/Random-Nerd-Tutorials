@@ -109,6 +109,8 @@ class DS3231(_BaseRTC):
     _CONTROL_REGISTER = 0x0e
     _STATUS_REGISTER = 0x0f
     _DATETIME_REGISTER = 0x00
+    _TEMPERATURE_MSB_REGISTER = 0x11
+    _TEMPERATURE_LSB_REGISTER = 0x12
     _ALARM_REGISTERS = (0x08, 0x0b)
     _SQUARE_WAVE_REGISTER = 0x0e
 
@@ -185,8 +187,24 @@ class DS3231(_BaseRTC):
             buffer = bytearray([_bin2bcd(datetime.second)
                                 if datetime.second is not None else 0x80])
             self._register(self._ALARM_REGISTERS[alarm] - 1, buffer)
-
-
+    
+    def get_temperature(self):
+        """
+        Reads the temperature from the DS3231's temperature registers.
+        Returns the temperature as a float in Celsius.
+        """
+        msb = self._register(self._TEMPERATURE_MSB_REGISTER)  # 0x11
+        lsb = self._register(self._TEMPERATURE_LSB_REGISTER)  # 0x12
+        
+        if msb is None or lsb is None:
+            print("Error: Register read returned None")
+            return None
+        
+        temp = msb + ((lsb >> 6) * 0.25)
+        if msb & 0x80:
+            temp -= 256
+        
+        return temp
 
 class PCF8523(_BaseRTC):
     _CONTROL1_REGISTER = 0x00
