@@ -145,6 +145,6 @@ try:
     # Run the event loop indefinitely
     loop.run_forever()
 except Exception as e:
-    print('Error occured: ', e)
+    print('Error occurred: ', e)
 except KeyboardInterrupt:
     print('Program Interrupted by the user')
