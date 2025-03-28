@@ -42,7 +42,7 @@ void printCurrentTime(){
 }
 
 void onAlarm() {
-  Serial.println("Alarm occured!");
+  Serial.println("Alarm occurred!");
   // toggle the current LED state
   int state = digitalRead(ledPin);
   digitalWrite(ledPin, !state);
