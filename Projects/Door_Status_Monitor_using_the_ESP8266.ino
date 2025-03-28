@@ -1,12 +1,8 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/door-status-monitor-using-the-esp8266/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
 
 #include <ESP8266WiFi.h>
@@ -67,7 +63,7 @@ void loop() {
     unsigned long currentMillis = millis();
     if(currentMillis - previousMillis >= interval) {
       previousMillis = currentMillis;
-      // If a state has occured, invert the current door state   
+      // If a state has occurred, invert the current door state   
       state = !state;
       if(state) {
         doorState = "closed";
