@@ -1,12 +1,8 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-email-alert-temperature-threshold/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
 
 #include <WiFi.h>
@@ -14,7 +10,7 @@
 #include <ESPAsyncWebServer.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include "ESP32_MailClient.h"
+#include <ESP_Mail_Client.h>
 
 // REPLACE WITH YOUR NETWORK CREDENTIALS
 const char* ssid = "REPLACE_WITH_YOUR_SSID";
@@ -22,7 +18,7 @@ const char* password = "REPLACE_WITH_YOUR_PASSWORD";
 
 // To send Emails using Gmail on port 465 (SSL), you need to create an app password: https://support.google.com/accounts/answer/185833
 #define emailSenderAccount    "example_sender_account@gmail.com"
-#define emailSenderPassword   "email_sender_password"
+#define emailSenderPassword   "email_sender_app_password"
 #define smtpServer            "smtp.gmail.com"
 #define smtpServerPort        465
 #define emailSubject          "[ALERT] ESP32 Temperature"
@@ -42,7 +38,7 @@ const char index_html[] PROGMEM = R"rawliteral(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   </head><body>
   <h2>DS18B20 Temperature</h2> 
-  <h3>%TEMPERATURE% &deg;C</h3>
+  <h3>%TEMPERATURE% C</h3>
   <h2>ESP Email Notification</h2>
   <form action="/get">
     Email Address <input type="email" name="email_input" value="%EMAIL_INPUT%" required><br>
@@ -60,7 +56,6 @@ AsyncWebServer server(80);
 
 // Replaces placeholder with DS18B20 values
 String processor(const String& var){
-  //Serial.println(var);
   if(var == "TEMPERATURE"){
     return lastTemperature;
   }
@@ -83,7 +78,7 @@ const char* PARAM_INPUT_1 = "email_input";
 const char* PARAM_INPUT_2 = "enable_email_input";
 const char* PARAM_INPUT_3 = "threshold_input";
 
-// Interval between sensor readings. Learn more about timers: https://RandomNerdTutorials.com/esp32-pir-motion-sensor-interrupts-timers/
+// Interval between sensor readings
 unsigned long previousMillis = 0;     
 const long interval = 5000;    
 
@@ -94,8 +89,8 @@ OneWire oneWire(oneWireBus);
 // Pass our oneWire reference to Dallas Temperature sensor 
 DallasTemperature sensors(&oneWire);
 
-// The Email Sending data object contains config and data to send
-SMTPData smtpData;
+// SMTP session object
+SMTPSession smtp;
 
 void setup() {
   Serial.begin(115200);
@@ -119,10 +114,8 @@ void setup() {
 
   // Receive an HTTP GET request at <ESP_IP>/get?email_input=<inputMessage>&enable_email_input=<inputMessage2>&threshold_input=<inputMessage3>
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest *request) {
-    // GET email_input value on <ESP_IP>/get?email_input=<inputMessage>
     if (request->hasParam(PARAM_INPUT_1)) {
       inputMessage = request->getParam(PARAM_INPUT_1)->value();
-      // GET enable_email_input value on <ESP_IP>/get?enable_email_input=<inputMessage2>
       if (request->hasParam(PARAM_INPUT_2)) {
         inputMessage2 = request->getParam(PARAM_INPUT_2)->value();
         enableEmailChecked = "checked";
@@ -131,7 +124,6 @@ void setup() {
         inputMessage2 = "false";
         enableEmailChecked = "";
       }
-      // GET threshold_input value on <ESP_IP>/get?threshold_input=<inputMessage3>
       if (request->hasParam(PARAM_INPUT_3)) {
         inputMessage3 = request->getParam(PARAM_INPUT_3)->value();
       }
@@ -146,6 +138,9 @@ void setup() {
   });
   server.onNotFound(notFound);
   server.begin();
+
+  // Initialize ESP-Mail-Client
+  MailClient.networkReconnect(true);
 }
 
 void loop() {
@@ -157,11 +152,6 @@ void loop() {
     float temperature = sensors.getTempCByIndex(0);
     Serial.print(temperature);
     Serial.println(" *C");
-    
-    // Temperature in Fahrenheit degrees
-    /*float temperature = sensors.getTempFByIndex(0);
-    SerialMon.print(temperature);
-    SerialMon.println(" *F");*/
     
     lastTemperature = String(temperature);
     
@@ -192,48 +182,49 @@ void loop() {
   }
 }
 
-bool sendEmailNotification(String emailMessage){
-  // Set the SMTP Server Email host, port, account and password
-  smtpData.setLogin(smtpServer, smtpServerPort, emailSenderAccount, emailSenderPassword);
+bool sendEmailNotification(String emailMessage) {
+  // Configure the session
+  ESP_Mail_Session session;
+  session.server.host_name = smtpServer;
+  session.server.port = smtpServerPort;
+  session.login.email = emailSenderAccount;
+  session.login.password = emailSenderPassword;
+  session.login.user_domain = "";
 
-  // For library version 1.2.0 and later which STARTTLS protocol was supported,the STARTTLS will be 
-  // enabled automatically when port 587 was used, or enable it manually using setSTARTTLS function.
-  //smtpData.setSTARTTLS(true);
+  // Configure the message
+  SMTP_Message message;
+  message.sender.name = "ESP32";
+  message.sender.email = emailSenderAccount;
+  message.subject = emailSubject;
+  message.addRecipient("Recipient", inputMessage);
+  message.text.content = emailMessage.c_str();
+  message.text.charSet = "utf-8";
+  message.text.transfer_encoding = Content_Transfer_Encoding::enc_7bit;
+  message.priority = esp_mail_smtp_priority::esp_mail_smtp_priority_high;
+  // Set the callback function
+  smtp.callback(smtpCallback);
 
-  // Set the sender name and Email
-  smtpData.setSender("ESP32", emailSenderAccount);
-
-  // Set Email priority or importance High, Normal, Low or 1 to 5 (1 is highest)
-  smtpData.setPriority("High");
-
-  // Set the subject
-  smtpData.setSubject(emailSubject);
-
-  // Set the message with HTML format
-  smtpData.setMessage(emailMessage, true);
-
-  // Add recipients
-  smtpData.addRecipient(inputMessage);
-
-  smtpData.setSendCallback(sendCallback);
-
-  // Start sending Email, can be set callback function to track the status
-  if (!MailClient.sendMail(smtpData)) {
-    Serial.println("Error sending Email, " + MailClient.smtpErrorReason());
+  // Connect to the server and send the email
+  if (!smtp.connect(&session)) {
+    Serial.println("Failed to connect to SMTP server: " + smtp.errorReason());
     return false;
   }
-  // Clear all data from Email object to free memory
-  smtpData.empty();
+
+  if (!MailClient.sendMail(&smtp, &message)) {
+    Serial.println("Error sending Email: " + smtp.errorReason());
+    smtp.closeSession();
+    return false;
+  }
+
+  smtp.closeSession();
   return true;
 }
 
-// Callback function to get the Email sending status
-void sendCallback(SendStatus msg) {
-  // Print the current status
-  Serial.println(msg.info());
-
-  // Do something when complete
-  if (msg.success()) {
+// Callback function for email sending status
+void smtpCallback(SMTP_Status status) {
+  Serial.println(status.info());
+  if (status.success()) {
+    Serial.println("Email sent successfully");
     Serial.println("----------------");
   }
 }
