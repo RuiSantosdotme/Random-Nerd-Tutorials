@@ -221,19 +221,19 @@ void setup() {
     request->send(LittleFS, "/index.html", String(), false, processor);
   });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", temperature.c_str());
+    request->send(200, "text/plain", temperature.c_str());
   });
   server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", humidity.c_str());
+    request->send(200, "text/plain", humidity.c_str());
   });
   server.on("/pressure", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", pressure.c_str());
+    request->send(200, "text/plain", pressure.c_str());
   });
   server.on("/timestamp", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", timestamp.c_str());
+    request->send(200, "text/plain", timestamp.c_str());
   });
   server.on("/rssi", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", String(rssi).c_str());
+    request->send(200, "text/plain", String(rssi).c_str());
   });
   server.on("/winter", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(LittleFS, "/winter.jpg", "image/jpg");
