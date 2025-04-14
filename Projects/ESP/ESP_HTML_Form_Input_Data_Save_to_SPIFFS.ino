@@ -1,5 +1,5 @@
 /*********
-  Rui Santos 
+  ESP_HTML_Form_Input_Data_Save_to_SPIFFS.ino
   This code has been deprecated, you should use the new code available: https://RandomNerdTutorials.com/esp32-esp8266-input-data-html-form/
 *********/
 
@@ -130,7 +130,7 @@ void setup() {
 
   // Send web page with input fields to client
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/html", index_html, processor);
+    request->send(200, "text/html", index_html, processor);
   });
 
   // Send a GET request to <ESP_IP>/get?inputString=<inputMessage>
