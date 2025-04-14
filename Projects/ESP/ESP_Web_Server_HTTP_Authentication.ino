@@ -1,9 +1,7 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-esp8266-web-server-http-authentication/
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *********/
 
 // Import required libraries
@@ -132,7 +130,7 @@ void setup(){
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     if(!request->authenticate(http_username, http_password))
       return request->requestAuthentication();
-    request->send_P(200, "text/html", index_html, processor);
+    request->send(200, "text/html", index_html, processor);
   });
     
   server.on("/logout", HTTP_GET, [](AsyncWebServerRequest *request){
