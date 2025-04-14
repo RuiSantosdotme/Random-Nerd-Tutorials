@@ -1,5 +1,5 @@
 /*********
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com  
 *********/
 
@@ -169,13 +169,13 @@ void setup(){
 
   // Route for root / web page
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/html", index_html, processor);
+    request->send(200, "text/html", index_html, processor);
   });
   server.on("/temperaturec", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", temperatureC.c_str());
+    request->send(200, "text/plain", temperatureC.c_str());
   });
   server.on("/temperaturef", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", temperatureF.c_str());
+    request->send(200, "text/plain", temperatureF.c_str());
   });
   // Start server
   server.begin();
