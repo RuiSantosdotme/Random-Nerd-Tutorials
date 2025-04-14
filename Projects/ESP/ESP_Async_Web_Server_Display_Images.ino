@@ -1,6 +1,6 @@
 /*********
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com  
+  Rui Santos & Sara Santos - Random Nerd Tutorials
+  Complete project details at https://RandomNerdTutorials.com/display-images-esp32-esp8266-web-server/
 *********/
 
 #ifdef ESP32
@@ -37,7 +37,6 @@ const char index_html[] PROGMEM = R"rawliteral(
 </body>  
 </html>)rawliteral";
 
-
 void setup(){
   // Serial port for debugging purposes
   Serial.begin(115200);
@@ -55,7 +54,7 @@ void setup(){
   // Route for root / web page
 
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/html", index_html);
+    request->send(200, "text/html", index_html);
   });
 
   // Start server
