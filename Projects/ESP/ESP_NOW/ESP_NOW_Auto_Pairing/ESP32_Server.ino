@@ -281,7 +281,7 @@ void setup() {
   
   // Start Web server
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/html", index_html);
+    request->send(200, "text/html", index_html);
   });
   
   // Events 
