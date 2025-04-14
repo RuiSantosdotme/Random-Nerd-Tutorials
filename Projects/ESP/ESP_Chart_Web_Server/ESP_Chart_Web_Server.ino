@@ -111,13 +111,13 @@ void setup(){
     request->send(LittleFS, "/index.html");
   });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", readBME280Temperature().c_str());
+    request->send(200, "text/plain", readBME280Temperature().c_str());
   });
   server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", readBME280Humidity().c_str());
+    request->send(200, "text/plain", readBME280Humidity().c_str());
   });
   server.on("/pressure", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", readBME280Pressure().c_str());
+    request->send(200, "text/plain", readBME280Pressure().c_str());
   });
 
   // Start server
