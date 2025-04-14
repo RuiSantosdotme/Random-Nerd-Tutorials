@@ -58,13 +58,13 @@ void setup(){
   Serial.println(IP);
 
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", readTemp().c_str());
+    request->send(200, "text/plain", readTemp().c_str());
   });
   server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", readHumi().c_str());
+    request->send(200, "text/plain", readHumi().c_str());
   });
   server.on("/pressure", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", readPres().c_str());
+    request->send(200, "text/plain", readPres().c_str());
   });
   
   bool status;
