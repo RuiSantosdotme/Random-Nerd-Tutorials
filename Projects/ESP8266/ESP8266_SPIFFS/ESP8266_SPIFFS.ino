@@ -1,12 +1,8 @@
 /*
-  Rui Santos
+  Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
 // Import required libraries
@@ -129,15 +125,15 @@ void setup(){
   });
 
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", getTemperature().c_str());
+    request->send(200, "text/plain", getTemperature().c_str());
   });
   
   server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", getHumidity().c_str());
+    request->send(200, "text/plain", getHumidity().c_str());
   });
   
   server.on("/pressure", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/plain", getPressure().c_str());
+    request->send(200, "text/plain", getPressure().c_str());
   });
 
   // Start server
