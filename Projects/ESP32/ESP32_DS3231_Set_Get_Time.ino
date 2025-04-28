@@ -20,7 +20,7 @@ void setup () {
     while (1) delay(10);
   }
 
-  if (! rtc.lostPower()) {
+  if (rtc.lostPower()) {
     Serial.println("RTC lost power, let's set the time!");
     // When time needs to be set on a new device, or after a power loss, the
     // following line sets the RTC to the date & time this sketch was compiled
