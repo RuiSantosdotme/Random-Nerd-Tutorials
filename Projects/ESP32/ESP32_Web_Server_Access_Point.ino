@@ -1,0 +1,118 @@
+/*  
+  Rui Santos & Sara Santos - Random Nerd Tutorials
+  https://RandomNerdTutorials.com/esp32-web-server-beginners-guide/
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
+
+#include <WiFi.h>
+#include <WebServer.h>
+
+// Replace with SSID and PASSWORD for the ESP32 ACCESS POINT
+// (for testing you can leave the default)
+const char* ssid = "ESP32_ACCESS_POINT";
+const char* password = "pass123456";
+
+// Assign output variables to GPIO pins
+const int output26 = 26;
+const int output27 = 27;
+String output26State = "off";
+String output27State = "off";
+
+// Create a web server object
+WebServer server(80);
+
+// Function to handle turning GPIO 26 on
+void handleGPIO26On() {
+  output26State = "on";
+  digitalWrite(output26, HIGH);
+  handleRoot();
+}
+
+// Function to handle turning GPIO 26 off
+void handleGPIO26Off() {
+  output26State = "off";
+  digitalWrite(output26, LOW);
+  handleRoot();
+}
+
+// Function to handle turning GPIO 27 on
+void handleGPIO27On() {
+  output27State = "on";
+  digitalWrite(output27, HIGH);
+  handleRoot();
+}
+
+// Function to handle turning GPIO 27 off
+void handleGPIO27Off() {
+  output27State = "off";
+  digitalWrite(output27, LOW);
+  handleRoot();
+}
+
+// Function to handle the root URL and show the current states
+void handleRoot() {
+  String html = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
+  html += "<link rel=\"icon\" href=\"data:,\">";
+  html += "<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}";
+  html += ".button { background-color: #4CAF50; border: none; color: white; padding: 16px 40px; text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}";
+  html += ".button2 { background-color: #555555; }</style></head>";
+  html += "<body><h1>ESP32 Web Server</h1>";
+
+  // Display GPIO 26 controls
+  html += "<p>GPIO 26 - State " + output26State + "</p>";
+  if (output26State == "off") {
+    html += "<p><a href=\"/26/on\"><button class=\"button\">ON</button></a></p>";
+  } else {
+    html += "<p><a href=\"/26/off\"><button class=\"button button2\">OFF</button></a></p>";
+  }
+
+  // Display GPIO 27 controls
+  html += "<p>GPIO 27 - State " + output27State + "</p>";
+  if (output27State == "off") {
+    html += "<p><a href=\"/27/on\"><button class=\"button\">ON</button></a></p>";
+  } else {
+    html += "<p><a href=\"/27/off\"><button class=\"button button2\">OFF</button></a></p>";
+  }
+
+  html += "</body></html>";
+  server.send(200, "text/html", html);
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  // Initialize the output variables as outputs
+  pinMode(output26, OUTPUT);
+  pinMode(output27, OUTPUT);
+  // Set outputs to LOW
+  digitalWrite(output26, LOW);
+  digitalWrite(output27, LOW);
+
+  // Set the ESP32 as access point
+  Serial.print("Setting as access point ");
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP(ssid, password);
+
+  Serial.println("");
+  Serial.println("ESP32 Wi-Fi Access Point ready!");
+  IPAddress IP = WiFi.softAPIP();
+  Serial.print("AP IP address: ");
+  Serial.println(IP);
+
+  // Set up the web server to handle different routes
+  server.on("/", handleRoot);
+  server.on("/26/on", handleGPIO26On);
+  server.on("/26/off", handleGPIO26Off);
+  server.on("/27/on", handleGPIO27On);
+  server.on("/27/off", handleGPIO27Off);
+
+  // Start the web server
+  server.begin();
+  Serial.println("HTTP server started");
+}
+
+void loop() {
+  // Handle incoming client requests
+  server.handleClient();
+}
