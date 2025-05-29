@@ -1,5 +1,5 @@
 # Rui Santos & Sara Santos - Random Nerd Tutorials
-# Complete project details at https://RandomNerdTutorials.com/
+# Complete project details at https://RandomNerdTutorials.com/raspberry-pi-pico-interrupts-micropython/
 
 from machine import Pin
 
