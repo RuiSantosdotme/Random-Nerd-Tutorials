@@ -9,33 +9,31 @@
 #include <driver/gpio.h>
 #include "sdkconfig.h"
 
-#define LED_PIN_1 2
-#define LED_PIN_2 4
-#define LED_PIN_3 5
+// Define the GPIO pin for the LED (GPIO 2 is common for onboard LEDs)
+#define LED_PIN 2
 
 void app_main(void)
 {
-    // Configure multiple GPIOs
+    // Configure GPIO
     gpio_config_t io_conf = {
-        .pin_bit_mask = (1ULL << LED_PIN_1) | (1ULL << LED_PIN_2) | (1ULL << LED_PIN_3),
-        .mode = GPIO_MODE_OUTPUT,
-        .pull_up_en = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type = GPIO_INTR_DISABLE
+        .pin_bit_mask = (1ULL << LED_PIN),     // Select GPIO 2
+        .mode = GPIO_MODE_OUTPUT,              // Set as output
+        .pull_up_en = GPIO_PULLUP_DISABLE,     // Disable pull-up
+        .pull_down_en = GPIO_PULLDOWN_DISABLE, // Disable pull-down
+        .intr_type = GPIO_INTR_DISABLE         // Disable interrupts
     };
     gpio_config(&io_conf);
 
+    // Blink loop
     while (1) {
-        // Turn all LEDs ON
-        gpio_set_level(LED_PIN_1, 1);
-        gpio_set_level(LED_PIN_2, 1);
-        gpio_set_level(LED_PIN_3, 1);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        // Turn LED ON
+        printf("LED ON\n");
+        gpio_set_level(LED_PIN, 1);
+        vTaskDelay(1000 / portTICK_PERIOD_MS); // Delay 1 second
 
-        // Turn all LEDs OFF
-        gpio_set_level(LED_PIN_1, 0);
-        gpio_set_level(LED_PIN_2, 0);
-        gpio_set_level(LED_PIN_3, 0);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        // Turn LED OFF
+        printf("LED OFF\n");
+        gpio_set_level(LED_PIN, 0);
+        vTaskDelay(1000 / portTICK_PERIOD_MS); // Delay 1 second
     }
 }
