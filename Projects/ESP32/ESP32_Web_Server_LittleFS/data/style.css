@@ -1,0 +1,68 @@
+/***
+  Rui Santos & Sara Santos - Random Nerd Tutorials
+  Complete project details at https://RandomNerdTutorials.com/esp32-web-server-littlefs/ 
+***/
+
+html {
+  font-family: Arial;
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+h1 {
+  color: #0F3376;
+  padding: 2vh 1rem;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.5rem;
+  margin: 1rem auto;
+  max-width: 600px;
+}
+
+.button {
+  display: inline-block;
+  background-color: #00A676;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  padding: 14px 32px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  margin: 6px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  width: 160px;
+}
+
+.button:hover {
+  background-color: #0077a8;
+  transform: translateY(-1px);
+}
+
+.button2 {
+  background-color: #f44336;
+}
+
+.button2:hover {
+  background-color: #d9362c;
+}
+
+.units {
+  font-size: 1.2rem;
+  color: #555;
+  margin-left: 4px;
+}
+
+.sensor-labels {
+  font-size: 1.5rem;
+  font-weight: bold;
+  vertical-align: middle;
+  padding-bottom: 15px;
+}

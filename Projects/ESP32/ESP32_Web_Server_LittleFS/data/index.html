@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- 
+  Rui Santos & Sara Santos - Random Nerd Tutorials
+  Complete project details at https://RandomNerdTutorials.com/esp32-web-server-littlefs/ 
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ESP32 LittleFS Web Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>ESP32 LittleFS Web Server</h1>
+
+  <p>💡 GPIO state<strong> %STATE%</strong></p>
+
+  <p>
+    <a href="/on"><button class="button">ON</button></a>
+    <a href="/off"><button class="button button2">OFF</button></a>
+  </p>
+
+  <p>
+    <span class="sensor-labels">🌡️ Temperature</span>
+    <span id="temperature">%TEMPERATURE%</span>
+    <sup class="units">&deg;C</sup>
+  </p>
+
+  <p>
+    <span class="sensor-labels">💧 Humidity</span>
+    <span id="humidity">%HUMIDITY%</span>
+    <sup class="units">&#37;</sup>
+  </p>
+
+  <p>
+    <span class="sensor-labels">↕️ Pressure</span>
+    <span id="pressure">%PRESSURE%</span>
+    <sup class="units">hPa</sup>
+  </p>
+</body>
+
+<script>
+  const updateSensorValue = (id, endpoint) => {
+    fetch(endpoint)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch ${endpoint}`);
+        }
+        return response.text();
+      })
+      .then(data => {
+        document.getElementById(id).textContent = data;
+      })
+      .catch(error => {
+        console.error(error);
+        document.getElementById(id).textContent = 'Error';
+      });
+  };
+
+  // Update all sensors every 10 seconds
+  setInterval(() => {
+    updateSensorValue('temperature', '/temperature');
+    updateSensorValue('humidity', '/humidity');
+    updateSensorValue('pressure', '/pressure');
+  }, 10000);
+  
+</script>
+</html>
