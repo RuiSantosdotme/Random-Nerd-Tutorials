@@ -21,7 +21,7 @@ except OSError as err:
     raise
 
 # Peer MAC address (replace with the actual MAC of the other board)
-peer_mac = b'\x30\xae\xa4\xf6\x7d\x4c'  # Example peer MAC for unicast
+peer_mac = b'\xff\xff\xff\xff\xff\xff'  # Example peer MAC for unicast
 
 # Add peer for unicast reliability
 try:
