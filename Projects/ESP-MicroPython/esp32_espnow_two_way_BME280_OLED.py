@@ -46,7 +46,7 @@ except OSError as err:
     raise
 
 # Receiver MAC address (the board you want to send data to)
-peer_mac = b'\xFF\xFF\xFF\xFF\xFF\xFF'
+peer_mac = b'\xff\xff\xff\xff\xff\xff'
 
 # Add peer
 try:
