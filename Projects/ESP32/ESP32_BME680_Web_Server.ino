@@ -66,9 +66,10 @@ String processor(const String& var){
   else if(var == "PRESSURE"){
     return String(pressure);
   }
- else if(var == "GAS"){
+  else if(var == "GAS"){
     return String(gasResistance);
   }
+  return "0";
 }
 
 const char index_html[] PROGMEM = R"rawliteral(
@@ -219,3 +220,4 @@ void loop() {
     lastTime = millis();
   }
 }
+
