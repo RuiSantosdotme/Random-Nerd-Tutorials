@@ -11,11 +11,13 @@
 #define QUEUE_SIZE 5
 
 QueueHandle_t potQueue = NULL;
+QueueHandle_t sMonitorQueue = NULL;
 
 void SensorTask(void *parameter) {
   for (;;) {
     uint16_t potValue = analogRead(POT_PIN);  // Read 0–4095
     xQueueSend(potQueue, &potValue, portMAX_DELAY);  // Send to queue
+    xQueueSend(sMonitorQueue, &potValue, portMAX_DELAY);  // Send to queue
     vTaskDelay(300 / portTICK_PERIOD_MS);  // 100ms
   }
 }
@@ -33,7 +35,7 @@ void LEDBrightnessTask(void *parameter) {
 void SerialLoggerTask(void *parameter) {
   for (;;) {
     uint16_t potValue;
-    if (xQueueReceive(potQueue, &potValue, portMAX_DELAY)) {
+    if (xQueueReceive(sMonitorQueue, &potValue, portMAX_DELAY)) {
       Serial.printf("SerialLoggerTask: Pot value %u at %lu ms\n", potValue, millis());
     }
   }
@@ -47,6 +49,13 @@ void setup() {
 
   // Create queue (5 items, each uint16_t)
   potQueue = xQueueCreate(QUEUE_SIZE, sizeof(uint16_t));
+  if (potQueue == NULL) {
+    Serial.println("Failed to create queue!");
+    while (1);
+  }
+
+  // Create queue (5 items, each uint16_t)
+  sMonitorQueue = xQueueCreate(QUEUE_SIZE, sizeof(uint16_t));
   if (potQueue == NULL) {
     Serial.println("Failed to create queue!");
     while (1);
