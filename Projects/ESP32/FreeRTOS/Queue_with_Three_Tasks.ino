@@ -56,7 +56,7 @@ void setup() {
 
   // Create queue (5 items, each uint16_t)
   sMonitorQueue = xQueueCreate(QUEUE_SIZE, sizeof(uint16_t));
-  if (potQueue == NULL) {
+  if (sMonitorQueue == NULL) {
     Serial.println("Failed to create queue!");
     while (1);
   }
