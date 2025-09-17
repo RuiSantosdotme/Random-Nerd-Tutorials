@@ -18,7 +18,7 @@ void SensorTask(void *parameter) {
     uint16_t potValue = analogRead(POT_PIN);  // Read 0–4095
     xQueueSend(potQueue, &potValue, portMAX_DELAY);  // Send to queue
     xQueueSend(sMonitorQueue, &potValue, portMAX_DELAY);  // Send to queue
-    vTaskDelay(300 / portTICK_PERIOD_MS);  // 100ms
+    vTaskDelay(300 / portTICK_PERIOD_MS);  // 300ms
   }
 }
 
