@@ -63,7 +63,7 @@ void setup() {
 
   // Send web page with input fields to client
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(200, "text/html", index_html);
+    request->send_P(200, "text/html", index_html);
   });
 
   // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
