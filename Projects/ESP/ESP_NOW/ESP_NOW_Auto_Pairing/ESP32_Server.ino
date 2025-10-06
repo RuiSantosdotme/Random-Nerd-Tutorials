@@ -179,10 +179,14 @@ bool addPeer(const uint8_t *peer_addr) {      // add pairing
 } 
 
 // callback when data is sent
-void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+void OnDataSent(const wifi_tx_info_t* mac_addr, esp_now_send_status_t status) {
+  char macStr[18];
   Serial.print("Last Packet Send Status: ");
   Serial.print(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success to " : "Delivery Fail to ");
-  printMAC(mac_addr);
+// Copies the receiver mac address to a string
+  snprintf(macStr, sizeof(macStr), "%02x:%02x:%02x:%02x:%02x:%02x",
+           mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
+  Serial.print(macStr);
   Serial.println();
 }
 
