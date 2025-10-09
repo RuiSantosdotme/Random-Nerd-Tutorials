@@ -78,7 +78,7 @@ void LEDFadeTask(void *parameter) {
 void setup() {
   Serial.begin(115200);  // Higher baud rate
   delay(1000);
-  Serial.println("Starting FreeRTOS: Counting Semaphore with Fading Task Fixed");
+  Serial.println("Starting FreeRTOS: Counting Semaphore");
 
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), buttonISR, FALLING);
