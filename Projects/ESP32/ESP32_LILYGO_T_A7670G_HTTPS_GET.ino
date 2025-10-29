@@ -166,7 +166,7 @@ void setup() {
   if (!modem.setNetworkMode(MODEM_NETWORK_AUTO)) {
     Serial.println("Set network mode failed!");
   }
-  String mode = modem.getNetworkModes();
+  String mode = modem.getNetworkModeString();
   Serial.print("Current network mode : ");
   Serial.println(mode);
 
