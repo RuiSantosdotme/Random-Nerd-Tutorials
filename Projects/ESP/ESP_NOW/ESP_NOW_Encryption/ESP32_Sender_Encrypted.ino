@@ -71,7 +71,7 @@ void setup() {
 
   // Once ESPNow is successfully Init, we will register for Send CB to
   // get the status of transmitted packet
-  esp_now_register_send_cb(OnDataSent);
+  esp_now_register_send_cb(esp_now_send_cb_t(OnDataSent));
 }
 void loop() {
   static unsigned long lastEventTime = millis();
@@ -94,3 +94,4 @@ void loop() {
     }  
   }
 }
+
