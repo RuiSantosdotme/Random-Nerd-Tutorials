@@ -250,7 +250,7 @@ void initESP_NOW(){
       Serial.println("Error initializing ESP-NOW");
       return;
     }
-    esp_now_register_send_cb(OnDataSent);
+    esp_now_register_send_cb(esp_now_send_cb_t(OnDataSent));
     esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));
 } 
 
@@ -312,3 +312,4 @@ void loop() {
     esp_now_send(NULL, (uint8_t *) &outgoingSetpoints, sizeof(outgoingSetpoints));
   }
 }
+
