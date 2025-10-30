@@ -1,6 +1,7 @@
 /*********
   Rui Santos & Sara Santos - Random Nerd Tutorials
   Complete project details at https://RandomNerdTutorials.com/esp32-pir-motion-sensor-interrupts-timers/
+  ESP32 GPIO Interrupts with Arduino IDE: https://RandomNerdTutorials.com/esp32-gpio-interrupts-arduino/
 *********/
 #include <Arduino.h>
 
