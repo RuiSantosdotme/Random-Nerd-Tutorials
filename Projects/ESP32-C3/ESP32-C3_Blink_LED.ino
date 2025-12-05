@@ -7,11 +7,11 @@
 const int ledPin = 8; 
 
 void setup() {
+  Serial.begin(115200);
   pinMode(ledPin, OUTPUT);
 }
 
 void loop() {
-  Serial.begin(115200);
   digitalWrite(ledPin, HIGH); 
   Serial.println("LED OFF");
   delay(1000);                     
