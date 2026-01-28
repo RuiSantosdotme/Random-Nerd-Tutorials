@@ -9,7 +9,7 @@ const uint8_t buttonPin = 18;
 volatile uint32_t counter = 0;
 volatile bool pressed = false;
 
-// For bedouncing the pushbutton
+// For debouncing the pushbutton
 const unsigned long DEBOUNCE_DELAY = 50;  // in milliseconds
 volatile unsigned long lastPressTime = 0;
 
