@@ -131,13 +131,13 @@ void setup(){
 
   // Route for root / web page
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(200, "text/html", index_html, processor);
+    request->send_P(200, "text/html", index_html, processor);
   });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(200, "text/plain", String(t).c_str());
+    request->send(200, "text/plain", String(t));
   });
   server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(200, "text/plain", String(h).c_str());
+    request->send(200, "text/plain", String(h));
   });
 
   // Start server
