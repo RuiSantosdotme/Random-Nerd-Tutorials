@@ -48,7 +48,8 @@ while True:
     try:
         # Receive message (host MAC, message, timeout of 10 seconds)
         host, msg = e.recv(10000)
-        
+        if msg:
+            print(f"Received from {host.hex()}: {msg.decode()}")
         # Print stats every 10 seconds
         if time.time() - last_stats_time >= stats_interval:
             print_stats()
@@ -62,4 +63,5 @@ while True:
         print("Stopping receiver...")
         e.active(False)
         sta.active(False)
+
         break
