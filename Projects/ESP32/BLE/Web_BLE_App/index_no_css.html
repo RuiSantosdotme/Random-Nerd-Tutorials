@@ -86,7 +86,7 @@
             console.log('Device Selected:', device.name);
             bleStateContainer.innerHTML = 'Connected to device ' + device.name;
             bleStateContainer.style.color = "#24af37";
-            device.addEventListener('gattservicedisconnected', onDisconnected);
+            device.addEventListener('gattserverdisconnected', onDisconnected);
             return device.gatt.connect();
         })
         .then(gattServer =>{
