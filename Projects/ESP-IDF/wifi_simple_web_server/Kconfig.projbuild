@@ -1,0 +1,11 @@
+menu "Wi-Fi Configuration"
+    config ESP_WIFI_SSID
+        string "WiFi SSID"
+        help
+            SSID (network name) you want to connect to.
+
+    config ESP_WIFI_PASSWORD
+        string "WiFi Password"
+        help
+            Password of the Wi-Fi network you want to connect to.
+endmenu
