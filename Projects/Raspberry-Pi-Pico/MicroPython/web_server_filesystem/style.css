@@ -1,0 +1,101 @@
+html {
+    font-family: Arial;
+    background-color: #FFFFF7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    max-width: 920px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #0F3376;
+    padding: 25px 0 15px 0;
+    font-size: 2.1rem;
+    margin: 0;
+}
+
+p {
+    font-size: 1.55rem;
+    margin: 20px auto;
+}
+
+.button {
+    display: inline-block;
+    background-color: #00A676;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 14px 32px;
+    text-decoration: none;
+    font-size: 1.25rem;
+    margin: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    width: 170px;
+}
+
+.button:hover {
+    background-color: #008c63;
+    transform: translateY(-2px);
+}
+
+.button2 {
+    background-color: #f44336;
+}
+
+.button2:hover {
+    background-color: #d32f2f;
+}
+
+.button-refresh {
+    background-color: #f0f0f0;
+    color: #444;
+    border: 1px solid #bbb;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 1.15rem;
+    width: 230px;
+    padding: 12px 24px;
+}
+
+.button-refresh:hover {
+    background-color: #e0e0e0;
+    border-color: #999;
+    transform: translateY(-1px);
+}
+
+.sensor-labels {
+    font-size: 1.55rem;
+    font-weight: bold;
+    color: #444;
+    margin-right: 12px;
+}
+
+.temp-value {
+    font-size: 1.9rem;
+    font-weight: lighter;
+    color: #0F3376;
+}
+
+.units {
+    font-size: 1.45rem;
+    color: #555;
+    margin-left: 3px;
+}
+
+.status {
+    font-weight: bold;
+    color: #0F3376;
+}
+
+a {
+    text-decoration: none;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pico Web Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Raspberry Pi Pico Web Server</h1>
+
+    <p>LED State: <strong id="led-status" class="status">{state}</strong></p>
+
+    <p>
+        <button onclick="turnOn()" class="button">ON</button>
+        <button onclick="turnOff()" class="button button2">OFF</button>
+    </p>
+
+    <p>
+        <span class="sensor-labels">Temperature:</span>
+        <span id="temp_c" class="temp-value">{temperature_c}</span><span class="units">°C</span>
+        &nbsp; / &nbsp;
+        <span id="temp_f" class="temp-value">{temperature_f}</span><span class="units">°F</span>
+    </p>
+
+    <p>
+        <button onclick="getNewReading()" class="button-refresh" style="width: 220px;">
+            Get New Reading
+        </button>
+    </p>
+</body>
+</html>
