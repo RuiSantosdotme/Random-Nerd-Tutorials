@@ -53,8 +53,7 @@ esp_now_peer_info_t peerInfo;
 AsyncWebServer server(80);
 
 // Function to get a pointer to the state variable based on board and GPIO
-bool* 
-(int board, int gpio) {
+bool* getStatePtr (int board, int gpio) {
   if (board == 1 && gpio == board1Pin1) return &board1Btn1;
   if (board == 1 && gpio == board1Pin2) return &board1Btn2;
   if (board == 2 && gpio == board2Pin1) return &board2Btn1;
