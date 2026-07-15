@@ -45,7 +45,7 @@ async def connect_and_communicate(address):
         connected = client.is_connected
         print(f"Connected: {connected}")
 
-        # Create tasks for sending and receiving data
+        # Create tasks for receiving data
         tasks = [
             asyncio.create_task(receive_data_task(client)),
             asyncio.create_task(blink_task())
