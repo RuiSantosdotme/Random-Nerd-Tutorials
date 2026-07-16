@@ -8,14 +8,14 @@ from gpiozero import LED
 connected = False
 led = LED(17)
 
-pico_address = "2C:CF:67:B6:D7:4C"
+# REPLACE WITH YOUR PICO MAC ADDRESS
+pico_address = "FF:FF:FF:FF:FF:FF"
 
 SERVICE_UUID = uuids.normalize_uuid_16(0x1848)
 WRITE_CHARACTERISTIC_UUID = uuids.normalize_uuid_16(0x2A6E)
 READ_CHARACTERISTIC_UUID = uuids.normalize_uuid_16(0x2A6F)
 
 message_count = 0
-
 
 async def send_data_task(client):
     global message_count
