@@ -70,9 +70,6 @@ void i2c_scanner_task(void *pvParameters)
         // Repeats scan every 10 seconds (optional)
         vTaskDelay(pdMS_TO_TICKS(10000));
     }
-    // Cleanup (never reached in this loop)
-    ESP_ERROR_CHECK(i2c_del_master_bus(bus_handle));
-    vTaskDelete(NULL);
 }
 
 void app_main(void)
