@@ -115,7 +115,7 @@ void setup() {
   // Initialize MicroSD Card
   initSD();
 
-  // Root URL handler for the mains HTML web page
+  // Root URL handler for the main HTML web page
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
   String html = R"rawliteral(
 <!DOCTYPE html>
