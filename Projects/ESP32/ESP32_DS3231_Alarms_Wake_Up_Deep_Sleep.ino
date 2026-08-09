@@ -37,10 +37,6 @@ void print_wakeup_reason() {
   }
 }
 
-void IRAM_ATTR onAlarm(){
-  Serial.print("Alarm occurred!");
-}
-
 void setup() {
   Serial.begin(115200);
   pinMode (ledPin, OUTPUT);
@@ -70,10 +66,6 @@ void setup() {
 
   // We don't need the 32K Pin, so disable it
   rtc.disable32K();
-
-  // The alarm will trigger an interrupt
-  pinMode(CLOCK_INTERRUPT_PIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(CLOCK_INTERRUPT_PIN), onAlarm, FALLING);
 
   // Set alarm 1, 2 flag to false (so alarm 1, 2 didn't happen so far)
   // if not done, this easily leads to problems, as both register aren't reset on reboot/recompile
