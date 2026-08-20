@@ -29,54 +29,54 @@ const char index_html[] PROGMEM = R"rawliteral(
   <title>Pico Web Server</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-  html {
-    font-family: Arial;
-    display: inline-block;
-    margin: 0px auto;
-    text-align: center;
-  }
-  body {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  h1 {
-    color: #333;
-  }
-  h2 {
-    color: #666;
-  }
-  form {
-    margin: 10px 0;
-  }
-  .button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-size: 20px;
-    margin: 2px;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    transition: background-color 0.3s, box-shadow 0.3s;
-  }
-  .button:hover {
-    background-color: #45a049;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  }
-  .button2 {
-    background-color: #f44336;
-  }
-  .button2:hover {
-    background-color: #da190b;
-  }
-  .state {
-    font-size: 1.4em;
-    margin: 20px 0;
-    color: #444;
-  }
+    html {
+      font-family: Arial;
+      display: inline-block;
+      margin: 0px auto;
+      text-align: center;
+    }
+    body {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    h2 {
+      color: #666;
+    }
+    form {
+      margin: 10px 0;
+    }
+    .button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 20px;
+      margin: 2px;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+    .button:hover {
+      background-color: #45a049;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .button2 {
+      background-color: #f44336;
+    }
+    .button2:hover {
+      background-color: #da190b;
+    }
+    .state {
+      font-size: 1.4em;
+      margin: 20px 0;
+      color: #444;
+    }
   </style>
 </head>
 <body>
