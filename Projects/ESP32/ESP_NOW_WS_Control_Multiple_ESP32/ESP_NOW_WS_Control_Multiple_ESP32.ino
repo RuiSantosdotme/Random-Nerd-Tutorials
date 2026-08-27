@@ -62,12 +62,21 @@ bool* getStatePtr (int board, int gpio) {
 }
 
 // ESP-NOW callback function when data is sent
-void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+void OnDataSent(const esp_now_send_info_t *info, esp_now_send_status_t status) {
+
   char macStr[18];
-  snprintf(macStr, sizeof(macStr), "%02x:%02x:%02x:%02x:%02x:%02x",
-           mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
+
+  snprintf(macStr, sizeof(macStr),
+           "%02X:%02X:%02X:%02X:%02X:%02X",
+           info->des_addr[0],
+           info->des_addr[1],
+           info->des_addr[2],
+           info->des_addr[3],
+           info->des_addr[4],
+           info->des_addr[5]);
+
   Serial.print("Packet to: ");
-  Serial.print(macStr);
+  Serial.println(macStr);;
   Serial.print(" send status:\t");
   Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
 
@@ -268,7 +277,7 @@ void setup() {
 
   // Once ESPNow is successfully Init, we will register for Send CB to
   // get the status of Trasnmitted packet
-  esp_now_register_send_cb(esp_now_send_cb_t(OnDataSent));
+  esp_now_register_send_cb(OnDataSent);
 
   // Register peers
   peerInfo.channel = 0;
